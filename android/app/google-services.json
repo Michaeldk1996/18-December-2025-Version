@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "209328620753",
+    "project_id": "bspconsult-bcd6e",
+    "storage_bucket": "bspconsult-bcd6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209328620753:android:b3c727e0ad43a5ac01f1f0",
+        "android_client_info": {
+          "package_name": "com.istarii.bsppronos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa339TqA3WYCynk9EA7iOt0mu_AZ_hJlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
