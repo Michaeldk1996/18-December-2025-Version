@@ -144,10 +144,11 @@ class _ChangeStakingStrategylWidgetState extends State<ChangeStakingStrategylWid
                             ) 
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 24.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              spacing: 12,
                               children: [
                                 FFButtonWidget(
                                   onPressed: () async {
@@ -155,10 +156,10 @@ class _ChangeStakingStrategylWidgetState extends State<ChangeStakingStrategylWid
                                   },
                                   text: 'Cancel',
                                   options: FFButtonOptions(
-                                    height: 40.0,
+                                    height: 50.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                    color: FlutterFlowTheme.of(context).primaryText,
                                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                       font: GoogleFonts.inter(
                                         fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
@@ -171,8 +172,8 @@ class _ChangeStakingStrategylWidgetState extends State<ChangeStakingStrategylWid
                                     ),
                                     elevation: 0.0,
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                                      width: 0.0,
+                                      color: FlutterFlowTheme.of(context).primaryText,
+                                      width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
@@ -183,28 +184,29 @@ class _ChangeStakingStrategylWidgetState extends State<ChangeStakingStrategylWid
                                   },
                                   text: 'Confirm',
                                   options: FFButtonOptions(
-                                    height: 40.0,
+                                    height: 50.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                    color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                       font: GoogleFonts.inter(
                                         fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
                                         fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context).primaryText,
                                       letterSpacing: 0.0,
                                       fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                     ),
                                     elevation: 0.0,
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                                      width: 0.0,
+                                      color: FlutterFlowTheme.of(context).primary,
+                                      width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
+                                SizedBox(width: 9)
                               ],
                             ),
                           ),

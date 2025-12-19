@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "b_s_p_consult",
-      "version": "2.4.8+1",
+      "version": "2.4.9+1",
       "dependencies": [
         "aligned_dialog",
         "auto_size_text",
@@ -43,6 +43,7 @@
         "flutter_cache_manager",
         "flutter_linkify",
         "flutter_localizations",
+        "flutter_markdown_plus",
         "flutter_pdfview",
         "flutter_plugin_android_lifecycle",
         "flutter_stripe",
@@ -195,6 +196,16 @@
         "json_annotation",
         "path",
         "yaml"
+      ]
+    },
+    {
+      "name": "flutter_markdown_plus",
+      "version": "1.0.5",
+      "dependencies": [
+        "flutter",
+        "markdown",
+        "meta",
+        "path"
       ]
     },
     {
@@ -1416,6 +1427,14 @@
       "name": "args",
       "version": "2.7.0",
       "dependencies": []
+    },
+    {
+      "name": "markdown",
+      "version": "7.3.0",
+      "dependencies": [
+        "args",
+        "meta"
+      ]
     },
     {
       "name": "photo_view",

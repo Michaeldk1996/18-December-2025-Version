@@ -178,7 +178,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                         );
                       },
-                    ).then((value) => safeSetState(() => _model.bankrollResult = value));
+                    ).then((value){
+                      if (value is String && value.isNotEmpty){
+                        safeSetState(() => _model.bankrollResult = value);
+                      }
+                    });
                 
                     logFirebaseEvent('Container_backend_call');
                     await currentUserReference!.update(
@@ -350,6 +354,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('HOME_PAGE_Home_ON_INIT_STATE');
+
       if ((currentUserDocument?.stakingStrategy.isEmpty ?? true) || (valueOrDefault(currentUserDocument?.bankroll, '') == '')){
         askStakingStrategy();
       }
@@ -442,12 +447,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                     width: double.infinity,
                     height: double.infinity,
                     child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
                       child: PageView(
                         physics: const NeverScrollableScrollPhysics(),
-                        controller: _model.pageViewController ??=
-                            PageController(initialPage: 1),
+                        controller: _model.pageViewController ??= PageController(initialPage: 1),
                         scrollDirection: Axis.horizontal,
                         children: [
                           Container(
@@ -458,32 +461,24 @@ class _HomeWidgetState extends State<HomeWidget> {
                               width: 100.0,
                               height: 100.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: FlutterFlowTheme.of(context).secondaryBackground,
                               ),
                               child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 20.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                                       child: Stack(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                        alignment: AlignmentDirectional(0.0, 0.0),
                                         children: [
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(-1.0, 0.0),
+                                            alignment: AlignmentDirectional(-1.0, 0.0),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 0.0, 0.0),
+                                              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                                               child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(0.0),
-                                                child: Image.asset(
-                                                  'assets/images/Logo.png',
+                                                borderRadius: BorderRadius.circular(0.0),
+                                                child: Image.asset('assets/images/Logo.png',
                                                   width: 30.0,
                                                   height: 30.8,
                                                   fit: BoxFit.cover,
@@ -492,65 +487,44 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             ),
                                           ),
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(0.0, 0.0),
                                             child: Text(
                                               'Profile',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    font:
-                                                        GoogleFonts.montserrat(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: Colors.white,
-                                                    fontSize: 20.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                font: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                ),
+                                                color: Colors.white,
+                                                fontSize: 20.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                              ),
                                             ),
                                           ),
                                           Align(
-                                            alignment:
-                                                AlignmentDirectional(1.0, 0.0),
+                                            alignment: AlignmentDirectional(1.0, 0.0),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 24.0, 0.0),
+                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 24.0, 0.0),
                                               child: InkWell(
                                                 splashColor: Colors.transparent,
                                                 focusColor: Colors.transparent,
                                                 hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
+                                                highlightColor:Colors.transparent,
                                                 onTap: () async {
-                                                  logFirebaseEvent(
-                                                      'HOME_PAGE_Icon_dwi1qizi_ON_TAP');
+                                                  logFirebaseEvent('HOME_PAGE_Icon_dwi1qizi_ON_TAP');
                                                   logFirebaseEvent('Icon_auth');
-                                                  GoRouter.of(context)
-                                                      .prepareAuthEvent();
+                                                  GoRouter.of(context).prepareAuthEvent();
                                                   await authManager.signOut();
-                                                  GoRouter.of(context)
-                                                      .clearRedirectLocation();
+                                                  GoRouter.of(context).clearRedirectLocation();
 
-                                                  logFirebaseEvent(
-                                                      'Icon_navigate_to');
+                                                  logFirebaseEvent('Icon_navigate_to');
 
                                                   context.goNamedAuth(
-                                                      LoginWidget.routeName,
-                                                      context.mounted);
+                                                    LoginWidget.routeName,
+                                                    context.mounted
+                                                  );
                                                 },
                                                 child: Icon(
                                                   Icons.logout,
