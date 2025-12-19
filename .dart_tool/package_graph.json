@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "b_s_p_consult",
-      "version": "2.4.6+1",
+      "version": "2.4.8+1",
       "dependencies": [
         "aligned_dialog",
         "auto_size_text",
