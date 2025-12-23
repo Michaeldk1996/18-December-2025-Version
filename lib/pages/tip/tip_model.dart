@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class TipModel extends FlutterFlowModel<TipWidget> {
   ///  Local state fields for this page.
 
-  String group = 'Public';
+  String group = 'Insights';
 
   ///  State fields for stateful widgets in this page.
 
@@ -24,8 +24,7 @@ class TipModel extends FlutterFlowModel<TipWidget> {
   TextEditingController? minimumoddTextController;
   String? Function(BuildContext, String?)? reliabilityTextControllerValidator;
   bool isDataUploading_uploadData = false;
-  FFUploadedFile uploadedLocalFile_uploadData =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
+  FFUploadedFile uploadedLocalFile_uploadData = FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl_uploadData = '';
 
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.

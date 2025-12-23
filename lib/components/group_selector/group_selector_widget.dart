@@ -20,6 +20,47 @@ class GroupSelectorWidget extends StatefulWidget {
 class _GroupSelectorWidgetState extends State<GroupSelectorWidget> {
   late GroupSelectorModel _model;
 
+  Widget item(String val) {
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+      child: InkWell(
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () async {
+          Navigator.pop(context, val);
+        },
+        child: Container(
+          width: double.infinity,
+          height: 50.0,
+          decoration: BoxDecoration(
+            color: valueOrDefault<Color>(
+              widget.currentGroup == val ? Color(0x14919EAB) : FlutterFlowTheme.of(context).secondaryBackground,
+              Color(0x14919EAB),
+            ),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          alignment: AlignmentDirectional(0.0, 0.0),
+          child: Text(
+            val,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  font: GoogleFonts.inter(
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  ),
+                  color: widget.currentGroup == val ? Colors.white : FlutterFlowTheme.of(context).primaryText,
+                  fontSize: 16.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void setState(VoidCallback callback) {
     super.setState(callback);
@@ -60,158 +101,27 @@ class _GroupSelectorWidgetState extends State<GroupSelectorWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        logFirebaseEvent(
-                            'GROUP_SELECTOR_Container_5e3r71f8_ON_TAP');
-                        logFirebaseEvent('Container_bottom_sheet');
-                        Navigator.pop(context, 'Public');
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          color: valueOrDefault<Color>(
-                            widget.currentGroup == 'Public'
-                                ? Color(0x14919EAB)
-                                : FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                            Color(0x14919EAB),
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Text(
-                          'Public',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: widget.currentGroup == 'Public'
-                                    ? Colors.white
-                                    : FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  item('Insights'),
                   Divider(
                     thickness: 1.0,
                     color: FlutterFlowTheme.of(context).primaryBackground,
                   ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent(
-                          'GROUP_SELECTOR_Container_swrjfd95_ON_TAP');
-                      logFirebaseEvent('Container_bottom_sheet');
-                      Navigator.pop(context, 'Premium');
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.0,
-                      decoration: BoxDecoration(
-                        color: widget.currentGroup == 'Premium'
-                            ? Color(0x14919EAB)
-                            : FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Text(
-                        'Premium',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              color: widget.currentGroup == 'Premium'
-                                  ? Colors.white
-                                  : FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                      ),
-                    ),
-                  ),
+                  item('Bets'),
                   Divider(
                     thickness: 1.0,
                     color: FlutterFlowTheme.of(context).primaryBackground,
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        logFirebaseEvent(
-                            'GROUP_SELECTOR_Container_cejg16u9_ON_TAP');
-                        logFirebaseEvent('Container_bottom_sheet');
-                        Navigator.pop(context, 'Both');
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          color: widget.currentGroup == 'Both'
-                              ? Color(0x14919EAB)
-                              : FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Text(
-                          'Both',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: widget.currentGroup == 'Both'
-                                    ? Colors.white
-                                    : FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                        ),
-                      ),
-                    ),
+                  item('Both'),
+                  Divider(
+                    thickness: 1.0,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                   ),
+                  item('Exp-Insights'),
+                  Divider(
+                    thickness: 1.0,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                  ),
+                  item('Exp-Bets'),
                 ],
               ),
             ),

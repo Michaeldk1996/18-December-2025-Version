@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class MessageModel extends FlutterFlowModel<MessageWidget> {
   ///  Local state fields for this page.
 
-  String group = 'Public';
+  String group = 'Insights';
 
   ///  State fields for stateful widgets in this page.
 

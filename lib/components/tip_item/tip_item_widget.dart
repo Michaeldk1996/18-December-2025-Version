@@ -46,7 +46,107 @@ class TipItemWidget extends StatefulWidget {
 class _TipItemWidgetState extends State<TipItemWidget> {
   late TipItemModel _model;
 
-  void previewPdf()async{
+  Widget analysisPanel() {
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 26.0),
+      child: Builder(
+        builder: (context) {
+          final analysis = widget.analyses?.toList() ?? [];
+
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(analysis.length, (analysisIndex) {
+              final analysisItem = analysis[analysisIndex];
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            functions.getAnalysisTitle(analysisItem),
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  ),
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: MarkdownBody(
+                          data: functions.getAnalysisBody(analysisItem),
+                          styleSheet: MarkdownStyleSheet(
+                              p: FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.5,
+                                    lineHeight: 1.5,
+                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  ),
+                              strong: FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.5,
+                                    lineHeight: 1.5,
+                                    fontWeight: FontWeight.w700,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  )),
+                        ),
+                      )
+                      // Expanded(
+                      //   child: Text(
+                      //     functions.getAnalysisBody(analysisItem),
+                      //     style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      //       font: GoogleFonts.inter(
+                      //         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      //         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      //       ),
+                      //       color: FlutterFlowTheme.of(context).secondaryBackground,
+                      //       fontSize: 14.0,
+                      //       letterSpacing: 0.0,
+                      //       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      //       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ],
+              );
+            }).divide(SizedBox(height: 12.0)),
+          );
+        },
+      ),
+    );
+  }
+
+  void previewPdf() async {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -115,50 +215,36 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 10.0, 0.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                             child: Text(
                               dateTimeFormat("E, d MMM, y H:mm", widget.date),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
                                       fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
                                     color: Colors.white,
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 10.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                             child: Text(
                               widget.title!,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
                                       fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
                                     color: Colors.white,
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                             ),
                           ),
@@ -167,8 +253,7 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                     ),
                     if ((widget.imageUrl ?? '').isNotEmpty)
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 0.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.network(
@@ -190,16 +275,16 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                               Text(
                                 'Stake',
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
                               ),
                             ],
                           ),
@@ -211,16 +296,16 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                                   builder: (context) => Text(
                                     '${functions.calculateReliability(widget.reliability!.toString(), valueOrDefault(currentUserDocument?.stakingStrategy, '')).toStringAsFixed(2)} %',
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                      ),
-                                      color: Colors.black,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                    ),
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                          ),
+                                          color: Colors.black,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                        ),
                                   ),
                                 ),
                             ],
@@ -240,16 +325,16 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                               Text(
                                 'Stake Amount',
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
                               ),
                             ],
                           ),
@@ -261,16 +346,16 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                                   builder: (context) => Text(
                                     '${functions.calculateBetPrice(valueOrDefault(currentUserDocument?.bankroll, ''), widget.reliability!.toString(), valueOrDefault(currentUserDocument?.stakingStrategy, '')).toStringAsFixed(2)} €',
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                      ),
-                                      color: Colors.black,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                    ),
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                          ),
+                                          color: Colors.black,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                        ),
                                   ),
                                 ),
                             ],
@@ -290,16 +375,16 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                               Text(
                                 'Minimum Odd',
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
                               ),
                             ],
                           ),
@@ -312,16 +397,16 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                                     '${widget.minimumodd!.toStringAsFixed(2)}',
                                     // '${functions.getBetPercent(widget.reliability!.toString())} % (€ ${functions.calculateBetPrice(valueOrDefault(currentUserDocument?.bankroll, ''), widget.reliability!.toString(), false).toString()})',
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                      ),
-                                      color: Colors.black,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                    ),
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                          ),
+                                          color: Colors.black,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                        ),
                                   ),
                                 ),
                             ],
@@ -329,103 +414,7 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 26.0),
-                      child: Builder(
-                        builder: (context) {
-                          final analysis = widget.analyses?.toList() ?? [];
-
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children:
-                                List.generate(analysis.length, (analysisIndex) {
-                              final analysisItem = analysis[analysisIndex];
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            functions.getAnalysisTitle(analysisItem),
-                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                              ),
-                                              color: Colors.black,
-                                              fontSize: 16.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: MarkdownBody(
-                                          data: functions.getAnalysisBody(analysisItem),
-                                          styleSheet: MarkdownStyleSheet(
-                                            p: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                              ),
-                                              color: FlutterFlowTheme.of(context).secondaryBackground,
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                            ),
-                                            strong: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                              ),
-                                              color: FlutterFlowTheme.of(context).secondaryBackground,
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w700,
-                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                            )
-                                          ),
-                                        ),
-                                      )
-                                      // Expanded(
-                                      //   child: Text(
-                                      //     functions.getAnalysisBody(analysisItem),
-                                      //     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      //       font: GoogleFonts.inter(
-                                      //         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                      //         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                      //       ),
-                                      //       color: FlutterFlowTheme.of(context).secondaryBackground,
-                                      //       fontSize: 14.0,
-                                      //       letterSpacing: 0.0,
-                                      //       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                      //       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                    ],
-                                  ),
-                                ],
-                              );
-                            }).divide(SizedBox(height: 12.0)),
-                          );
-                        },
-                      ),
-                    ),
+                    analysisPanel(),
                   ],
                 ),
               ),
@@ -470,16 +459,16 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                             child: Text(
                               dateTimeFormat("E, d MMM, y H:mm", widget.date),
                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 14.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context).primaryText,
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  ),
                             ),
                           ),
                           Padding(
@@ -492,9 +481,7 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                                   child: Text(
                                     widget.title!,
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           font: GoogleFonts.inter(
                                             fontWeight: FontWeight.w500,
                                             fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -528,28 +515,23 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                       ),
                     if ((widget.pdfUrl ?? '').isNotEmpty)
                       GestureDetector(
-                        onTap: previewPdf,
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 0.0),
-                          child: Container(
-                            height: 125,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.black12)
+                          onTap: previewPdf,
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 0.0),
+                            child: Container(
+                              height: 125,
+                              width: 100,
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.black12)),
+                              child: FutureBuilder(
+                                  future: PdfPreviewScreen.buildPdfThumbnail(widget.pdfUrl!),
+                                  builder: (_, snap) {
+                                    if (snap.hasData) {
+                                      return snap.data!;
+                                    }
+                                    return Center(child: CupertinoActivityIndicator());
+                                  }),
                             ),
-                            child: FutureBuilder(
-                              future: PdfPreviewScreen.buildPdfThumbnail(widget.pdfUrl!),
-                              builder: (_, snap){
-                                if (snap.hasData){
-                                  return snap.data!;
-                                }
-                                return Center(child: CupertinoActivityIndicator());
-                              }
-                            ),
-                          ),
-                        )
-                      ),
+                          )),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
                       child: Row(
@@ -560,29 +542,30 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                             child: MarkdownBody(
                               data: widget.message!,
                               styleSheet: MarkdownStyleSheet(
-                                p: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  color: Colors.black,
-                                  fontSize: 15.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
-                                strong: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  color: Colors.black,
-                                  fontSize: 15.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w700,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                )
-                              ),
+                                  p: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                        ),
+                                        color: Colors.black,
+                                        fontSize: 15.0,
+                                        letterSpacing: 0.5,
+                                        lineHeight: 1.5,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                  strong: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                        ),
+                                        color: Colors.black,
+                                        fontSize: 15.0,
+                                        letterSpacing: 0.5,
+                                        lineHeight: 1.5,
+                                        fontWeight: FontWeight.w700,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      )),
                             ),
                           )
                           // Expanded(
@@ -604,6 +587,7 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                         ],
                       ),
                     ),
+                    analysisPanel(),
                   ],
                 ),
               ),

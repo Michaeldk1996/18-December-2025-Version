@@ -109,16 +109,16 @@ class _TipWidgetState extends State<TipWidget> {
                           Text(
                             'Add a tip',
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                              color: Colors.white,
-                              fontSize: 18.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                            ),
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  ),
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                ),
                           ),
                         ],
                       ),
@@ -137,15 +137,15 @@ class _TipWidgetState extends State<TipWidget> {
                           Text(
                             'Title',
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                            ),
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  ),
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                ),
                           ),
                           Expanded(
                             child: Padding(
@@ -157,38 +157,38 @@ class _TipWidgetState extends State<TipWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                  ),
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                      ),
                                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                  ),
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                      ),
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none,
                                   errorBorder: InputBorder.none,
                                   focusedErrorBorder: InputBorder.none,
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
                                 textAlign: TextAlign.end,
                                 validator: _model.titleTextControllerValidator.asValidator(context),
                               ),
@@ -247,28 +247,28 @@ class _TipWidgetState extends State<TipWidget> {
                             Text(
                               'Group',
                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  ),
                             ),
                             Text(
                               _model.group,
                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  ),
                             ),
                           ],
                         ),
@@ -289,15 +289,15 @@ class _TipWidgetState extends State<TipWidget> {
                           Text(
                             'Bankroll(%)',
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                            ),
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  ),
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                ),
                           ),
                           Expanded(
                             child: Padding(
@@ -309,38 +309,38 @@ class _TipWidgetState extends State<TipWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                  ),
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                      ),
                                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                  ),
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                      ),
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none,
                                   errorBorder: InputBorder.none,
                                   focusedErrorBorder: InputBorder.none,
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
                                 textAlign: TextAlign.end,
                                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                                 validator: _model.reliabilityTextControllerValidator.asValidator(context),
@@ -365,15 +365,15 @@ class _TipWidgetState extends State<TipWidget> {
                           Text(
                             'Minimum Odd',
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                            ),
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                  ),
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                ),
                           ),
                           Expanded(
                             child: Padding(
@@ -385,38 +385,38 @@ class _TipWidgetState extends State<TipWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                  ),
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                      ),
                                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                  ),
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                      ),
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none,
                                   errorBorder: InputBorder.none,
                                   focusedErrorBorder: InputBorder.none,
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
                                 textAlign: TextAlign.end,
                                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                               ),
@@ -465,7 +465,10 @@ class _TipWidgetState extends State<TipWidget> {
                                 selectedMedia.map(
                                   (m) async => await uploadData(m.storagePath, m.bytes),
                                 ),
-                              )).where((u) => u != null).map((u) => u!).toList();
+                              ))
+                                  .where((u) => u != null)
+                                  .map((u) => u!)
+                                  .toList();
                             } finally {
                               _model.isDataUploading_uploadData = false;
                             }
@@ -491,34 +494,28 @@ class _TipWidgetState extends State<TipWidget> {
                           children: [
                             Text(
                               'Image',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
                                       fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
                             ),
                             if (_model.uploadedFileUrl_uploadData != '')
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: _model.uploadedFileUrl_uploadData.isEmpty
-                                  ? Container()
-                                  : Image.network(
-                                      _model.uploadedFileUrl_uploadData,
-                                      width: 40.0,
-                                      height: 40.0,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    ? Container()
+                                    : Image.network(
+                                        _model.uploadedFileUrl_uploadData,
+                                        width: 40.0,
+                                        height: 40.0,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                           ],
                         ),
@@ -526,29 +523,23 @@ class _TipWidgetState extends State<TipWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                     child: Text(
                       'Analyses',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.bold,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
+                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                             ),
                             fontSize: 16.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                           ),
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                     child: Builder(
                       builder: (context) {
                         final analysis = FFAppState().analyses.toList();
@@ -561,39 +552,28 @@ class _TipWidgetState extends State<TipWidget> {
                           itemBuilder: (context, analysisIndex) {
                             final analysisItem = analysis[analysisIndex];
                             return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 0.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                                       child: Text(
                                         getJsonField(
                                           analysisItem,
                                           r'''$.title''',
                                         ).toString(),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.w500,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
+                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                               ),
                                               fontSize: 16.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                             ),
                                       ),
                                     ),
@@ -604,17 +584,14 @@ class _TipWidgetState extends State<TipWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      logFirebaseEvent(
-                                          'TIP_PAGE_Icon_netl5lvz_ON_TAP');
+                                      logFirebaseEvent('TIP_PAGE_Icon_netl5lvz_ON_TAP');
                                       logFirebaseEvent('Icon_update_app_state');
-                                      FFAppState()
-                                          .removeFromAnalyses(analysisItem);
+                                      FFAppState().removeFromAnalyses(analysisItem);
                                       safeSetState(() {});
                                     },
                                     child: Icon(
                                       Icons.delete_outlined,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: FlutterFlowTheme.of(context).secondaryText,
                                       size: 24.0,
                                     ),
                                   ),
@@ -627,8 +604,7 @@ class _TipWidgetState extends State<TipWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent('TIP_PAGE_ADD_AN_ANALYSIS_BTN_ON_TAP');
@@ -648,31 +624,19 @@ class _TipWidgetState extends State<TipWidget> {
                       text: 'Add an analysis',
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
-                        textStyle: FlutterFlowTheme.of(context)
-                            .titleSmall
-                            .override(
+                        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                               font: GoogleFonts.inter(
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontStyle,
+                                fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                               ),
                               color: FlutterFlowTheme.of(context).primaryText,
                               fontSize: 16.0,
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .fontStyle,
+                              fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                             ),
                         borderSide: BorderSide(
                           color: Colors.transparent,
@@ -683,8 +647,7 @@ class _TipWidgetState extends State<TipWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent('TIP_PAGE_SEND_BTN_ON_TAP');
@@ -693,21 +656,18 @@ class _TipWidgetState extends State<TipWidget> {
 
                           await CommunicationRecord.collection.doc().set({
                             ...createCommunicationRecordData(
-                              title: _model.titleTextController.text,
-                              group: 'Public',
-                              date: getCurrentTimestamp,
-                              imageUrl: _model.uploadedFileUrl_uploadData,
-                              reliability: (String oldValue) {
-                                return double.parse(
-                                    oldValue.replaceAll(',', '.'));
-                              }(_model.reliabilityTextController.text),
-                              type: 'Tip',
-                              minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0
-                            ),
+                                title: _model.titleTextController.text,
+                                group: 'Insights',
+                                date: getCurrentTimestamp,
+                                imageUrl: _model.uploadedFileUrl_uploadData,
+                                reliability: (String oldValue) {
+                                  return double.parse(oldValue.replaceAll(',', '.'));
+                                }(_model.reliabilityTextController.text),
+                                type: 'Tip',
+                                minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0),
                             ...mapToFirestore(
                               {
-                                'analyses': functions.convertJSONToStringList(
-                                    FFAppState().analyses.toList()),
+                                'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
                               },
                             ),
                           });
@@ -715,21 +675,18 @@ class _TipWidgetState extends State<TipWidget> {
 
                           await CommunicationRecord.collection.doc().set({
                             ...createCommunicationRecordData(
-                              title: _model.titleTextController.text,
-                              group: 'Premium',
-                              date: getCurrentTimestamp,
-                              imageUrl: _model.uploadedFileUrl_uploadData,
-                              reliability: (String oldValue) {
-                                return double.parse(
-                                    oldValue.replaceAll(',', '.'));
-                              }(_model.reliabilityTextController.text),
-                              type: 'Tip',
-                              minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0
-                            ),
+                                title: _model.titleTextController.text,
+                                group: 'Bets',
+                                date: getCurrentTimestamp,
+                                imageUrl: _model.uploadedFileUrl_uploadData,
+                                reliability: (String oldValue) {
+                                  return double.parse(oldValue.replaceAll(',', '.'));
+                                }(_model.reliabilityTextController.text),
+                                type: 'Tip',
+                                minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0),
                             ...mapToFirestore(
                               {
-                                'analyses': functions.convertJSONToStringList(
-                                    FFAppState().analyses.toList()),
+                                'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
                               },
                             ),
                           });
@@ -738,21 +695,18 @@ class _TipWidgetState extends State<TipWidget> {
 
                           await CommunicationRecord.collection.doc().set({
                             ...createCommunicationRecordData(
-                              title: _model.titleTextController.text,
-                              group: _model.group,
-                              date: getCurrentTimestamp,
-                              imageUrl: _model.uploadedFileUrl_uploadData,
-                              reliability: (String oldValue) {
-                                return double.parse(
-                                    oldValue.replaceAll(',', '.'));
-                              }(_model.reliabilityTextController.text),
-                              type: 'Tip',
-                              minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0
-                            ),
+                                title: _model.titleTextController.text,
+                                group: _model.group,
+                                date: getCurrentTimestamp,
+                                imageUrl: _model.uploadedFileUrl_uploadData,
+                                reliability: (String oldValue) {
+                                  return double.parse(oldValue.replaceAll(',', '.'));
+                                }(_model.reliabilityTextController.text),
+                                type: 'Tip',
+                                minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0),
                             ...mapToFirestore(
                               {
-                                'analyses': functions.convertJSONToStringList(
-                                    FFAppState().analyses.toList()),
+                                'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
                               },
                             ),
                           });
@@ -763,13 +717,12 @@ class _TipWidgetState extends State<TipWidget> {
                         safeSetState(() {});
                         logFirebaseEvent('Button_firestore_query');
                         _model.posts = await queryCommunicationRecordOnce(
-                          queryBuilder: (communicationRecord) =>
-                              communicationRecord
-                                  .where(
-                                    'type',
-                                    isEqualTo: 'Tip',
-                                  )
-                                  .orderBy('date', descending: true),
+                          queryBuilder: (communicationRecord) => communicationRecord
+                              .where(
+                                'type',
+                                isEqualTo: 'Tip',
+                              )
+                              .orderBy('date', descending: true),
                         );
                         if (_model.posts!.length > 15) {
                           logFirebaseEvent('Button_backend_call');
@@ -788,16 +741,16 @@ class _TipWidgetState extends State<TipWidget> {
                         iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          font: GoogleFonts.inter(
-                            fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                          ),
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                        ),
+                              font: GoogleFonts.inter(
+                                fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                              ),
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                            ),
                         elevation: 3.0,
                         borderSide: BorderSide(
                           color: Colors.transparent,
