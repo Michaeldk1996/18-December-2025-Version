@@ -1,5 +1,3 @@
-import 'package:b_s_p_consult/pages/signup/verifyEmail.dart';
-
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

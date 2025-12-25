@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "b_s_p_consult",
-      "version": "2.4.9+1",
+      "version": "2.5.2+1",
       "dependencies": [
         "aligned_dialog",
         "auto_size_text",
@@ -72,6 +72,7 @@
         "intl",
         "json_path",
         "mime_type",
+        "package_info_plus",
         "page_transition",
         "path_provider",
         "path_provider_android",
@@ -196,6 +197,22 @@
         "json_annotation",
         "path",
         "yaml"
+      ]
+    },
+    {
+      "name": "package_info_plus",
+      "version": "9.0.0",
+      "dependencies": [
+        "clock",
+        "ffi",
+        "flutter",
+        "flutter_web_plugins",
+        "http",
+        "meta",
+        "package_info_plus_platform_interface",
+        "path",
+        "web",
+        "win32"
       ]
     },
     {
@@ -1429,6 +1446,27 @@
       "dependencies": []
     },
     {
+      "name": "win32",
+      "version": "5.14.0",
+      "dependencies": [
+        "ffi"
+      ]
+    },
+    {
+      "name": "package_info_plus_platform_interface",
+      "version": "3.2.1",
+      "dependencies": [
+        "flutter",
+        "meta",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "ffi",
+      "version": "2.1.4",
+      "dependencies": []
+    },
+    {
       "name": "markdown",
       "version": "7.3.0",
       "dependencies": [
@@ -1483,11 +1521,6 @@
       "dependencies": [
         "flutter"
       ]
-    },
-    {
-      "name": "ffi",
-      "version": "2.1.4",
-      "dependencies": []
     },
     {
       "name": "platform",
@@ -1647,13 +1680,6 @@
         "firebase_core_platform_interface",
         "flutter",
         "meta"
-      ]
-    },
-    {
-      "name": "win32",
-      "version": "5.14.0",
-      "dependencies": [
-        "ffi"
       ]
     },
     {

@@ -183,6 +183,7 @@ Future<int> queryCollectionCount(
 
   return query.count().get().catchError((err) {
     print('Error querying $collection: $err');
+    return err;
   }).then((value) => value.count!);
 }
 

@@ -656,6 +656,18 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "package_info_plus",
+      "rootUri": "file:///Users/armanzahmatkesh/.pub-cache/hosted/pub.dev/package_info_plus-9.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "package_info_plus_platform_interface",
+      "rootUri": "file:///Users/armanzahmatkesh/.pub-cache/hosted/pub.dev/package_info_plus_platform_interface-3.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "page_transition",
       "rootUri": "file:///Users/armanzahmatkesh/.pub-cache/hosted/pub.dev/page_transition-2.1.0",
       "packageUri": "lib/",

@@ -194,7 +194,7 @@ class _ConfirmDeleteAccountDialogWidgetState
                           var _shouldSetState = false;
                           logFirebaseEvent('Button_cloud_function');
                           try {
-                            final result = await FirebaseFunctions.instanceFor(
+                            await FirebaseFunctions.instanceFor(
                                     region: 'us-central1')
                                 .httpsCallable('deleteUserAccount')
                                 .call({});

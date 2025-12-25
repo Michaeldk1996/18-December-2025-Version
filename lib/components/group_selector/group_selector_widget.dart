@@ -117,11 +117,6 @@ class _GroupSelectorWidgetState extends State<GroupSelectorWidget> {
                     color: FlutterFlowTheme.of(context).primaryBackground,
                   ),
                   item('Exp-Insights'),
-                  Divider(
-                    thickness: 1.0,
-                    color: FlutterFlowTheme.of(context).primaryBackground,
-                  ),
-                  item('Exp-Bets'),
                 ],
               ),
             ),

@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../components/change_stakingstrategy.dart';
 import '/auth/firebase_auth/auth_util.dart';
@@ -677,16 +677,19 @@ class _HomeWidgetState extends State<HomeWidget> {
             ),
           ),
           Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 24.0),
-              child: Text('Unlock this content by upgrading your Membership',
-                  textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      font: GoogleFonts.inter(fontWeight: FontWeight.w500, fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle),
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 22.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
-                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle))),
+            padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 24.0),
+            child: Text('Unlock this content by upgrading your Membership',
+              textAlign: TextAlign.center,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                font: GoogleFonts.inter(fontWeight: FontWeight.w500, fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle),
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 22.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle
+              )
+            )
+          ),
           FFButtonWidget(
             onPressed: () async {
               logFirebaseEvent('HOME_CHOOSE_YOUR_MEMBERSHIP_BTN_ON_TAP');
@@ -700,7 +703,9 @@ class _HomeWidgetState extends State<HomeWidget> {
               _model.pageNumber = 2;
               safeSetState(() {});
             },
-            text: 'Upgrade Membership',
+            text: (int.tryParse('${currentUserDocument?.membership ?? '0'}') ?? 0) < 8
+              ? 'Choose your membership'
+              : 'Upgrade Membership',
             options: FFButtonOptions(
               height: 40.0,
               padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
@@ -728,9 +733,146 @@ class _HomeWidgetState extends State<HomeWidget> {
     );
   }
 
+  Widget communicationItems(String groupName) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(),
+      child: StreamBuilder<List<CommunicationRecord>>(
+        stream: queryCommunicationRecord(
+          queryBuilder: (communicationRecord) => communicationRecord.where('group', isEqualTo: '$groupName').orderBy('date', descending: true),
+        ),
+        builder: (context, snapshot) {
+          // Customize what your widget looks like when it's loading.
+          if (!snapshot.hasData) {
+            return Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
+                  ),
+                ),
+              ),
+            );
+          }
+          List<CommunicationRecord> listViewCommunicationRecordList = snapshot.data!;
+
+          return ListView.separated(
+            padding: EdgeInsets.fromLTRB(
+              0,
+              12.0,
+              0,
+              0,
+            ),
+            scrollDirection: Axis.vertical,
+            itemCount: listViewCommunicationRecordList.length,
+            separatorBuilder: (_, __) => SizedBox(height: 20.0),
+            itemBuilder: (context, listViewIndex) {
+              final listViewCommunicationRecord = listViewCommunicationRecordList[listViewIndex];
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 35,
+                children: [
+                  // if (listViewIndex == 0 && groupName.toLowerCase().contains('exp-'))
+                  //   Transform.scale(
+                  //     scale: .85,
+                  //     child: accessDenied()
+                  //   ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onLongPress: () async {
+                      var _shouldSetState = false;
+                      if (valueOrDefault(currentUserDocument?.role, '') != 'administrator') return;
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        enableDrag: false,
+                        context: context,
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            child: Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: ActionSelectorWidget(),
+                            ),
+                          );
+                        },
+                      ).then((value) => safeSetState(() => _model.selectedAction = value));
+                      _shouldSetState = true;
+                      if (_model.selectedAction == 'Delete') {
+                        logFirebaseEvent('TipItem_backend_call');
+                        await listViewCommunicationRecord.reference.delete();
+                      } else if (_model.selectedAction == 'Modify') {
+                        if (listViewCommunicationRecord.type == 'Tip') {
+                          logFirebaseEvent('TipItem_navigate_to');
+                  
+                          context.pushNamed(
+                            EditTipWidget.routeName,
+                            queryParameters: {
+                              'tripData': serializeParam(listViewCommunicationRecord.reference, ParamType.DocumentReference),
+                            }.withoutNulls,
+                          );
+                        } else if (listViewCommunicationRecord.type == 'Message') {
+                          logFirebaseEvent('TipItem_navigate_to');
+                  
+                          context.pushNamed(
+                            MessageWidget.routeName,
+                            queryParameters: {
+                              'tipData': serializeParam(listViewCommunicationRecord.reference, ParamType.DocumentReference),
+                            }.withoutNulls,
+                          );
+                        }
+                      } else {
+                        if (_shouldSetState) safeSetState(() {});
+                        return;
+                      }
+                      if (_shouldSetState) safeSetState(() {});
+                    },
+                    child: wrapWithModel(
+                      model: _model.tipItemModels1.getModel(
+                        listViewIndex.toString(),
+                        listViewIndex,
+                      ),
+                      updateCallback: () => safeSetState(() {}),
+                      child: TipItemWidget(
+                          key: Key(
+                            'Keywjh_${listViewIndex.toString()}',
+                          ),
+                          title: listViewCommunicationRecord.title,
+                          message: listViewCommunicationRecord.message,
+                          group: listViewCommunicationRecord.group,
+                          tipType: listViewCommunicationRecord.tipType,
+                          type: listViewCommunicationRecord.type,
+                          date: listViewCommunicationRecord.date,
+                          analyses: listViewCommunicationRecord.analyses,
+                          reliability: listViewCommunicationRecord.reliability,
+                          minimumodd: listViewCommunicationRecord.minimumodd,
+                          imageUrl: listViewCommunicationRecord.imageUrl,
+                          pdfUrl: listViewCommunicationRecord.pdfUrl),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+
   void checkUser() async {
     // _verify = await FirebaseAuth.instance.currentUser?.emailVerified ?? false;
-    if (mounted) setState(() {});
+    // if (mounted) setState(() {});
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    debugPrint('inja ${packageInfo.version}');
   }
 
   void askStakingStrategy() {
@@ -761,11 +903,9 @@ class _HomeWidgetState extends State<HomeWidget> {
       _model.userList = await queryUsersRecordOnce();
       logFirebaseEvent('Home_update_app_state');
       FFAppState().allUsers = _model.userList!.map((e) => e.reference).toList().toList().cast<DocumentReference>();
+      checkUser();
       safeSetState(() {});
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-    checkUser();
   }
 
   @override
@@ -1209,65 +1349,66 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     ),
                                                     // if ((((currentUserDocument?.expireDate != null) && (currentUserDocument!.expireDate! >= getCurrentTimestamp)) && (valueOrDefault(currentUserDocument?.membership, '') == '10')) ||
                                                     //     ((valueOrDefault(currentUserDocument?.membership, '') == '8') && ((currentUserDocument?.expireDate != null) && (currentUserDocument!.expireDate! >= getCurrentTimestamp))))
-                                                    Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                                                      child: AuthUserStreamWidget(
-                                                        builder: (context) => Row(
-                                                          mainAxisSize: MainAxisSize.max,
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            Padding(
-                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
-                                                              child: Stack(
-                                                                alignment: AlignmentDirectional(0.0, 0.0),
-                                                                children: [
-                                                                  Container(
-                                                                    width: 30.0,
-                                                                    height: 30.0,
-                                                                    decoration: BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(context).primaryText,
-                                                                      borderRadius: BorderRadius.circular(8.0),
-                                                                      border: Border.all(
-                                                                        color: Color(0x5B57636C),
+                                                    if ((int.tryParse(currentUserDocument?.membership ?? '0') ?? 0) >= 8)
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                                                        child: AuthUserStreamWidget(
+                                                          builder: (context) => Row(
+                                                            mainAxisSize: MainAxisSize.max,
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                                                child: Stack(
+                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                  children: [
+                                                                    Container(
+                                                                      width: 30.0,
+                                                                      height: 30.0,
+                                                                      decoration: BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context).primaryText,
+                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                        border: Border.all(
+                                                                          color: Color(0x5B57636C),
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  ClipRRect(
-                                                                    borderRadius: BorderRadius.circular(8.0),
-                                                                    child: Image.asset(
-                                                                      'assets/images/${valueOrDefault(currentUserDocument?.membership, '') == '8' ? 'silver_large' : valueOrDefault(currentUserDocument?.membership, '') == '9' ? 'email' : 'gold_large'}.png',
-                                                                      width: 28.0,
-                                                                      height: 28.0,
-                                                                      fit: BoxFit.cover,
+                                                                    ClipRRect(
+                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                      child: Image.asset(
+                                                                        'assets/images/${valueOrDefault(currentUserDocument?.membership, '') == '8' ? 'silver_large' : valueOrDefault(currentUserDocument?.membership, '') == '9' ? 'email' : 'gold_large'}.png',
+                                                                        width: 28.0,
+                                                                        height: 28.0,
+                                                                        fit: BoxFit.cover,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              valueOrDefault(currentUserDocument?.membership, '') == '8'
-                                                                  ? 'Silver'
-                                                                  : valueOrDefault(currentUserDocument?.membership, '') == '9'
-                                                                      ? 'Advanced'
-                                                                      : valueOrDefault(currentUserDocument?.membership, '') == '10'
-                                                                          ? 'Gold'
-                                                                          : 'Unknown',
-                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                    font: GoogleFonts.inter(
+                                                              Text(
+                                                                valueOrDefault(currentUserDocument?.membership, '') == '8'
+                                                                    ? 'Silver'
+                                                                    : valueOrDefault(currentUserDocument?.membership, '') == '9'
+                                                                        ? 'Advanced'
+                                                                        : valueOrDefault(currentUserDocument?.membership, '') == '10'
+                                                                            ? 'Gold'
+                                                                            : '',
+                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                      font: GoogleFonts.inter(
+                                                                        fontWeight: FontWeight.bold,
+                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                      ),
+                                                                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                      fontSize: 22.0,
+                                                                      letterSpacing: 0.0,
                                                                       fontWeight: FontWeight.bold,
                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                     ),
-                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                    fontSize: 22.0,
-                                                                    letterSpacing: 0.0,
-                                                                    fontWeight: FontWeight.bold,
-                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ],
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
                                                     if ((int.tryParse(currentUserDocument?.membership ?? '0') ?? 0) < 10)
                                                       AuthUserStreamWidget(
                                                         builder: (context) => FFButtonWidget(
@@ -1298,7 +1439,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                   duration: Duration(milliseconds: 500),
                                                                   curve: Curves.ease,
                                                                 );
-                                                                if (_shouldSetState) safeSetState(() {});
+                                                                // if (_shouldSetState) safeSetState(() {});
                                                                 return;
                                                               }
                                                               logFirebaseEvent('Button_firestore_query');
@@ -1346,9 +1487,11 @@ class _HomeWidgetState extends State<HomeWidget> {
 
                                                             if (_shouldSetState) safeSetState(() {});
                                                           },
-                                                          text: (int.tryParse(currentUserDocument?.membership ?? '0') ?? 0) == 9
+                                                          text: (int.tryParse(currentUserDocument?.membership ?? '0') ?? 0) < 8
+                                                            ? 'Choose Membership'
+                                                            : (int.tryParse(currentUserDocument?.membership ?? '0') ?? 0) == 9
                                                               ? 'Upgrade to Gold'
-                                                              : 'Upgrade Membership', //(valueOrDefault(currentUserDocument?.membership, '') == '8') && ((currentUserDocument?.expireDate != null) && (currentUserDocument!.expireDate! >= getCurrentTimestamp)) ? 'Upgrade to Gold Masterclass' : 'Choose my subscription',
+                                                              : 'Upgrade to Gold Masterclass', //(valueOrDefault(currentUserDocument?.membership, '') == '8') && ((currentUserDocument?.expireDate != null) && (currentUserDocument!.expireDate! >= getCurrentTimestamp)) ? 'Upgrade to Gold Masterclass' : 'Choose my subscription',
                                                           options: FFButtonOptions(
                                                             height: 40.0,
                                                             padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
@@ -2169,277 +2312,27 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       child: Stack(
                                         children: [
                                           if (_model.tipMode == 1)
-                                            if ((int.tryParse('${currentUserDocument?.membership ?? '0'}') ?? 0) < 9 || (int.tryParse('${currentUserDocument?.membership ?? 'as'}') ?? 0) > 10)
+                                            if ((int.tryParse('${currentUserDocument?.membership ?? '0'}') ?? 0) >= 9 && 
+                                                (currentUserDocument?.expireDate != null) && 
+                                                (currentUserDocument!.expireDate! >= getCurrentTimestamp)
+                                            ) 
+                                              communicationItems('Insights')
+                                            else if ((int.tryParse('${currentUserDocument?.membership ?? '0'}') ?? 0) == 8 && 
+                                                     (currentUserDocument?.expireDate != null) && 
+                                                     (currentUserDocument!.expireDate! >= getCurrentTimestamp)
+                                            ) 
                                               accessDenied()
-                                            else
-                                              Container(
-                                                width: double.infinity,
-                                                height: double.infinity,
-                                                decoration: BoxDecoration(),
-                                                child: StreamBuilder<List<CommunicationRecord>>(
-                                                  stream: queryCommunicationRecord(
-                                                    queryBuilder: (communicationRecord) => communicationRecord.where('group', isEqualTo: 'Insights').orderBy('date', descending: true),
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child: CircularProgressIndicator(
-                                                            valueColor: AlwaysStoppedAnimation<Color>(
-                                                              FlutterFlowTheme.of(context).primary,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    List<CommunicationRecord> listViewCommunicationRecordList = snapshot.data!;
-
-                                                    return ListView.separated(
-                                                      padding: EdgeInsets.fromLTRB(
-                                                        0,
-                                                        12.0,
-                                                        0,
-                                                        0,
-                                                      ),
-                                                      scrollDirection: Axis.vertical,
-                                                      itemCount: listViewCommunicationRecordList.length,
-                                                      separatorBuilder: (_, __) => SizedBox(height: 20.0),
-                                                      itemBuilder: (context, listViewIndex) {
-                                                        final listViewCommunicationRecord = listViewCommunicationRecordList[listViewIndex];
-                                                        return InkWell(
-                                                          splashColor: Colors.transparent,
-                                                          focusColor: Colors.transparent,
-                                                          hoverColor: Colors.transparent,
-                                                          highlightColor: Colors.transparent,
-                                                          onLongPress: () async {
-                                                            logFirebaseEvent('HOME_Container_wjhffplr_ON_LONG_PRESS');
-                                                            var _shouldSetState = false;
-                                                            if (valueOrDefault(currentUserDocument?.role, '') != 'administrator') {
-                                                              // if (_shouldSetState)
-                                                              //   safeSetState(() {});
-                                                              return;
-                                                            }
-                                                            logFirebaseEvent('TipItem_bottom_sheet');
-                                                            await showModalBottomSheet(
-                                                              isScrollControlled: true,
-                                                              backgroundColor: Colors.transparent,
-                                                              enableDrag: false,
-                                                              context: context,
-                                                              builder: (context) {
-                                                                return GestureDetector(
-                                                                  onTap: () {
-                                                                    FocusScope.of(context).unfocus();
-                                                                    FocusManager.instance.primaryFocus?.unfocus();
-                                                                  },
-                                                                  child: Padding(
-                                                                    padding: MediaQuery.viewInsetsOf(context),
-                                                                    child: ActionSelectorWidget(),
-                                                                  ),
-                                                                );
-                                                              },
-                                                            ).then((value) => safeSetState(() => _model.selectedAction = value));
-                                                            _shouldSetState = true;
-                                                            if (_model.selectedAction == 'Delete') {
-                                                              logFirebaseEvent('TipItem_backend_call');
-                                                              await listViewCommunicationRecord.reference.delete();
-                                                            } else if (_model.selectedAction == 'Modify') {
-                                                              if (listViewCommunicationRecord.type == 'Tip') {
-                                                                logFirebaseEvent('TipItem_navigate_to');
-
-                                                                context.pushNamed(
-                                                                  EditTipWidget.routeName,
-                                                                  queryParameters: {
-                                                                    'tripData': serializeParam(listViewCommunicationRecord.reference, ParamType.DocumentReference),
-                                                                  }.withoutNulls,
-                                                                );
-                                                              } else if (listViewCommunicationRecord.type == 'Message') {
-                                                                logFirebaseEvent('TipItem_navigate_to');
-
-                                                                context.pushNamed(
-                                                                  MessageWidget.routeName,
-                                                                  queryParameters: {
-                                                                    'tipData': serializeParam(listViewCommunicationRecord.reference, ParamType.DocumentReference),
-                                                                  }.withoutNulls,
-                                                                );
-                                                              }
-                                                            } else {
-                                                              if (_shouldSetState) safeSetState(() {});
-                                                              return;
-                                                            }
-                                                            if (_shouldSetState) safeSetState(() {});
-                                                          },
-                                                          child: wrapWithModel(
-                                                            model: _model.tipItemModels1.getModel(
-                                                              listViewIndex.toString(),
-                                                              listViewIndex,
-                                                            ),
-                                                            updateCallback: () => safeSetState(() {}),
-                                                            child: TipItemWidget(
-                                                                key: Key(
-                                                                  'Keywjh_${listViewIndex.toString()}',
-                                                                ),
-                                                                title: listViewCommunicationRecord.title,
-                                                                message: listViewCommunicationRecord.message,
-                                                                group: listViewCommunicationRecord.group,
-                                                                tipType: listViewCommunicationRecord.tipType,
-                                                                type: listViewCommunicationRecord.type,
-                                                                date: listViewCommunicationRecord.date,
-                                                                analyses: listViewCommunicationRecord.analyses,
-                                                                reliability: listViewCommunicationRecord.reliability,
-                                                                minimumodd: listViewCommunicationRecord.minimumodd,
-                                                                imageUrl: listViewCommunicationRecord.imageUrl,
-                                                                pdfUrl: listViewCommunicationRecord.pdfUrl),
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                          if (_model.tipMode == 2)
-                                            Container(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(),
-                                              child: Stack(
-                                                children: [
-                                                  if ((int.tryParse('${currentUserDocument?.membership ?? 'as'}') ?? 0) < 8 || (int.tryParse('${currentUserDocument?.membership ?? 'as'}') ?? 0) > 10)
-                                                    accessDenied()
-                                                  else
-                                                    AuthUserStreamWidget(
-                                                      builder: (context) => StreamBuilder<List<CommunicationRecord>>(
-                                                        stream: queryCommunicationRecord(
-                                                          queryBuilder: (communicationRecord) => communicationRecord.where('group', isEqualTo: 'Bets').orderBy('date', descending: true),
-                                                        ),
-                                                        builder: (context, snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot.hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child: CircularProgressIndicator(
-                                                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                                                    FlutterFlowTheme.of(context).primary,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          List<CommunicationRecord> listViewCommunicationRecordList = snapshot.data!;
-
-                                                          return ListView.separated(
-                                                            padding: EdgeInsets.fromLTRB(
-                                                              0,
-                                                              12.0,
-                                                              0,
-                                                              0,
-                                                            ),
-                                                            scrollDirection: Axis.vertical,
-                                                            itemCount: listViewCommunicationRecordList.length,
-                                                            separatorBuilder: (_, __) => SizedBox(height: 12.0),
-                                                            itemBuilder: (context, listViewIndex) {
-                                                              final listViewCommunicationRecord = listViewCommunicationRecordList[listViewIndex];
-                                                              return InkWell(
-                                                                splashColor: Colors.transparent,
-                                                                focusColor: Colors.transparent,
-                                                                hoverColor: Colors.transparent,
-                                                                highlightColor: Colors.transparent,
-                                                                onLongPress: () async {
-                                                                  logFirebaseEvent('HOME_Container_8fjbnjhx_ON_LONG_PRESS');
-                                                                  var _shouldSetState = false;
-                                                                  if (valueOrDefault(currentUserDocument?.role, '') != 'administrator') {
-                                                                    // if (_shouldSetState) safeSetState(() {});
-                                                                    return;
-                                                                  }
-                                                                  logFirebaseEvent('TipItem_bottom_sheet');
-                                                                  await showModalBottomSheet(
-                                                                    isScrollControlled: true,
-                                                                    backgroundColor: Colors.transparent,
-                                                                    enableDrag: false,
-                                                                    context: context,
-                                                                    builder: (context) {
-                                                                      return GestureDetector(
-                                                                        onTap: () {
-                                                                          FocusScope.of(context).unfocus();
-                                                                          FocusManager.instance.primaryFocus?.unfocus();
-                                                                        },
-                                                                        child: Padding(
-                                                                          padding: MediaQuery.viewInsetsOf(context),
-                                                                          child: ActionSelectorWidget(),
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                  ).then((value) => safeSetState(() => _model.selectedAction2 = value));
-
-                                                                  _shouldSetState = true;
-                                                                  if (_model.selectedAction2 == 'Delete') {
-                                                                    logFirebaseEvent('TipItem_backend_call');
-                                                                    await listViewCommunicationRecord.reference.delete();
-                                                                  } else if (_model.selectedAction2 == 'Modify') {
-                                                                    if (listViewCommunicationRecord.type == 'Tip') {
-                                                                      logFirebaseEvent('TipItem_navigate_to');
-
-                                                                      context.pushNamed(
-                                                                        EditTipWidget.routeName,
-                                                                        queryParameters: {
-                                                                          'tripData': serializeParam(
-                                                                            listViewCommunicationRecord.reference,
-                                                                            ParamType.DocumentReference,
-                                                                          ),
-                                                                        }.withoutNulls,
-                                                                      );
-                                                                    } else if (listViewCommunicationRecord.type == 'Message') {
-                                                                      logFirebaseEvent('TipItem_navigate_to');
-
-                                                                      context.pushNamed(MessageWidget.routeName,
-                                                                          queryParameters: {
-                                                                            'tipData': serializeParam(
-                                                                              listViewCommunicationRecord.reference,
-                                                                              ParamType.DocumentReference,
-                                                                            ),
-                                                                          }.withoutNulls);
-                                                                    }
-                                                                  } else {
-                                                                    if (_shouldSetState) safeSetState(() {});
-                                                                    return;
-                                                                  }
-
-                                                                  if (_shouldSetState) safeSetState(() {});
-                                                                },
-                                                                child: wrapWithModel(
-                                                                  model: _model.tipItemModels2.getModel(
-                                                                    listViewIndex.toString(),
-                                                                    listViewIndex,
-                                                                  ),
-                                                                  updateCallback: () => safeSetState(() {}),
-                                                                  child: TipItemWidget(
-                                                                    key: Key('Key8fj_${listViewIndex.toString()}'),
-                                                                    title: listViewCommunicationRecord.title,
-                                                                    message: listViewCommunicationRecord.message,
-                                                                    group: listViewCommunicationRecord.group,
-                                                                    tipType: listViewCommunicationRecord.tipType,
-                                                                    type: listViewCommunicationRecord.type,
-                                                                    date: listViewCommunicationRecord.date,
-                                                                    analyses: listViewCommunicationRecord.analyses,
-                                                                    reliability: listViewCommunicationRecord.reliability,
-                                                                    minimumodd: listViewCommunicationRecord.minimumodd,
-                                                                    imageUrl: listViewCommunicationRecord.imageUrl,
-                                                                    pdfUrl: listViewCommunicationRecord.pdfUrl,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-                                                ],
-                                              ),
-                                            ),
+                                            else 
+                                              communicationItems('Exp-Insights'),
+                                          if (_model.tipMode == 2) 
+                                            if ((int.tryParse('${currentUserDocument?.membership ?? '0'}') ?? 0) < 8 || 
+                                                (int.tryParse('${currentUserDocument?.membership ?? '0'}') ?? 0) > 10 || 
+                                                (currentUserDocument?.expireDate == null) || 
+                                                (currentUserDocument!.expireDate! < getCurrentTimestamp)
+                                            ) 
+                                              accessDenied()
+                                            else 
+                                              communicationItems('Bets'),
                                           Align(
                                             alignment: AlignmentDirectional(1.0, 1.0),
                                             child: Padding(
