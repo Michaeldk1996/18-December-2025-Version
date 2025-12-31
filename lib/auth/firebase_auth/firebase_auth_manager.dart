@@ -50,9 +50,9 @@ class FirebaseAuthManager extends AuthManager
         GithubSignInManager,
         PhoneSignInManager {
   // Set when using phone verification (after phone number is provided).
-  // String? _phoneAuthVerificationCode;
+  String? _phoneAuthVerificationCode;
   // Set when using phone sign in in web mode (ignored otherwise).
-  // ConfirmationResult? _webPhoneAuthConfirmationResult;
+  ConfirmationResult? _webPhoneAuthConfirmationResult;
   FirebasePhoneAuthManager phoneAuthManager = FirebasePhoneAuthManager();
 
   @override
@@ -106,26 +106,26 @@ class FirebaseAuthManager extends AuthManager
     }
   }
 
-  // @override
-  // Future updatePassword({
-  //   required String newPassword,
-  //   required BuildContext context,
-  // }) async {
-  //   try {
-  //     if (!loggedIn) {
-  //       print('Error: update password attempted with no logged in user!');
-  //       return;
-  //     }
-  //     await currentUser?.updatePassword(newPassword);
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'requires-recent-login') {
-  //       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text('Error: ${e.message!}')),
-  //       );
-  //     }
-  //   }
-  // }
+  @override
+  Future updatePassword({
+    required String newPassword,
+    required BuildContext context,
+  }) async {
+    try {
+      if (!loggedIn) {
+        print('Error: update password attempted with no logged in user!');
+        return;
+      }
+      await currentUser?.updatePassword(newPassword);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: ${e.message!}')),
+        );
+      }
+    }
+  }
 
   @override
   Future resetPassword({
@@ -316,7 +316,7 @@ class FirebaseAuthManager extends AuthManager
     } on FirebaseAuthException catch (e) {
       final errorMsg = switch (e.code) {
         'email-already-in-use' =>
-          'An account with this email address already exists',
+          'Error: The email is already in use by a different account',
         'INVALID_LOGIN_CREDENTIALS' =>
           'Error: The supplied auth credential is incorrect, malformed or has expired',
         _ => 'Error: ${e.message!}',

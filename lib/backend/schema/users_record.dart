@@ -70,11 +70,6 @@ class UsersRecord extends FirestoreRecord {
   String get bankroll => _bankroll ?? '';
   bool hasBankroll() => _bankroll != null;
 
-  // "stakingStrategy" field
-  String? _stakingStrategy;
-  String get stakingStrategy => _stakingStrategy ?? '';
-  bool hasStakingStrategy() => _stakingStrategy != null;
-
   // "subscriptionDate" field.
   DateTime? _subscriptionDate;
   DateTime? get subscriptionDate => _subscriptionDate;
@@ -102,7 +97,6 @@ class UsersRecord extends FirestoreRecord {
     _billingAddress = snapshotData['billingAddress'] as String?;
     _username = snapshotData['username'] as String?;
     _bankroll = snapshotData['bankroll'] as String?;
-    _stakingStrategy = snapshotData['stakingStrategy'] as String?;
     _subscriptionDate = snapshotData['subscriptionDate'] as DateTime?;
     _wpUserId = snapshotData['wp_user_id'] as String?;
     _expireDate = snapshotData['expire_date'] as DateTime?;
@@ -153,7 +147,6 @@ Map<String, dynamic> createUsersRecordData({
   String? billingAddress,
   String? username,
   String? bankroll,
-  String? stakingStrategy,
   DateTime? subscriptionDate,
   String? wpUserId,
   DateTime? expireDate,
@@ -171,7 +164,6 @@ Map<String, dynamic> createUsersRecordData({
       'billingAddress': billingAddress,
       'username': username,
       'bankroll': bankroll,
-      'stakingStrategy': stakingStrategy,
       'subscriptionDate': subscriptionDate,
       'wp_user_id': wpUserId,
       'expire_date': expireDate,
@@ -197,7 +189,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.billingAddress == e2?.billingAddress &&
         e1?.username == e2?.username &&
         e1?.bankroll == e2?.bankroll &&
-        e1?.stakingStrategy == e2?.stakingStrategy &&
         e1?.subscriptionDate == e2?.subscriptionDate &&
         e1?.wpUserId == e2?.wpUserId &&
         e1?.expireDate == e2?.expireDate;
@@ -216,7 +207,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.billingAddress,
         e?.username,
         e?.bankroll,
-        e?.stakingStrategy,
         e?.subscriptionDate,
         e?.wpUserId,
         e?.expireDate

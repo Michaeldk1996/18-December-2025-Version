@@ -18,24 +18,34 @@ set customerInfo(CustomerInfo? customerInfo) => _customerInfo = customerInfo;
 Future initialize(
   String appStoreKey,
   String playStoreKey, {
+  String webKey = '',
   bool debugLogEnabled = false,
   bool loadDataAfterLaunch = false,
 }) async {
-  if (kIsWeb) {
-    print('RevenueCat is not supported on web.');
-    return;
-  }
   try {
-    if (Platform.isIOS) {
-      await Purchases.setDebugLogsEnabled(debugLogEnabled);
-      await Purchases.setup(appStoreKey);
+    // Set log level before configuration
+    await Purchases.setLogLevel(
+      debugLogEnabled ? LogLevel.debug : LogLevel.info,
+    );
+
+    // Configure based on platform
+    PurchasesConfiguration configuration;
+    if (kIsWeb) {
+      if (webKey.isEmpty) {
+        print('RevenueCat web support requires a web API key.');
+        return;
+      }
+      configuration = PurchasesConfiguration(webKey);
+    } else if (Platform.isIOS) {
+      configuration = PurchasesConfiguration(appStoreKey);
     } else if (Platform.isAndroid) {
-      await Purchases.setDebugLogsEnabled(debugLogEnabled);
-      await Purchases.setup(playStoreKey);
+      configuration = PurchasesConfiguration(playStoreKey);
     } else {
       print("RevenueCat is not supported on this platform.");
       return;
     }
+
+    await Purchases.configure(configuration);
 
     if (loadDataAfterLaunch) {
       loadCustomerInfo();
@@ -49,7 +59,6 @@ Future initialize(
       customerInfo = info;
     });
   } on Exception catch (e) {
-    // This should happen only in the web run mode.
     print("RevenueCat initialization failed: $e");
   }
 }
@@ -61,7 +70,9 @@ Future<bool> purchasePackage(String package) async {
     if (revenueCatPackage == null) {
       return false;
     }
-    customerInfo = await Purchases.purchasePackage(revenueCatPackage);
+    // v9.0+: purchasePackage returns PurchaseResult instead of CustomerInfo
+    final result = await Purchases.purchasePackage(revenueCatPackage);
+    customerInfo = result.customerInfo;
     return true;
   } catch (_) {
     return false;
@@ -104,7 +115,7 @@ Future<bool?> isEntitled(String entitlementId) async {
 
 // https://docs.revenuecat.com/docs/user-ids
 Future login(String? uid) async {
-  if (kIsWeb || uid == _loggedInUid) {
+  if (uid == _loggedInUid) {
     return;
   }
   try {
@@ -121,6 +132,14 @@ Future login(String? uid) async {
 
 // https://docs.revenuecat.com/docs/restoring-purchases
 Future restorePurchases() async {
+  // Note: On web, purchases are automatically restored by Web Billing.
+  // This method is only needed for iOS/Android.
+  if (kIsWeb) {
+    print(
+      'Restore purchases is not needed on web - Web Billing handles this automatically.',
+    );
+    return;
+  }
   try {
     customerInfo = await Purchases.restorePurchases();
   } on PlatformException catch (e) {

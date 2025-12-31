@@ -46,11 +46,6 @@ class CommunicationRecord extends FirestoreRecord {
   String get imageUrl => _imageUrl ?? '';
   bool hasImageUrl() => _imageUrl != null;
 
-  // "imageUrl" field.
-  String? _pdfUrl;
-  String get pdfUrl => _pdfUrl ?? '';
-  bool hasPdfUrl() => _pdfUrl != null;
-
   // "type" field.
   String? _type;
   String get type => _type ?? '';
@@ -66,11 +61,6 @@ class CommunicationRecord extends FirestoreRecord {
   double get reliability => _reliability ?? 0.0;
   bool hasReliability() => _reliability != null;
 
-  // "minimumodd" field
-  double? _minimumodd;
-  double get minimumodd => _minimumodd ?? 0.0;
-  bool hasMinimumOdd() => _minimumodd != null;
-
   void _initializeFields() {
     _title = snapshotData['title'] as String?;
     _message = snapshotData['message'] as String?;
@@ -78,11 +68,9 @@ class CommunicationRecord extends FirestoreRecord {
     _date = snapshotData['date'] as DateTime?;
     _tipType = snapshotData['tipType'] as String?;
     _imageUrl = snapshotData['imageUrl'] as String?;
-    _pdfUrl = snapshotData['pdfUrl'] as String?;
     _type = snapshotData['type'] as String?;
     _analyses = getDataList(snapshotData['analyses']);
     _reliability = castToType<double>(snapshotData['reliability']);
-    _minimumodd = castToType<double>(snapshotData['minimumodd']);
   }
 
   static CollectionReference get collection =>
@@ -126,10 +114,8 @@ Map<String, dynamic> createCommunicationRecordData({
   DateTime? date,
   String? tipType,
   String? imageUrl,
-  String? pdfUrl,
   String? type,
   double? reliability,
-  double? minimumodd
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -139,10 +125,8 @@ Map<String, dynamic> createCommunicationRecordData({
       'date': date,
       'tipType': tipType,
       'imageUrl': imageUrl,
-      'pdfUrl': pdfUrl,
       'type': type,
       'reliability': reliability,
-      'minimumodd': minimumodd
     }.withoutNulls,
   );
 
@@ -164,8 +148,7 @@ class CommunicationRecordDocumentEquality
         e1?.imageUrl == e2?.imageUrl &&
         e1?.type == e2?.type &&
         listEquality.equals(e1?.analyses, e2?.analyses) &&
-        e1?.reliability == e2?.reliability &&
-        e1?.minimumodd == e2?.minimumodd;
+        e1?.reliability == e2?.reliability;
   }
 
   @override
@@ -178,8 +161,7 @@ class CommunicationRecordDocumentEquality
         e?.imageUrl,
         e?.type,
         e?.analyses,
-        e?.reliability,
-        e?.minimumodd
+        e?.reliability
       ]);
 
   @override

@@ -22,13 +22,10 @@ class EditTipModel extends FlutterFlowModel<EditTipWidget> {
   // State field(s) for reliability widget.
   FocusNode? reliabilityFocusNode;
   TextEditingController? reliabilityTextController;
-
-  FocusNode? minimumoddFocusNode;
-  TextEditingController? minimumoddTextController;
-
   String? Function(BuildContext, String?)? reliabilityTextControllerValidator;
   bool isDataUploading_uploadDataSk7 = false;
-  FFUploadedFile uploadedLocalFile_uploadDataSk7 = FFUploadedFile(bytes: Uint8List.fromList([]));
+  FFUploadedFile uploadedLocalFile_uploadDataSk7 =
+      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
   String uploadedFileUrl_uploadDataSk7 = '';
 
   @override
@@ -41,8 +38,5 @@ class EditTipModel extends FlutterFlowModel<EditTipWidget> {
 
     reliabilityFocusNode?.dispose();
     reliabilityTextController?.dispose();
-
-    minimumoddFocusNode?.dispose();
-    minimumoddTextController?.dispose();
   }
 }

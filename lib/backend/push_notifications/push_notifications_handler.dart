@@ -132,7 +132,11 @@ final parametersBuilderMap =
           'tripData': getParameter<DocumentReference>(data, 'tripData'),
         },
       ),
-  'Home': ParameterData.none(),
+  'Home': (data) async => ParameterData(
+        allParams: {
+          'initialPageIndex': getParameter<int>(data, 'initialPageIndex'),
+        },
+      ),
   'Success': ParameterData.none(),
   'termsAndService': ParameterData.none(),
   'privacypolicy': ParameterData.none(),
