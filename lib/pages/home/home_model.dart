@@ -17,6 +17,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   int? subscriptionMode = 1;
 
+  bool passwordVisible = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Firestore Query - Query a collection] action in Home widget.
@@ -37,7 +39,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   bool? didPurchaseUpgrade;
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
   String? bankrollResult;
-  String? stakingStrategy;
   // Models for TipItem dynamic component.
   late FlutterFlowDynamicModels<TipItemModel> tipItemModels1;
   // Stores action output result for [Bottom Sheet - ActionSelector] action in TipItem widget.

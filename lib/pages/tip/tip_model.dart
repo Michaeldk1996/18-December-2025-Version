@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class TipModel extends FlutterFlowModel<TipWidget> {
   ///  Local state fields for this page.
 
-  String group = 'Insights';
+  String group = 'Public';
 
   ///  State fields for stateful widgets in this page.
 
@@ -20,11 +20,10 @@ class TipModel extends FlutterFlowModel<TipWidget> {
   // State field(s) for reliability widget.
   FocusNode? reliabilityFocusNode;
   TextEditingController? reliabilityTextController;
-  FocusNode? minimumoddFocusNode;
-  TextEditingController? minimumoddTextController;
   String? Function(BuildContext, String?)? reliabilityTextControllerValidator;
   bool isDataUploading_uploadData = false;
-  FFUploadedFile uploadedLocalFile_uploadData = FFUploadedFile(bytes: Uint8List.fromList([]));
+  FFUploadedFile uploadedLocalFile_uploadData =
+      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
   String uploadedFileUrl_uploadData = '';
 
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
@@ -40,8 +39,5 @@ class TipModel extends FlutterFlowModel<TipWidget> {
 
     reliabilityFocusNode?.dispose();
     reliabilityTextController?.dispose();
-
-    minimumoddFocusNode?.dispose();
-    minimumoddTextController?.dispose();
   }
 }

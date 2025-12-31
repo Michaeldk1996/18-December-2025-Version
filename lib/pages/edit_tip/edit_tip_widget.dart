@@ -1,6 +1,3 @@
-import 'package:b_s_p_consult/widgets/textformfield.dart';
-import 'package:flutter/services.dart';
-
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -46,7 +43,8 @@ class _EditTipWidgetState extends State<EditTipWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('EDIT_TIP_PAGE_EditTip_ON_INIT_STATE');
       logFirebaseEvent('EditTip_backend_call');
-      _model.selectedTrip = await CommunicationRecord.getDocumentOnce(widget.tripData!);
+      _model.selectedTrip =
+          await CommunicationRecord.getDocumentOnce(widget.tripData!);
       logFirebaseEvent('EditTip_update_page_state');
       _model.group = _model.selectedTrip!.group;
       _model.uploadedImageUrl = _model.selectedTrip!.imageUrl;
@@ -63,8 +61,8 @@ class _EditTipWidgetState extends State<EditTipWidget> {
       });
       logFirebaseEvent('EditTip_set_form_field');
       safeSetState(() {
-        _model.reliabilityTextController?.text = _model.selectedTrip!.reliability.toString();
-        _model.minimumoddTextController?.text = _model.selectedTrip!.minimumodd.toString();
+        _model.reliabilityTextController?.text =
+            _model.selectedTrip!.reliability.toString();
       });
     });
 
@@ -73,9 +71,6 @@ class _EditTipWidgetState extends State<EditTipWidget> {
 
     _model.reliabilityTextController ??= TextEditingController();
     _model.reliabilityFocusNode ??= FocusNode();
-
-    _model.minimumoddTextController ??= TextEditingController();
-    _model.minimumoddFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -316,49 +311,82 @@ class _EditTipWidgetState extends State<EditTipWidget> {
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   8.0, 0.0, 0.0, 0.0),
-                              child: CsTextFormField(
+                              child: TextFormField(
                                 controller: _model.reliabilityTextController,
                                 focusNode: _model.reliabilityFocusNode,
-                                numberOnly: true,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 12.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.0,
-                      decoration: BoxDecoration(),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Minimum Odd',
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                              child: CsTextFormField(
-                                controller: _model.minimumoddTextController,
-                                focusNode: _model.minimumoddFocusNode,
-                                numberOnly: true,
+                                autofocus: true,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  focusedErrorBorder: InputBorder.none,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                textAlign: TextAlign.end,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
+                                validator: _model
+                                    .reliabilityTextControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                           ),
@@ -403,6 +431,7 @@ class _EditTipWidgetState extends State<EditTipWidget> {
                                         height: m.dimensions?.height,
                                         width: m.dimensions?.width,
                                         blurHash: m.blurHash,
+                                        originalFilename: m.originalFilename,
                                       ))
                                   .toList();
 
@@ -463,14 +492,12 @@ class _EditTipWidgetState extends State<EditTipWidget> {
                             ),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
-                              child: _model.uploadedImageUrl.isEmpty
-                                ? Container()
-                                : Image.network(
-                                    _model.uploadedImageUrl,
-                                    width: 40.0,
-                                    height: 40.0,
-                                    fit: BoxFit.cover,
-                                  ),
+                              child: Image.network(
+                                _model.uploadedImageUrl,
+                                width: 40.0,
+                                height: 40.0,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ],
                         ),
@@ -646,8 +673,8 @@ class _EditTipWidgetState extends State<EditTipWidget> {
                           ...createCommunicationRecordData(
                             title: _model.titleTextController.text,
                             imageUrl: _model.uploadedImageUrl,
-                            reliability: double.tryParse(_model.reliabilityTextController.text),
-                            minimumodd: double.tryParse(_model.minimumoddTextController.text),
+                            reliability: double.tryParse(
+                                _model.reliabilityTextController.text),
                             date: getCurrentTimestamp,
                           ),
                           ...mapToFirestore(

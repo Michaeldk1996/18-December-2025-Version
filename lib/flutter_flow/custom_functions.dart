@@ -66,49 +66,19 @@ List<String> convertJSONToStringList(List<dynamic> input) {
   return result;
 }
 
-double calculateReliability(
-  String reliability,
-  String stakingStrategy
-) {
-  if (stakingStrategy == 'Balanced'){
-    double result = double.parse(reliability) * 1.5;
-    return result;
-  }
-  else if (stakingStrategy == 'Aggressive'){
-    double result = double.parse(reliability) * 2.25;
-    return result;
-  }
-  else{
-    double result = double.parse(reliability);
-    return result;
-  }
-}
 double calculateBetPrice(
   String bankroll,
   String reliability,
-  String stakingStrategy
-  // bool baseMethod,
+  bool baseMethod,
 ) {
-  if (stakingStrategy == 'Conservative'){
+  if (baseMethod) {
     double result = double.parse(bankroll) * double.parse(reliability) / 100.00;
     return result;
-  }
-  else if (stakingStrategy == 'Balanced'){
-    double result = double.parse(bankroll) * double.parse(reliability) * 1.5 / 100.00;
+  } else {
+    double result =
+        double.parse(bankroll) * double.parse(reliability) * 1.5 / 100.00;
     return result;
   }
-  else{
-    double result = double.parse(bankroll) * double.parse(reliability) * 2.25 / 100.00;
-    return result;
-  }
-  // if (baseMethod) {
-  //   double result = double.parse(bankroll) * double.parse(reliability) / 100.00;
-  //   return result;
-  // } else {
-  //   double result =
-  //       double.parse(bankroll) * double.parse(reliability) * 1.5 / 100.00;
-  //   return result;
-  // }
 }
 
 String getBetPercent(String originalPercent) {
