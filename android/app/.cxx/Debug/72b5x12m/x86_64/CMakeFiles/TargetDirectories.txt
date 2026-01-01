@@ -1,0 +1,2 @@
+/Volumes/MacOS Data/jay_vaghasiya/18-December-2025-Version/android/app/.cxx/Debug/72b5x12m/x86_64/CMakeFiles/edit_cache.dir
+/Volumes/MacOS Data/jay_vaghasiya/18-December-2025-Version/android/app/.cxx/Debug/72b5x12m/x86_64/CMakeFiles/rebuild_cache.dir
