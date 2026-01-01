@@ -20,7 +20,7 @@ void main() async {
 
   await initFirebase();
 
-  final appState = FFAppState(); // Initialize FFAppState
+  final appState = FFAppState();
   await appState.initializePersistedState();
 
   await revenue_cat.initialize(

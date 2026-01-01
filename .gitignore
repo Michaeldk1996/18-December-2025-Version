@@ -40,3 +40,6 @@ ios/GoogleService-Info.plist
 .flutter-plugins
 .flutter-plugins-dependencies
 .generated/
+
+# FVM Version Cache
+.fvm/
