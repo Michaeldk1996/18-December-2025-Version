@@ -48,6 +48,17 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  void askStakingStrategy() {
+    showModalBottomSheet(
+        isScrollControlled: false,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        enableDrag: false,
+        context: context,
+        builder: (context) => Container(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            child: RiskManagementWidget()));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +68,12 @@ class _HomeWidgetState extends State<HomeWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('HOME_PAGE_Home_ON_INIT_STATE');
+
+      if ((currentUserDocument?.stakingStrategy.isEmpty ?? true) ||
+          (valueOrDefault(currentUserDocument?.bankroll, '') == '')) {
+        askStakingStrategy();
+      }
+
       logFirebaseEvent('Home_update_page_state');
       _model.pageNumber = valueOrDefault<int>(
         widget.initialPageIndex,
@@ -867,18 +884,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             child: Container(
                                               width: double.infinity,
                                               decoration: BoxDecoration(
-                                                color: Color(0x0FFFFFFF),
+                                                color: Color(0xFFFFFFFF).withOpacity(0.06),
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                border: Border.all(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
+                                                    BorderRadius.circular(8.0),
+                                                
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        12.0, 16.0, 12.0, 16.0),
+                                                    16.0, 16.0, 16.0, 16.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -1453,23 +1467,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 child: Container(
                                                   width: double.infinity,
                                                   decoration: BoxDecoration(
-                                                    color: Color(0x10FFFFFF),
+                                                    color: Color(0xFFFFFFFF).withOpacity(0.06),
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    border: Border.all(
-                                                      color: Colors.transparent,
-                                                      width: 1.0,
-                                                    ),
+                                                    BorderRadius.circular(8.0),
+
                                                   ),
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                12.0,
-                                                                20.0,
-                                                                12.0,
-                                                                20.0),
+                                                            16.0,
+                                                            16.0,
+                                                            16.0,
+                                                                16.0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -1857,18 +1867,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             child: Container(
                                               width: double.infinity,
                                               decoration: BoxDecoration(
-                                                color: Color(0x0FFFFFFF),
+                                                color: Color(0xFFFFFFFF).withOpacity(0.06),
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                border: Border.all(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
+                                                    BorderRadius.circular(8.0),
+
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 16.0, 0.0, 16.0),
+                                                    16.0, 16.0, 16.0, 16.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -2245,18 +2252,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             child: Container(
                                               width: double.infinity,
                                               decoration: BoxDecoration(
-                                                color: Color(0x0FFFFFFF),
+                                                color: Color(0xFFFFFFFF).withOpacity(0.06),
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                border: Border.all(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
+                                                    BorderRadius.circular(8.0),
+                                                
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        12.0, 16.0, 12.0, 16.0),
+                                                    16.0, 16.0, 16.0, 16.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -2379,15 +2383,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
-                                                                            10.0,
+                                                                            0.0,
                                                                             0.0),
                                                                         child: Image
                                                                             .asset(
                                                                           'assets/images/Vector_(1).png',
                                                                           width:
-                                                                              30.0,
+                                                                              20.0,
                                                                           height:
-                                                                              30.0,
+                                                                              20.0,
                                                                           fit: BoxFit
                                                                               .cover,
                                                                         ),
@@ -2470,15 +2474,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
-                                                                          10.0,
+                                                                          0.0,
                                                                           0.0),
                                                                       child: Image
                                                                           .asset(
                                                                         'assets/images/Apple.png',
                                                                         width:
-                                                                            32.0,
+                                                                            24.0,
                                                                         height:
-                                                                            32.0,
+                                                                            24.0,
                                                                         fit: BoxFit
                                                                             .cover,
                                                                       ),
@@ -2560,18 +2564,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             child: Container(
                                               width: double.infinity,
                                               decoration: BoxDecoration(
-                                                color: Color(0x10FFFFFF),
+                                                color: Color(0xFFFFFFFF).withOpacity(0.06),
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                border: Border.all(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
+                                                    BorderRadius.circular(8.0),
+                                                
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        12.0, 16.0, 12.0, 16.0),
+                                                    16.0, 16.0, 16.0, 16.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -2937,7 +2938,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        10.0),
+                                                                        8.0),
                                                           ),
                                                         ),
                                                       ),
