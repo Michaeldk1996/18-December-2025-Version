@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '/components/confirm_reset_password/confirm_reset_password_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -55,7 +57,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Color(0xFF090B15),
         body: Stack(
           children: [
             Container(
@@ -63,12 +65,6 @@ class _LoginWidgetState extends State<LoginWidget> {
               height: double.infinity,
               decoration: BoxDecoration(
                 color: Color(0xFF090B15),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: Image.asset(
-                    'assets/images/Ellipse_21881.png',
-                  ).image,
-                ),
               ),
               child: Align(
                 alignment: AlignmentDirectional(0.0, 0.0),
@@ -160,7 +156,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           'Sign In',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.figtree(
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -194,6 +190,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -218,14 +215,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontWeight,
+                                  font: GoogleFonts.figtree(
+                                    fontWeight: FontWeight.w400,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontStyle,
                                   ),
+                                  fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .labelMedium
@@ -263,11 +259,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             filled: true,
-                            fillColor: Color(0x14919EAB),
+                            fillColor: Color(0xFFFFFFFF).withOpacity(0.04),
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.figtree(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -275,6 +271,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -305,6 +302,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -337,6 +335,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         .labelMedium
                                         .fontStyle,
                                   ),
+                                  fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .labelMedium
@@ -385,7 +384,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 _model.passwordVisibility
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: Color(0xFFAFAFAF),
                                 size: 24.0,
                               ),
                             ),
@@ -400,6 +399,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -423,6 +423,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   24.0, 0.0, 24.0, 16.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  log('onPressed');
                                   logFirebaseEvent(
                                       'LOGIN_PAGE_SIGN_IN_BTN_ON_TAP');
                                   logFirebaseEvent('Button_custom_action');
@@ -465,7 +466,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       24.0, 0.0, 24.0, 0.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: Color(0x48348AF7),
+                                  color: Color(0xFF348AF7).withOpacity(0.20),
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
@@ -634,7 +635,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
               ),
             ),
-            ClipRRect(
+           /*  ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset(
                 'assets/images/Ellipse_21880.png',
@@ -643,6 +644,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                 fit: BoxFit.cover,
               ),
             ),
+             Positioned(
+              bottom: 0,
+              right: 0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                  'assets/images/Ellipse_21881.png',
+                  width: 329.0,
+                  height: 329.0,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ), */
           ],
         ),
       ),

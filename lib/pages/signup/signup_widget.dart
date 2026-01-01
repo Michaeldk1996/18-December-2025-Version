@@ -62,20 +62,14 @@ class _SignupWidgetState extends State<SignupWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primary,
+        backgroundColor: Color(0xFF090B15),
         body: Stack(
           children: [
             Container(
               width: double.infinity,
               height: double.infinity,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: Image.asset(
-                    'assets/images/Ellipse_21881.png',
-                  ).image,
-                ),
+                color: Color(0xFF090B15),
               ),
               child: Form(
                 key: _model.formKey,
@@ -104,7 +98,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 .bodyMedium
                                 .override(
                                   font: GoogleFonts.figtree(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w700,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
@@ -163,13 +157,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                       child: Text(
                         'Sign Up',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.bold,
+                              font: GoogleFonts.figtree(
+                                fontWeight: FontWeight.w600,
                                 fontStyle: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              fontSize: 18.0,
+                              fontSize: 24.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
                               fontStyle: FlutterFlowTheme.of(context)
@@ -182,20 +176,19 @@ class _SignupWidgetState extends State<SignupWidget> {
                       alignment: AlignmentDirectional(-1.0, -1.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 8.0),
+                            EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 8.0),
                         child: Text(
                           'Username',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.figtree(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
+                                        fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.26,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -218,14 +211,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.26,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -233,17 +225,16 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                          hintText: 'Enter your username...',
+                          hintText: 'John Deo',
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
@@ -281,7 +272,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor: Color(0x14919EAB),
+                          fillColor: Color(0xFFFFFFFF).withOpacity(0.04),
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
@@ -322,7 +313,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
+                                    letterSpacing: 0.26,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -345,13 +336,12 @@ class _SignupWidgetState extends State<SignupWidget> {
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
@@ -360,17 +350,16 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                          hintText: 'Enter your email...',
+                          hintText: 'example@gmail.com',
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
@@ -408,7 +397,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor: Color(0x14919EAB),
+                          fillColor: Color(0xFFFFFFFF).withOpacity(0.04),
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
@@ -442,14 +431,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.figtree(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.26,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -472,14 +460,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.26,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -487,17 +474,16 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                          hintText: 'Enter your password...',
+                          hintText: '********',
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
@@ -535,7 +521,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor: Color(0x14919EAB),
+                          fillColor: Color(0xFFFFFFFF).withOpacity(0.04),
                           suffixIcon: InkWell(
                             onTap: () => safeSetState(
                               () => _model.passwordVisibility =
@@ -546,7 +532,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                               _model.passwordVisibility
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: Color(0xFFAFAFAF),
                               size: 24.0,
                             ),
                           ),
@@ -582,14 +568,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.figtree(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.26,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -612,14 +597,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.26,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -627,18 +611,17 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                          hintText: 'Enter your password...',
+                          hintText: '********',
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w400,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.26,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -675,8 +658,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor: Color(0x14919EAB),
-                          suffixIcon: InkWell(
+                          fillColor: Color(0xFFFFFFFF).withOpacity(0.04),
+                           suffixIcon: InkWell(
                             onTap: () => safeSetState(
                               () => _model.confirmpasswordVisibility =
                                   !_model.confirmpasswordVisibility,
@@ -686,7 +669,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                               _model.confirmpasswordVisibility
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: Color(0xFFAFAFAF),
                               size: 24.0,
                             ),
                           ),
@@ -797,20 +780,18 @@ class _SignupWidgetState extends State<SignupWidget> {
                               24.0, 0.0, 24.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: Color(0x50348AF7),
+                          color: Color(0x348AF7).withOpacity(0.20),
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     font: GoogleFonts.figtree(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
+                                      fontWeight: FontWeight.w500,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontStyle,
                                     ),
                                     color: Colors.white,
                                     fontSize: 14.0,
-                                    letterSpacing: 0.0,
+                                    letterSpacing: 0.6,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
@@ -891,14 +872,14 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           .bodyMedium
                                           .override(
                                             font: GoogleFonts.inter(
-                                              fontWeight: FontWeight.normal,
+                                              fontWeight: FontWeight.w400,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                            fontSize: 14.0,
+                                              color: Color(0xFFB9BDC7),
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
                                             fontStyle:
@@ -909,11 +890,15 @@ class _SignupWidgetState extends State<SignupWidget> {
                                     ),
                                     TextSpan(
                                       text: 'terms and conditions',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline,
+                                      style: GoogleFonts.figtree(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                            color: Color(0xFF007AFF),
+                                            decoration: TextDecoration.underline,
+                                            fontSize: 14.0,
+                                            height: 1.5,
                                       ),
                                     ),
                                     TextSpan(
@@ -922,11 +907,15 @@ class _SignupWidgetState extends State<SignupWidget> {
                                     ),
                                     TextSpan(
                                       text: 'privacy policy.',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline,
+                                      style: GoogleFonts.figtree(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                            color: Color(0xFF007AFF),
+                                            decoration: TextDecoration.underline,
+                                            fontSize: 14.0,
+                                            height: 1.5,
                                       ),
                                       mouseCursor: SystemMouseCursors.click,
                                       recognizer: TapGestureRecognizer()
@@ -1050,9 +1039,22 @@ class _SignupWidgetState extends State<SignupWidget> {
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset(
                 'assets/images/Ellipse_21880.png',
-                width: 395.28,
+                width: 329.0,
                 height: 329.0,
                 fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                  'assets/images/Ellipse_21881.png',
+                  width: 329.0,
+                  height: 329.0,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ],

@@ -105,9 +105,10 @@ class _HomeWidgetState extends State<HomeWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: Color(0xFF090B15),
         body: SafeArea(
-          top: true,
+          bottom: true,
+          top: false,
           child: Stack(
             children: [
               ClipRRect(
@@ -120,7 +121,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 55.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 55.0),
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
@@ -289,7 +290,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           child: Container(
                                             width: double.infinity,
                                             decoration: BoxDecoration(
-                                              color: Color(0x10FFFFFF),
+                                              color: Color(0xFFFFFFFF).withOpacity(0.06),
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
                                               border: Border.all(
@@ -1645,69 +1646,54 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            'Staking Strategy',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .figtree(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: Color(
-                                                                      0xFFB9BDC7),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                          ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Text(
-                                                                'Aggressive',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      font: GoogleFonts
-                                                                          .inter(
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontStyle,
-                                                                      ),
-                                                                      color: Color(
-                                                                          0xFFF0F1F3),
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      letterSpacing:
-                                                                          0.0,
+                                                      InkWell(
+                                                        onTap:
+                                                                          () async {
+                                                                        logFirebaseEvent(
+                                                                            'HOME_PAGE_Icon_24yelfb8_ON_TAP');
+                                                                        logFirebaseEvent(
+                                                                            'Icon_alert_dialog');
+                                                                        await showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (dialogContext) {
+                                                                            return Dialog(
+                                                                              elevation:
+                                                                                  0,
+                                                                              insetPadding:
+                                                                                  EdgeInsets.zero,
+                                                                              backgroundColor:
+                                                                                  Colors.transparent,
+                                                                              alignment:
+                                                                                  AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                              child:
+                                                                                  GestureDetector(
+                                                                                onTap: () {
+                                                                                  FocusScope.of(dialogContext).unfocus();
+                                                                                  FocusManager.instance.primaryFocus?.unfocus();
+                                                                                },
+                                                                                child: StakingSystemWidget(),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      },
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              'Staking Strategy',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .figtree(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
@@ -1716,77 +1702,126 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
-                                                              ),
-                                                              Builder(
-                                                                builder:
-                                                                    (context) =>
-                                                                        Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          8.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      logFirebaseEvent(
-                                                                          'HOME_PAGE_Icon_24yelfb8_ON_TAP');
-                                                                      logFirebaseEvent(
-                                                                          'Icon_alert_dialog');
-                                                                      await showDialog(
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (dialogContext) {
-                                                                          return Dialog(
-                                                                            elevation:
-                                                                                0,
-                                                                            insetPadding:
-                                                                                EdgeInsets.zero,
-                                                                            backgroundColor:
-                                                                                Colors.transparent,
-                                                                            alignment:
-                                                                                AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                            child:
-                                                                                GestureDetector(
-                                                                              onTap: () {
-                                                                                FocusScope.of(dialogContext).unfocus();
-                                                                                FocusManager.instance.primaryFocus?.unfocus();
-                                                                              },
-                                                                              child: StakingSystemWidget(),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    },
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .arrow_forward_ios,
-                                                                      color: Color(
-                                                                          0xFFD0D3D9),
-                                                                      size:
-                                                                          18.0,
+                                                                    color: Color(
+                                                                        0xFFB9BDC7),
+                                                                    fontSize:
+                                                                        14.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Text(
+                                                                  'Aggressive',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .inter(
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
+                                                                        ),
+                                                                        color: Color(
+                                                                            0xFFF0F1F3),
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500,
+                                                                        fontStyle: FlutterFlowTheme.of(
+                                                                                context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                ),
+                                                                Builder(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            8.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child:
+                                                                        InkWell(
+                                                                      splashColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      focusColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      hoverColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onTap:
+                                                                          () async {
+                                                                        logFirebaseEvent(
+                                                                            'HOME_PAGE_Icon_24yelfb8_ON_TAP');
+                                                                        logFirebaseEvent(
+                                                                            'Icon_alert_dialog');
+                                                                        await showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (dialogContext) {
+                                                                            return Dialog(
+                                                                              elevation:
+                                                                                  0,
+                                                                              insetPadding:
+                                                                                  EdgeInsets.zero,
+                                                                              backgroundColor:
+                                                                                  Colors.transparent,
+                                                                              alignment:
+                                                                                  AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                              child:
+                                                                                  GestureDetector(
+                                                                                onTap: () {
+                                                                                  FocusScope.of(dialogContext).unfocus();
+                                                                                  FocusManager.instance.primaryFocus?.unfocus();
+                                                                                },
+                                                                                child: StakingSystemWidget(),
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      },
+                                                                      child: Icon(
+                                                                        Icons
+                                                                            .arrow_forward_ios,
+                                                                        color: Color(
+                                                                            0xFFD0D3D9),
+                                                                        size:
+                                                                            18.0,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -3123,15 +3158,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       .bodyMedium
                                       .override(
                                         font: GoogleFonts.figtree(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
+                                          fontWeight:FontWeight.w400,
                                           fontStyle:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
+                                        fontSize: 14.0,
                                         color: Color(0xFFD0D3D9),
                                         letterSpacing: 0.0,
                                         fontWeight: FlutterFlowTheme.of(context)
@@ -3187,7 +3220,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 text: 'Insights',
                                                 options: FFButtonOptions(
                                                   width: double.infinity,
-                                                  height: 40.0,
+                                                  height: 32.0,
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           57.0, 0.0, 57.0, 0.0),
@@ -3196,8 +3229,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: _model.tipMode == 1
-                                                      ? Color(0x33348AF7)
-                                                      : Color(0x1AFFFFFF),
+                                                      ? Color(0xFF348AF7).withOpacity(0.2)
+                                                      : Color(0xFFFFFFFF).withOpacity(0.1),
                                                   textStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .titleSmall
@@ -3205,29 +3238,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         font:
                                                             GoogleFonts.figtree(
                                                           fontWeight:
-                                                              FontWeight.normal,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontStyle,
-                                                        ),
+                                                              FontWeight.w400,
                                                         color: Colors.white,
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontStyle,
+                                                        ),
                                                       ),
                                                   elevation: 0.0,
                                                   borderSide: BorderSide(
                                                     color: _model.tipMode == 1
                                                         ? Color(0xFF348AF7)
-                                                        : Color(0x32FFFFFF),
+                                                        : Color(0xFFFFFFFF).withOpacity(0.2),
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -3272,7 +3293,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 text: 'Bets',
                                                 options: FFButtonOptions(
                                                   width: double.infinity,
-                                                  height: 40.0,
+                                                  height: 32.0,
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           57.0, 0.0, 57.0, 0.0),
@@ -3281,8 +3302,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: _model.tipMode == 2
-                                                      ? Color(0x33348AF7)
-                                                      : Color(0x1AFFFFFF),
+                                                      ? Color(0xFF348AF7).withOpacity(0.2)
+                                                      : Color(0xFFFFFFFF).withOpacity(0.1),
                                                   textStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .titleSmall
@@ -3576,7 +3597,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         Container(
                                           width: double.infinity,
                                           height: double.infinity,
-                                          decoration: BoxDecoration(),
+                                          margin: EdgeInsets.only(top: 24.0, bottom: 16.0),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFFFFFFF).withOpacity(0.05),
+                                            borderRadius: BorderRadius.circular(8.0),
+                                          ),
                                           child: Stack(
                                             children: [
                                               if (((valueOrDefault(

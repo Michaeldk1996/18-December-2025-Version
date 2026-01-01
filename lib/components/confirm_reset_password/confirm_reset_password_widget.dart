@@ -188,7 +188,7 @@ class _ConfirmResetPasswordWidgetState
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       filled: true,
-                      fillColor: Color(0x12FFFFFF),
+                      fillColor: Color(0xFFFFFFFF).withOpacity(0.04),
                       contentPadding:
                           EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
                     ),

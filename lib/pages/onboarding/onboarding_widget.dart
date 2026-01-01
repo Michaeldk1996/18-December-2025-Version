@@ -50,7 +50,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor:  Color(0xFF090B15),
         body: Stack(
           alignment: AlignmentDirectional(0.0, 1.0),
           children: [
@@ -180,11 +180,6 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   fontSize: 28.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
                                                 ),
                                           ),
                                           Padding(
@@ -200,7 +195,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   .override(
                                                     font: GoogleFonts.figtree(
                                                       fontWeight:
-                                                          FontWeight.normal,
+                                                          FontWeight.w400,
                                                       fontStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -210,13 +205,6 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     color: Color(0xFFB9BDC7),
                                                     fontSize: 14.0,
                                                     letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
                                                   ),
                                             ),
                                           ),
@@ -572,13 +560,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           EdgeInsetsDirectional.fromSTEB(12.0, 6.0, 12.0, 6.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0x46348AF7),
+                      color: Color(0x46348AF7).withOpacity(0.20),
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 font: GoogleFonts.figtree(
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
+                                  fontWeight: FontWeight.w500,
                                   fontStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
@@ -586,12 +572,6 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                 color: Colors.white,
                                 fontSize: 14.0,
                                 letterSpacing: 1.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontStyle,
                               ),
                       elevation: 20.0,
                       borderSide: BorderSide(
@@ -617,6 +597,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               ),
                               color: Color(0xFF858D9D),
                               letterSpacing: 0.0,
+                              fontSize: 14.0,
                               fontWeight: FontWeight.w500,
                               fontStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -634,10 +615,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               ),
                               color: Color(0xFF007AFF),
                               letterSpacing: 0.0,
+                              fontSize: 14.0,
                               fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
                             ),
                         mouseCursor: SystemMouseCursors.click,
                         recognizer: TapGestureRecognizer()
