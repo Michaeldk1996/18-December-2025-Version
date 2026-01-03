@@ -39,6 +39,7 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   // bool? _verify;
+  bool askStg = false;
   late HomeModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -127,59 +128,62 @@ class _HomeWidgetState extends State<HomeWidget> {
                     child: Text(
                       'Risk Management',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        font: GoogleFonts.inter(
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                        color: hint ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryBackground,
+                        fontSize: 20.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                    ),
+                  ),
+                ),
+                if (hint)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center, 
+                    children: [
+                      SizedBox(height: 25),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 14.0),
+                        child: Text(
+                          'Build your staking plan',
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w600,
                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                             ),
                             color: hint ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryBackground,
-                            fontSize: 20.0,
+                            fontSize: 14.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
                             fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                           ),
-                    ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                        child: Text(
+                          'Add your bankroll and select a staking system to continue.',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            font: GoogleFonts.inter(
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                            ),
+                            color: hint ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryBackground,
+                            fontSize: 14.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 35),
+                    ]
                   ),
-                ),
-                if (hint)
-                  Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    SizedBox(height: 25),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 14.0),
-                      child: Text(
-                        'Build your staking plan',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                              color: hint ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryBackground,
-                              fontSize: 14.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                            ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-                      child: Text(
-                        'Add your bankroll and select a staking system to continue.',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                              ),
-                              color: hint ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryBackground,
-                              fontSize: 14.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                            ),
-                      ),
-                    ),
-                    SizedBox(height: 35),
-                  ]),
                 InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -875,8 +879,20 @@ class _HomeWidgetState extends State<HomeWidget> {
     debugPrint('inja ${packageInfo.version}');
   }
 
-  void askStakingStrategy() {
-    showModalBottomSheet(isScrollControlled: false, backgroundColor: FlutterFlowTheme.of(context).secondaryBackground, enableDrag: false, context: context, builder: (context) => Container(color: FlutterFlowTheme.of(context).secondaryBackground, child: riskManagment(hint: true)));
+  void askStakingStrategy()async{
+    if (askStg) return;
+    askStg = true;
+    await Future.delayed(Duration(milliseconds: 600));
+    showModalBottomSheet(
+      isScrollControlled: false, 
+      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground, 
+      enableDrag: false, 
+      context: context, 
+      builder: (context) => Container(
+        color: FlutterFlowTheme.of(context).secondaryBackground, 
+        child: riskManagment(hint: true)
+      )
+    );
   }
 
   @override
@@ -889,16 +905,13 @@ class _HomeWidgetState extends State<HomeWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('HOME_PAGE_Home_ON_INIT_STATE');
 
-      if ((currentUserDocument?.stakingStrategy.isEmpty ?? true) || (valueOrDefault(currentUserDocument?.bankroll, '') == '')) {
-        askStakingStrategy();
-      }
-      if (valueOrDefault(currentUserDocument?.bankroll, '') == '') {
-        logFirebaseEvent('Home_backend_call');
+      // if (valueOrDefault(currentUserDocument?.bankroll, '') == '') {
+      //   logFirebaseEvent('Home_backend_call');
 
-        await currentUserReference!.update(createUsersRecordData(
-          bankroll: '0',
-        ));
-      }
+      //   await currentUserReference!.update(createUsersRecordData(
+      //     bankroll: '0',
+      //   ));
+      // }
       logFirebaseEvent('Home_firestore_query');
       _model.userList = await queryUsersRecordOnce();
       logFirebaseEvent('Home_update_app_state');
@@ -948,6 +961,9 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
+    if ((currentUserDocument?.stakingStrategy.isEmpty ?? true) || (valueOrDefault(currentUserDocument?.bankroll, '') == '')) {
+      askStakingStrategy();
+    }
 
     return GestureDetector(
       onTap: () {
@@ -2194,7 +2210,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               onTap: () async {
                                                 logFirebaseEvent('HOME_PAGE_Icon_h3pxq1c5_ON_TAP');
                                                 logFirebaseEvent('Icon_navigate_to');
-
+                                                await authManager.signOut();
                                                 context.goNamed(LoginWidget.routeName);
                                               },
                                               child: Icon(
@@ -2727,7 +2743,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 onTap: () async {
                                                   logFirebaseEvent('HOME_PAGE_Icon_p2m6c1lq_ON_TAP');
                                                   logFirebaseEvent('Icon_navigate_to');
-
+                                                  await authManager.signOut();
                                                   context.goNamed(LoginWidget.routeName);
                                                 },
                                                 child: Icon(

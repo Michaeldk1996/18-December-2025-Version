@@ -854,12 +854,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         SnackBar(
                                           content: Text(
                                             'Mismatched Password',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
+                                            style: TextStyle(color: Colors.white),
                                           ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
+                                          duration: Duration(milliseconds: 4000),
                                           backgroundColor: Colors.black,
                                         ),
                                       );

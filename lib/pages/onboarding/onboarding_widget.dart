@@ -11,7 +11,7 @@ export 'onboarding_model.dart';
 class OnboardingWidget extends StatefulWidget {
   const OnboardingWidget({super.key});
 
-  static String   routeName = 'Onboarding';
+  static String routeName = 'Onboarding';
   static String routePath = '/onboarding';
 
   @override
@@ -83,27 +83,21 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 40.0),
                               child: PageView(
-                                controller: _model.pageViewController ??=
-                                    PageController(initialPage: 0),
+                                controller: _model.pageViewController ??= PageController(initialPage: 0),
                                 onPageChanged: (_) async {
-                                  logFirebaseEvent(
-                                      'ONBOARDING_PageView_md4dsljq_ON_WIDGET_S');
-                                  logFirebaseEvent(
-                                      'PageView_update_page_state');
-                                  _model.pageState =
-                                      _model.pageViewCurrentIndex;
+                                  logFirebaseEvent('ONBOARDING_PageView_md4dsljq_ON_WIDGET_S');
+                                  logFirebaseEvent('PageView_update_page_state');
+                                  _model.pageState = _model.pageViewCurrentIndex;
                                   safeSetState(() {});
                                 },
                                 scrollDirection: Axis.horizontal,
                                 children: [
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
+                                        borderRadius: BorderRadius.circular(8.0),
                                         child: Image.asset(
                                           'assets/images/Logo.png',
                                           width: 128.0,
@@ -116,86 +110,55 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         children: [
                                           Row(
                                             mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 'Configure',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                  ),
+                                                  fontSize: 20.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                ),
                                               ),
                                             ],
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    valueOrDefault<double>(
-                                                      MediaQuery.sizeOf(context)
-                                                                  .width <
-                                                              500.0
-                                                          ? 24.0
-                                                          : 100.0,
-                                                      0.0,
-                                                    ),
-                                                    24.0,
-                                                    valueOrDefault<double>(
-                                                      MediaQuery.sizeOf(context)
-                                                                  .width <
-                                                              500.0
-                                                          ? 24.0
-                                                          : 100.0,
-                                                      0.0,
-                                                    ),
-                                                    0.0),
+                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                              valueOrDefault<double>(
+                                                MediaQuery.sizeOf(context).width < 500.0
+                                                    ? 24.0
+                                                    : 100.0,
+                                                0.0,
+                                              ),
+                                              24.0,
+                                              valueOrDefault<double>(
+                                                MediaQuery.sizeOf(context)
+                                                            .width <
+                                                        500.0
+                                                    ? 24.0
+                                                    : 100.0,
+                                                0.0,
+                                              ),
+                                              0.0),
                                             child: Text(
                                               'Before getting started, we suggest entering your bankroll and selecting your preferred staking system in the profile section. This will allow the app to automatically calculate the optimal stake for each bet based on your personal bankroll.',
                                               textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                        lineHeight: 1.4,
-                                                      ),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                ),
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                lineHeight: 1.4,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -204,12 +167,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   ),
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
+                                        borderRadius: BorderRadius.circular(8.0),
                                         child: Image.asset(
                                           'assets/images/Logo.png',
                                           width: 128.0,
@@ -222,35 +183,20 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         children: [
                                           Row(
                                             mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 'Get Notified',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                  ),
+                                                  fontSize: 20.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -468,17 +414,16 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                logFirebaseEvent(
-                                    'ONBOARDING_PAGE_Text_c6gbhcvf_ON_TAP');
+                                logFirebaseEvent('ONBOARDING_PAGE_Text_c6gbhcvf_ON_TAP');
                                 logFirebaseEvent('Text_navigate_to');
 
+                                debugPrint('HERE fired too');
                                 context.pushNamed(
                                   HomeWidget.routeName,
                                   extra: <String, dynamic>{
                                     kTransitionInfoKey: TransitionInfo(
                                       hasTransition: true,
-                                      transitionType:
-                                          PageTransitionType.rightToLeft,
+                                      transitionType: PageTransitionType.rightToLeft,
                                       duration: Duration(milliseconds: 200),
                                     ),
                                   },

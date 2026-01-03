@@ -89,6 +89,7 @@ double calculateBetPrice(
   String stakingStrategy
   // bool baseMethod,
 ) {
+  if (stakingStrategy.trim().isEmpty) return 0;
   if (stakingStrategy == 'Conservative'){
     double result = double.parse(bankroll) * double.parse(reliability) / 100.00;
     return result;
