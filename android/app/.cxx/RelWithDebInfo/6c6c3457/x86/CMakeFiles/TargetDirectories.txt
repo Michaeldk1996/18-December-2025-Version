@@ -1,0 +1,2 @@
+/Users/imac/Documents/sourcetree/fluttter_projects/18-December-2025-Version/android/app/.cxx/RelWithDebInfo/6c6c3457/x86/CMakeFiles/edit_cache.dir
+/Users/imac/Documents/sourcetree/fluttter_projects/18-December-2025-Version/android/app/.cxx/RelWithDebInfo/6c6c3457/x86/CMakeFiles/rebuild_cache.dir

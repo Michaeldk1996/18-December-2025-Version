@@ -23,12 +23,18 @@ class TipModel extends FlutterFlowModel<TipWidget> {
   FocusNode? minimumoddFocusNode;
   TextEditingController? minimumoddTextController;
   String? Function(BuildContext, String?)? reliabilityTextControllerValidator;
+  // State field(s) for content widget.
+  FocusNode? contentFocusNode;
+  TextEditingController? contentTextController;
+  String? Function(BuildContext, String?)? contentTextControllerValidator;
   bool isDataUploading_uploadData = false;
   FFUploadedFile uploadedLocalFile_uploadData = FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl_uploadData = '';
 
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<CommunicationRecord>? posts;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<CommunicationRecord>? messages;
 
   @override
   void initState(BuildContext context) {}
@@ -43,5 +49,8 @@ class TipModel extends FlutterFlowModel<TipWidget> {
 
     minimumoddFocusNode?.dispose();
     minimumoddTextController?.dispose();
+
+    contentFocusNode?.dispose();
+    contentTextController?.dispose();
   }
 }

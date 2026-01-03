@@ -125,7 +125,7 @@ class _LogoutPopUpWidgetState extends State<LogoutPopUpWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         FFButtonWidget(
@@ -138,10 +138,7 @@ class _LogoutPopUpWidgetState extends State<LogoutPopUpWidget> {
                           text: 'Cancel',
                           options: FFButtonOptions(
                             height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                44.0, 0.0, 44.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
+                            width: MediaQuery.of(context).size.width / 2.7,
                             color: Color(0x15FFFFFF),
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
@@ -172,6 +169,7 @@ class _LogoutPopUpWidgetState extends State<LogoutPopUpWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
+                        SizedBox(width: 12),
                         FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
@@ -189,10 +187,7 @@ class _LogoutPopUpWidgetState extends State<LogoutPopUpWidget> {
                           text: 'Logout',
                           options: FFButtonOptions(
                             height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                44.0, 0.0, 44.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
+                            width: MediaQuery.of(context).size.width / 2.7,
                             color: Color(0x1FFB3748),
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall

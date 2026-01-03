@@ -19,7 +19,8 @@ class CreateCheckoutSessionCall {
     return ApiManager.instance.makeApiCall(
       callName: 'createCheckoutSession',
       apiUrl:
-          'https://us-central1-bspconsult-bcd6e.cloudfunctions.net/createCheckoutSession',
+      "https://createcheckoutsessionfunctionv2-lvpjem463a-uc.a.run.app",
+          // 'https://us-central1-bspconsult-bcd6e.cloudfunctions.net/createCheckoutSession',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',

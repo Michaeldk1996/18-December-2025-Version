@@ -48,7 +48,7 @@ class _ConfirmDeleteAccountDialogWidgetState
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
+        padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 22.0, 12.0),
         child: Container(
           width: double.infinity,
           constraints: BoxConstraints(
@@ -148,7 +148,7 @@ class _ConfirmDeleteAccountDialogWidgetState
                       EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(child: FFButtonWidget(
                         onPressed: () async {
@@ -160,10 +160,7 @@ class _ConfirmDeleteAccountDialogWidgetState
                         text: 'Cancel',
                         options: FFButtonOptions(
                           height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
+                          width: MediaQuery.of(context).size.width / 2.7,
                           color: Color(0x1DFFFFFF),
                           textStyle:
                           FlutterFlowTheme.of(context).bodyMedium.override(
@@ -234,10 +231,7 @@ class _ConfirmDeleteAccountDialogWidgetState
                         text: 'Delete',
                         options: FFButtonOptions(
                           height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
+                          width: MediaQuery.of(context).size.width / 2.7,
                           color: Color(0x38FB3748),
                           textStyle:
                           FlutterFlowTheme.of(context).bodyMedium.override(

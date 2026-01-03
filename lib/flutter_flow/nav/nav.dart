@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -18,6 +19,59 @@ export 'serialization_util.dart';
 const kTransitionInfoKey = '__transition_info__';
 
 GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
+
+class InitialRouteWidget extends StatelessWidget {
+  final AppStateNotifier appStateNotifier;
+
+  const InitialRouteWidget({
+    Key? key,
+    required this.appStateNotifier,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<bool>(
+      future: _checkOnboardingStatus(),
+      builder: (context, snapshot) {
+        // Show loading indicator while checking onboarding status
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                FlutterFlowTheme.of(context).primary,
+              ),
+            ),
+          );
+        }
+
+        // Get onboarding status (default to false if not set)
+        final onboardingCompleted = snapshot.data ?? false;
+
+        // Navigation logic:
+        // 1. If onboarding not completed -> show onboarding
+        // 2. If onboarding completed and not logged in -> show login
+        // 3. If onboarding completed and logged in -> show home
+        if (!onboardingCompleted) {
+          return OnboardingWidget();
+        } else if (appStateNotifier.loggedIn) {
+          return HomeWidget();
+        } else {
+          return LoginWidget();
+        }
+      },
+    );
+  }
+
+  Future<bool> _checkOnboardingStatus() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getBool('onboarding_completed') ?? false;
+    } catch (e) {
+      // If there's an error, default to false (show onboarding)
+      return false;
+    }
+  }
+}
 
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
@@ -83,8 +137,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomeWidget() : LoginWidget(),
+          builder: (context, _) => InitialRouteWidget(
+            appStateNotifier: appStateNotifier,
+          ),
+              // appStateNotifier.loggedIn ? HomeWidget() : LoginWidget(),
         ),
         FFRoute(
           name: OnboardingWidget.routeName,
