@@ -170,7 +170,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   ),
                         ),
                       ),
-                      Spacer(),
+                    SizedBox(height: 157,),
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),

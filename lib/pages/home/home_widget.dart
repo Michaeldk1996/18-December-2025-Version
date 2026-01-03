@@ -206,7 +206,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           image: bgBigImg,
                           fit: BoxFit.cover,
                         ),
-                        borderRadius: BorderRadius.circular(28.0),
+                        borderRadius: BorderRadius.circular(24.0),
                         border: Border.all(
                           color: Color(0x14EFF0F6),
                         ),
@@ -234,35 +234,74 @@ class _HomeWidgetState extends State<HomeWidget> {
                             ),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 16.0, 16.0, 8.0),
+                                  12.0, 16.0, 12.0, 8.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 10.0),
-                                    child: Text(
-                                      title1,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 10.0),
+                                        child: Text(
+                                          title1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
                                             font: GoogleFonts.figtree(
                                               fontWeight: FontWeight.w500,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                             ),
                                             fontSize: 20.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .fontStyle,
                                           ),
-                                    ),
+                                        ),
+                                      ),
+                                      if(title1 == "Advanced Program")
+                                       Container(
+                                         padding: EdgeInsets.all(6),
+                                         decoration: BoxDecoration(
+                                           color: Color(0xFF348AF7).withOpacity(0.20),
+                                           borderRadius: BorderRadius.circular(20),
+                                           border: Border.all(
+                                             color: Color(0xFF348AF7),
+                                             width: 1,
+                                           )
+                                         ),
+                                         child:     Text(
+                                           'Best Value',
+                                           style: FlutterFlowTheme.of(context)
+                                               .bodyMedium
+                                               .override(
+                                             font: GoogleFonts.figtree(
+                                               fontWeight: FontWeight.w600,
+                                               fontStyle: FlutterFlowTheme.of(context)
+                                                   .bodyMedium
+                                                   .fontStyle,
+                                             ),
+                                             color: Colors.white,
+                                             fontSize: 12.0,
+                                             letterSpacing: 0.0,
+                                             fontWeight: FontWeight.w400,
+                                             fontStyle: FlutterFlowTheme.of(context)
+                                                 .bodyMedium
+                                                 .fontStyle,
+                                           ),
+                                         ),
+                                       ),
+                                    ],
                                   ),
                                   Text(
                                     note,
@@ -404,8 +443,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       options: FFButtonOptions(
                                         width: double.infinity,
                                         height: 45.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
+                                        // padding: EdgeInsetsDirectional.fromSTEB(
+                                        //     16.0, 0.0, 16.0, 0.0),
                                         iconPadding:
                                             EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
@@ -855,6 +894,11 @@ class _HomeWidgetState extends State<HomeWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('HOME_PAGE_Home_ON_INIT_STATE');
+
+
+
+      print('currentUserDocument?.stakingStrategy --- ${currentUserDocument?.stakingStrategy}');
+      print('currentUserDocument?.bankroll --- ${currentUserDocument?.bankroll}');
 
       if ((currentUserDocument?.stakingStrategy.isEmpty ?? true) ||
           (valueOrDefault(currentUserDocument?.bankroll, '') == '')) {
@@ -5500,12 +5544,39 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   Colors.transparent,
                                               onTap: () async {
                                                 logFirebaseEvent(
-                                                    'HOME_PAGE_Icon_p2m6c1lq_ON_TAP');
+                                                    'HOME_PAGE_Icon_h3pxq1c5_ON_TAP');
                                                 logFirebaseEvent(
-                                                    'Icon_navigate_to');
-
-                                                context.goNamed(
-                                                    LoginWidget.routeName);
+                                                    'Icon_alert_dialog');
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                      EdgeInsets.zero,
+                                                      backgroundColor:
+                                                      Colors.transparent,
+                                                      alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0)
+                                                          .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          FocusScope.of(
+                                                              dialogContext)
+                                                              .unfocus();
+                                                          FocusManager.instance
+                                                              .primaryFocus
+                                                              ?.unfocus();
+                                                        },
+                                                        child:
+                                                        LogoutPopUpWidget(),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
                                               },
                                               child: Icon(
                                                 Icons.logout,

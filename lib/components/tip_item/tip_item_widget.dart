@@ -210,6 +210,7 @@ class _TipItemWidgetState extends State<TipItemWidget> {
     return Stack(
       children: [
         if (widget.type == 'Tip')
+
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
@@ -235,8 +236,8 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(0.0),
                           bottomRight: Radius.circular(0.0),
-                          topLeft: Radius.circular(6.0),
-                          topRight: Radius.circular(6.0),
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(8.0),
                         ),
                       ),
                       child: Column(
@@ -516,6 +517,7 @@ class _TipItemWidgetState extends State<TipItemWidget> {
             ),
           ),
         if (widget.type != 'Tip')
+
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
@@ -524,7 +526,7 @@ class _TipItemWidgetState extends State<TipItemWidget> {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryText,
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(
                   width: 1.0,
                 ),
@@ -539,8 +541,8 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0.0),
                         bottomRight: Radius.circular(0.0),
-                        topLeft: Radius.circular(6.0),
-                        topRight: Radius.circular(6.0),
+                        topLeft: Radius.circular(8.0),
+                        topRight: Radius.circular(8.0),
                       ),
                     ),
                     child: Column(
@@ -722,6 +724,7 @@ class _TipItemWidgetState extends State<TipItemWidget> {
               ),
             ),
           ),
+
       ],
     );
   }
