@@ -5995,7 +5995,84 @@ class _HomeWidgetState extends State<HomeWidget> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: buildBottomNavBar(context),
-                )
+                ),
+                // CENTER BUTTON - POSITIONED ABSOLUTELY ON TOP
+                Positioned(
+                  bottom: MediaQuery.of(context).padding.bottom + 2,
+                  left: MediaQuery.of(context).size.width / 2 - 37.5,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        print('🔥🔥🔥 CENTER BUTTON ACTUALLY TAPPED!');
+                        logFirebaseEvent('HOME_PAGE_Container_center_btn_ON_TAP');
+                        logFirebaseEvent('Container_page_view');
+                        await _model.pageViewController?.animateToPage(
+                          1,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                        logFirebaseEvent('Container_update_page_state');
+                        _model.pageNumber = 1;
+                        safeSetState(() {});
+                      },
+                      child: Container(
+                        width: 75,
+                         height: 120,
+                        color: Colors.transparent,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: 75,
+                              height: 75,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Container(
+                                  width: 64,
+                                  height: 64,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF007AFF),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: const Color(0xFF151C26),
+                                      width: 4,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Image.asset(
+                                      'assets/images/Icon.png',
+                                      width: 17,
+                                      height: 20,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            Text(
+                              'Setups',
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                font: GoogleFonts.inter(fontWeight: FontWeight.bold),
+                                color: _model.pageNumber == 1 
+                                    ? const Color(0xFF007AFF) 
+                                    : const Color(0xFFB9BDC7),
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
 
               ],
             ),
@@ -6058,24 +6135,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             ),
           ),
 
-          /// 🔥 CENTER BUTTON (NO OVERLAP NOW)
-          Positioned(
-            bottom: 15 + bottomPadding,
-            left: width / 2 - 37.5,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () async {
-                await _model.pageViewController?.animateToPage(
-                  1,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.ease,
-                );
-                _model.pageNumber = 1;
-                safeSetState(() {});
-              },
-              child: buildCenterButtonUI(),
-            ),
-          ),
+          /// 🔥 CENTER BUTTON - MOVED TO MAIN STACK (SEE LINE ~6000)
         ],
       ),
     );
@@ -6179,14 +6239,14 @@ class _HomeWidgetState extends State<HomeWidget> {
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 4),
         Text(
           'Setups',
           style: FlutterFlowTheme.of(context).bodyMedium.override(
             font: GoogleFonts.inter(fontWeight: FontWeight.bold),
             color:
             active ? const Color(0xFF007AFF) : const Color(0xFFB9BDC7),
-            fontSize: 16,
+            fontSize: 12,
           ),
         ),
       ],
