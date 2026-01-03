@@ -2968,258 +2968,603 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
                 Align(
                   alignment: AlignmentDirectional(0.0, 1.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Container(
+                  child: Container(
+                    height: 85.0,
+                    // color: Color(0xFF171B26),
+                    child: Stack(
+                      children: [
+                        Container(
                           width: double.infinity,
-                          height: 100.0,
+                          height: 80.0,
                           decoration: BoxDecoration(
-                            color: Colors.transparent,
+                            color: Color(0xFF171B26),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(0.0),
+                              bottomRight: Radius.circular(0.0),
+                              topLeft: Radius.circular(24.0),
+                              topRight: Radius.circular(24.0),
+                            ),
                           ),
-                          child: Stack(
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Material(
-                                    color: Colors.transparent,
-                                    elevation: 0.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(0.0),
-                                        bottomRight: Radius.circular(0.0),
-                                        topLeft: Radius.circular(20.0),
-                                        topRight: Radius.circular(20.0),
-                                      ),
-                                    ),
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 60.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF272A32),
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(0.0),
-                                          bottomRight: Radius.circular(0.0),
-                                          topLeft: Radius.circular(20.0),
-                                          topRight: Radius.circular(20.0),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 52.0, 0.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          logFirebaseEvent('HOME_PAGE_Column_4aemalkp_ON_TAP');
-                                          logFirebaseEvent('Column_update_page_state');
-                                          _model.pageNumber = 0;
-                                          safeSetState(() {});
-                                          logFirebaseEvent('Column_page_view');
-                                          await _model.pageViewController?.animateToPage(
-                                            0,
-                                            duration: Duration(milliseconds: 500),
-                                            curve: Curves.ease,
-                                          );
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 8.0, 0.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'HOME_PAGE_Column_0zqfbywe_ON_TAP');
+                                    logFirebaseEvent('Column_page_view');
+                                    await _model.pageViewController
+                                        ?.animateToPage(
+                                      0,
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.ease,
+                                    );
+                                    logFirebaseEvent(
+                                        'Column_update_page_state');
+                                    _model.pageNumber = 0;
+                                    safeSetState(() {});
+                                  },
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Builder(
+                                        builder: (context) {
+                                          if (_model.pageNumber == 0) {
+                                            return ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'assets/images/person1.png',
+                                                width: 18.0,
+                                                height: 19.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            );
+                                          } else {
+                                            return ClipRRect(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'assets/images/Person.png',
+                                                width: 18.0,
+                                                height: 19.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            );
+                                          }
                                         },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.user,
-                                                color: _model.pageNumber == 0 ? FlutterFlowTheme.of(context).primaryText : Color(0xFF6C767E),
-                                                size: 20.0,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Profile',
-                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                    ),
-                                                    color: _model.pageNumber == 0 ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryText,
-                                                    fontSize: 14.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent('HOME_PAGE_Column_8qzq1p1f_ON_TAP');
-                                        logFirebaseEvent('Column_update_page_state');
-                                        _model.pageNumber = 1;
-                                        safeSetState(() {});
-                                        logFirebaseEvent('Column_page_view');
-                                        await _model.pageViewController?.animateToPage(
-                                          1,
-                                          duration: Duration(milliseconds: 500),
-                                          curve: Curves.ease,
-                                        );
-                                      },
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Stack(
-                                            children: [
-                                              Align(
-                                                alignment: AlignmentDirectional(0.0, -1.0),
-                                                child: Container(
-                                                  width: 80.0,
-                                                  height: 80.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFF272A32),
-                                                    borderRadius: BorderRadius.only(
-                                                      bottomLeft: Radius.circular(0.0),
-                                                      bottomRight: Radius.circular(0.0),
-                                                      topLeft: Radius.circular(50.0),
-                                                      topRight: Radius.circular(50.0),
-                                                    ),
-                                                  ),
-                                                  alignment: AlignmentDirectional(0.0, -1.0),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(0.0, -1.0),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                                                  child: Container(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme.of(context).primary,
-                                                      borderRadius: BorderRadius.circular(50.0),
-                                                      border: Border.all(
-                                                        color: _model.pageNumber == 1 ? FlutterFlowTheme.of(context).primaryBackground : Color(0xC292A6E3),
-                                                        width: 3.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
-                                                      child: FlutterFlowIconButton(
-                                                        borderColor: Colors.transparent,
-                                                        borderRadius: 25.0,
-                                                        borderWidth: 1.0,
-                                                        buttonSize: 50.0,
-                                                        fillColor: Colors.transparent,
-                                                        icon: Icon(
-                                                          Icons.bar_chart,
-                                                          color: Colors.white,
-                                                          size: 30.0,
-                                                        ),
-                                                        onPressed: () async {
-                                                          logFirebaseEvent('HOME_PAGE_MiddleButton_ON_TAP');
-                                                          logFirebaseEvent('MiddleButton_update_page_state');
-                                                          _model.pageNumber = 1;
-                                                          safeSetState(() {});
-                                                          logFirebaseEvent('MiddleButton_page_view');
-                                                          await _model.pageViewController?.animateToPage(
-                                                            1,
-                                                            duration: Duration(milliseconds: 500),
-                                                            curve: Curves.ease,
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Profile',
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                            ),
+                                            color: _model.pageViewCurrentIndex == 0
+                                              ? Color(0xFF007AFF)
+                                              : Color(0xFFB9BDC7),
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 52.0, 0.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          logFirebaseEvent('HOME_PAGE_Column_7y5r4r36_ON_TAP');
-                                          logFirebaseEvent('Column_page_view');
-                                          await _model.pageViewController?.animateToPage(
-                                            2,
-                                            duration: Duration(milliseconds: 500),
-                                            curve: Curves.ease,
-                                          );
-                                          logFirebaseEvent('Column_update_page_state');
-                                          _model.pageNumber = 2;
-                                          safeSetState(() {});
-                                        },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
-                                              child: Icon(
-                                                Icons.subscriptions_outlined,
-                                                color: _model.pageNumber == 2 ? Colors.white : Color(0xFF6C767E),
-                                                size: 20.0,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Subscriptions',
-                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                    ),
-                                                    color: _model.pageNumber == 2 ? Colors.white : FlutterFlowTheme.of(context).secondaryText,
-                                                    fontSize: 14.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                  ),
-                                            ),
-                                          ],
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24.0, 0.0, 0.0, 0.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.person_outlined,
+                                        color: Color(0xFFB8BCC7),
+                                        size: 26.0,
+                                      ),
+                                      Text(
+                                        'Setups',
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                          ),
+                                          color: _model.pageViewCurrentIndex == 1
+                                            ? Color(0xFF007AFF)
+                                            : Color(0xFFB9BDC7),
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    logFirebaseEvent('HOME_PAGE_Column_9hu7coc3_ON_TAP');
+                                    logFirebaseEvent('Column_page_view');
+                                    await _model.pageViewController?.animateToPage(
+                                      2,
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.ease,
+                                    );
+                                    logFirebaseEvent(
+                                        'Column_update_page_state');
+                                    _model.pageNumber = 2;
+                                    safeSetState(() {});
+                                  },
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Builder(
+                                        builder: (context) {
+                                          if (_model.pageNumber == 2) {
+                                            return ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'assets/images/Program.png',
+                                                width: 18.0,
+                                                height: 19.7,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            );
+                                          } else {
+                                            return ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'assets/images/programIcon.png',
+                                                width: 18.0,
+                                                height: 19.7,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Programs',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.inter(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                color:
+                                                    _model.pageViewCurrentIndex ==
+                                                            2
+                                                        ? Color(0xFF007AFF)
+                                                        : Color(0xFFB9BDC7),
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        Align(
+                          alignment: AlignmentDirectional(0.0, -7.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              logFirebaseEvent(
+                                  'HOME_PAGE_Container_pqbmispo_ON_TAP');
+                              logFirebaseEvent('Container_page_view');
+                              await _model.pageViewController?.animateToPage(
+                                1,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease,
+                              );
+                              logFirebaseEvent('Container_update_page_state');
+                              _model.pageNumber = 1;
+                              safeSetState(() {});
+                            },
+                            child: Container(
+                              width: 75.0,
+                              height: 75.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Container(
+                                  width: 64.0,
+                                  height: 64.0,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF007AFF),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Color(0xFF151C26),
+                                      width: 4.0,
+                                    ),
+                                  ),
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    child: Image.asset(
+                                      'assets/images/Icon.png',
+                                      width: 17.0,
+                                      height: 20.0,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-0.33, -1.2),
+                          child: Container(
+                            width: 45.0,
+                            height: 27.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).secondaryBackground,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(0.0),
+                                bottomRight: Radius.circular(0.0),
+                                topLeft: Radius.circular(0.0),
+                                topRight: Radius.circular(0.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-0.35, -1.0),
+                          child: Container(
+                            width: 50.0,
+                            height: 25.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF171B26),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(0.0),
+                                bottomRight: Radius.circular(0.0),
+                                topLeft: Radius.circular(0.0),
+                                topRight: Radius.circular(70.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0.33, -1.2),
+                          child: Container(
+                            width: 45.0,
+                            height: 27.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).secondaryBackground,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(0.0),
+                                bottomRight: Radius.circular(0.0),
+                                topLeft: Radius.circular(0.0),
+                                topRight: Radius.circular(0.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0.35, -1.0),
+                          child: Container(
+                            width: 50.0,
+                            height: 25.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF171B26),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(0.0),
+                                bottomRight: Radius.circular(0.0),
+                                topLeft: Radius.circular(70.0),
+                                topRight: Radius.circular(0.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                )
+                // Align(
+                //   alignment: AlignmentDirectional(0.0, 1.0),
+                //   child: Row(
+                //     mainAxisSize: MainAxisSize.max,
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     children: [
+                //       Expanded(
+                //         child: Container(
+                //           width: double.infinity,
+                //           height: 100.0,
+                //           decoration: BoxDecoration(
+                //             color: Colors.transparent,
+                //           ),
+                //           child: Stack(
+                //             children: [
+                //               Column(
+                //                 mainAxisSize: MainAxisSize.max,
+                //                 mainAxisAlignment: MainAxisAlignment.end,
+                //                 children: [
+                //                   Material(
+                //                     color: Colors.transparent,
+                //                     elevation: 0.0,
+                //                     shape: RoundedRectangleBorder(
+                //                       borderRadius: BorderRadius.only(
+                //                         bottomLeft: Radius.circular(0.0),
+                //                         bottomRight: Radius.circular(0.0),
+                //                         topLeft: Radius.circular(20.0),
+                //                         topRight: Radius.circular(20.0),
+                //                       ),
+                //                     ),
+                //                     child: Container(
+                //                       width: double.infinity,
+                //                       height: 60.0,
+                //                       decoration: BoxDecoration(
+                //                         color: Color(0xFF272A32),
+                //                         borderRadius: BorderRadius.only(
+                //                           bottomLeft: Radius.circular(0.0),
+                //                           bottomRight: Radius.circular(0.0),
+                //                           topLeft: Radius.circular(20.0),
+                //                           topRight: Radius.circular(20.0),
+                //                         ),
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //               Row(
+                //                 mainAxisSize: MainAxisSize.max,
+                //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //                 crossAxisAlignment: CrossAxisAlignment.center,
+                //                 children: [
+                //                   Expanded(
+                //                     child: Padding(
+                //                       padding: EdgeInsetsDirectional.fromSTEB(0.0, 52.0, 0.0, 0.0),
+                //                       child: InkWell(
+                //                         splashColor: Colors.transparent,
+                //                         focusColor: Colors.transparent,
+                //                         hoverColor: Colors.transparent,
+                //                         highlightColor: Colors.transparent,
+                //                         onTap: () async {
+                //                           logFirebaseEvent('HOME_PAGE_Column_4aemalkp_ON_TAP');
+                //                           logFirebaseEvent('Column_update_page_state');
+                //                           _model.pageNumber = 0;
+                //                           safeSetState(() {});
+                //                           logFirebaseEvent('Column_page_view');
+                //                           await _model.pageViewController?.animateToPage(
+                //                             0,
+                //                             duration: Duration(milliseconds: 500),
+                //                             curve: Curves.ease,
+                //                           );
+                //                         },
+                //                         child: Column(
+                //                           mainAxisSize: MainAxisSize.min,
+                //                           mainAxisAlignment: MainAxisAlignment.center,
+                //                           children: [
+                //                             Padding(
+                //                               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                //                               child: FaIcon(
+                //                                 FontAwesomeIcons.user,
+                //                                 color: _model.pageNumber == 0 ? FlutterFlowTheme.of(context).primaryText : Color(0xFF6C767E),
+                //                                 size: 20.0,
+                //                               ),
+                //                             ),
+                //                             Text(
+                //                               'Profile',
+                //                               style: FlutterFlowTheme.of(context).bodyMedium.override(
+                //                                     font: GoogleFonts.inter(
+                //                                       fontWeight: FontWeight.w500,
+                //                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                //                                     ),
+                //                                     color: _model.pageNumber == 0 ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).secondaryText,
+                //                                     fontSize: 14.0,
+                //                                     letterSpacing: 0.0,
+                //                                     fontWeight: FontWeight.w500,
+                //                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                //                                   ),
+                //                             ),
+                //                           ],
+                //                         ),
+                //                       ),
+                //                     ),
+                //                   ),
+                //                   Expanded(
+                //                     child: InkWell(
+                //                       splashColor: Colors.transparent,
+                //                       focusColor: Colors.transparent,
+                //                       hoverColor: Colors.transparent,
+                //                       highlightColor: Colors.transparent,
+                //                       onTap: () async {
+                //                         logFirebaseEvent('HOME_PAGE_Column_8qzq1p1f_ON_TAP');
+                //                         logFirebaseEvent('Column_update_page_state');
+                //                         _model.pageNumber = 1;
+                //                         safeSetState(() {});
+                //                         logFirebaseEvent('Column_page_view');
+                //                         await _model.pageViewController?.animateToPage(
+                //                           1,
+                //                           duration: Duration(milliseconds: 500),
+                //                           curve: Curves.ease,
+                //                         );
+                //                       },
+                //                       child: Column(
+                //                         mainAxisSize: MainAxisSize.min,
+                //                         mainAxisAlignment: MainAxisAlignment.start,
+                //                         children: [
+                //                           Stack(
+                //                             children: [
+                //                               Align(
+                //                                 alignment: AlignmentDirectional(0.0, -1.0),
+                //                                 child: Container(
+                //                                   width: 80.0,
+                //                                   height: 80.0,
+                //                                   decoration: BoxDecoration(
+                //                                     color: Color(0xFF272A32),
+                //                                     borderRadius: BorderRadius.only(
+                //                                       bottomLeft: Radius.circular(0.0),
+                //                                       bottomRight: Radius.circular(0.0),
+                //                                       topLeft: Radius.circular(50.0),
+                //                                       topRight: Radius.circular(50.0),
+                //                                     ),
+                //                                   ),
+                //                                   alignment: AlignmentDirectional(0.0, -1.0),
+                //                                 ),
+                //                               ),
+                //                               Align(
+                //                                 alignment: AlignmentDirectional(0.0, -1.0),
+                //                                 child: Padding(
+                //                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                //                                   child: Container(
+                //                                     width: 50.0,
+                //                                     height: 50.0,
+                //                                     decoration: BoxDecoration(
+                //                                       color: FlutterFlowTheme.of(context).primary,
+                //                                       borderRadius: BorderRadius.circular(50.0),
+                //                                       border: Border.all(
+                //                                         color: _model.pageNumber == 1 ? FlutterFlowTheme.of(context).primaryBackground : Color(0xC292A6E3),
+                //                                         width: 3.0,
+                //                                       ),
+                //                                     ),
+                //                                     child: Padding(
+                //                                       padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                //                                       child: FlutterFlowIconButton(
+                //                                         borderColor: Colors.transparent,
+                //                                         borderRadius: 25.0,
+                //                                         borderWidth: 1.0,
+                //                                         buttonSize: 50.0,
+                //                                         fillColor: Colors.transparent,
+                //                                         icon: Icon(
+                //                                           Icons.bar_chart,
+                //                                           color: Colors.white,
+                //                                           size: 30.0,
+                //                                         ),
+                //                                         onPressed: () async {
+                //                                           logFirebaseEvent('HOME_PAGE_MiddleButton_ON_TAP');
+                //                                           logFirebaseEvent('MiddleButton_update_page_state');
+                //                                           _model.pageNumber = 1;
+                //                                           safeSetState(() {});
+                //                                           logFirebaseEvent('MiddleButton_page_view');
+                //                                           await _model.pageViewController?.animateToPage(
+                //                                             1,
+                //                                             duration: Duration(milliseconds: 500),
+                //                                             curve: Curves.ease,
+                //                                           );
+                //                                         },
+                //                                       ),
+                //                                     ),
+                //                                   ),
+                //                                 ),
+                //                               ),
+                //                             ],
+                //                           ),
+                //                         ],
+                //                       ),
+                //                     ),
+                //                   ),
+                //                   Expanded(
+                //                     child: Padding(
+                //                       padding: EdgeInsetsDirectional.fromSTEB(0.0, 52.0, 0.0, 0.0),
+                //                       child: InkWell(
+                //                         splashColor: Colors.transparent,
+                //                         focusColor: Colors.transparent,
+                //                         hoverColor: Colors.transparent,
+                //                         highlightColor: Colors.transparent,
+                //                         onTap: () async {
+                //                           logFirebaseEvent('HOME_PAGE_Column_7y5r4r36_ON_TAP');
+                //                           logFirebaseEvent('Column_page_view');
+                //                           await _model.pageViewController?.animateToPage(
+                //                             2,
+                //                             duration: Duration(milliseconds: 500),
+                //                             curve: Curves.ease,
+                //                           );
+                //                           logFirebaseEvent('Column_update_page_state');
+                //                           _model.pageNumber = 2;
+                //                           safeSetState(() {});
+                //                         },
+                //                         child: Column(
+                //                           mainAxisSize: MainAxisSize.min,
+                //                           mainAxisAlignment: MainAxisAlignment.center,
+                //                           children: [
+                //                             Padding(
+                //                               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                //                               child: Icon(
+                //                                 Icons.subscriptions_outlined,
+                //                                 color: _model.pageNumber == 2 ? Colors.white : Color(0xFF6C767E),
+                //                                 size: 20.0,
+                //                               ),
+                //                             ),
+                //                             Text(
+                //                               'Subscriptions',
+                //                               style: FlutterFlowTheme.of(context).bodyMedium.override(
+                //                                     font: GoogleFonts.inter(
+                //                                       fontWeight: FontWeight.w500,
+                //                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                //                                     ),
+                //                                     color: _model.pageNumber == 2 ? Colors.white : FlutterFlowTheme.of(context).secondaryText,
+                //                                     fontSize: 14.0,
+                //                                     letterSpacing: 0.0,
+                //                                     fontWeight: FontWeight.w500,
+                //                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                //                                   ),
+                //                             ),
+                //                           ],
+                //                         ),
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
