@@ -116,7 +116,7 @@ class _GroupSelectorWidgetState extends State<GroupSelectorWidget> {
                     thickness: 1.0,
                     color: FlutterFlowTheme.of(context).primaryBackground,
                   ),
-                  item('Exp-Insights'),
+                  item('Exp_Insights'),
                 ],
               ),
             ),

@@ -1,5 +1,4 @@
-import 'package:b_s_p_consult/widgets/textformfield.dart';
-import 'package:flutter/services.dart';
+import 'package:b_s_p_consult/widgets/consts.dart';
 
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
@@ -35,6 +34,66 @@ class _EditTipWidgetState extends State<EditTipWidget> {
   late EditTipModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void chooseImage()async{
+    logFirebaseEvent('EDIT_TIP_PAGE_Row_4kte9y4e_ON_TAP');
+    logFirebaseEvent('Row_upload_media_to_firebase');
+    final selectedMedia =
+        await selectMediaWithSourceBottomSheet(
+      context: context,
+      allowPhoto: true,
+    );
+    if (selectedMedia != null &&
+        selectedMedia.every((m) =>
+            validateFileFormat(m.storagePath, context))) {
+      safeSetState(() =>
+          _model.isDataUploading_uploadDataSk7 = true);
+      var selectedUploadedFiles = <FFUploadedFile>[];
+
+      var downloadUrls = <String>[];
+      try {
+        selectedUploadedFiles = selectedMedia
+            .map((m) => FFUploadedFile(
+                  name: m.storagePath.split('/').last,
+                  bytes: m.bytes,
+                  height: m.dimensions?.height,
+                  width: m.dimensions?.width,
+                  blurHash: m.blurHash,
+                ))
+            .toList();
+
+        downloadUrls = (await Future.wait(
+          selectedMedia.map(
+            (m) async =>
+                await uploadData(m.storagePath, m.bytes),
+          ),
+        ))
+            .where((u) => u != null)
+            .map((u) => u!)
+            .toList();
+      } finally {
+        _model.isDataUploading_uploadDataSk7 = false;
+      }
+      if (selectedUploadedFiles.length ==
+              selectedMedia.length &&
+          downloadUrls.length == selectedMedia.length) {
+        safeSetState(() {
+          _model.uploadedLocalFile_uploadDataSk7 =
+              selectedUploadedFiles.first;
+          _model.uploadedFileUrl_uploadDataSk7 =
+              downloadUrls.first;
+        });
+      } else {
+        safeSetState(() {});
+        return;
+      }
+    }
+
+    logFirebaseEvent('Row_update_page_state');
+    _model.uploadedImageUrl =
+        _model.uploadedFileUrl_uploadDataSk7;
+    safeSetState(() {});
+  }
 
   @override
   void initState() {
@@ -99,41 +158,49 @@ class _EditTipWidgetState extends State<EditTipWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
-        body: SafeArea(
-          top: true,
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-                    child: Container(
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                left: 0,
+                top: 0,
+                child: Image.asset('assets/images/bluecircle.png')
+              ),
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: Image.asset('assets/images/bluecircle2.png')
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 12,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                       width: double.infinity,
-                      height: 72.0,
+                      height: 72.0 + MediaQuery.of(context).padding.top,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primary,
+                        // color: FlutterFlowTheme.of(context).primary,
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                logFirebaseEvent(
-                                    'EDIT_TIP_PAGE_Icon_s6twuxbi_ON_TAP');
+                                logFirebaseEvent('EDIT_TIP_PAGE_Icon_s6twuxbi_ON_TAP');
                                 logFirebaseEvent('Icon_navigate_back');
                                 context.safePop();
                               },
@@ -167,181 +234,40 @@ class _EditTipWidgetState extends State<EditTipWidget> {
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 12.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.0,
-                      decoration: BoxDecoration(),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Title',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        'Title',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.inter(
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 0.0, 0.0),
-                              child: TextFormField(
-                                controller: _model.titleTextController,
-                                focusNode: _model.titleFocusNode,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                textAlign: TextAlign.end,
-                                validator: _model.titleTextControllerValidator
-                                    .asValidator(context),
-                              ),
-                            ),
-                          ),
-                        ],
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 12.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.0,
-                      decoration: BoxDecoration(),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Bankroll(%)',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 0.0, 0.0),
-                              child: CsTextFormField(
-                                controller: _model.reliabilityTextController,
-                                focusNode: _model.reliabilityFocusNode,
-                                numberOnly: true,
-                              ),
-                            ),
-                          ),
-                        ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: TextFormField(
+                        controller: _model.titleTextController,
+                        focusNode: _model.titleFocusNode,
+                        autofocus: true,
+                        obscureText: false,
+                        decoration: context.textfieldDecoration('Enter Title'),
+                        style: context.textFieldStyle,
+                        textAlign: TextAlign.start,
+                        validator: _model.titleTextControllerValidator.asValidator(context),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 12.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.0,
-                      decoration: BoxDecoration(),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Minimum Odd',
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        'Group',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -351,358 +277,295 @@ class _EditTipWidgetState extends State<EditTipWidget> {
                               fontWeight: FontWeight.w500,
                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                             ),
+                      ),
+                    ),
+                    RadioGroup<String>(
+                      groupValue: _model.group,
+                      onChanged: (value) {
+                        setState(() {
+                          _model.group = value!;
+                        });
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(value: 'Insights', backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(43, 47, 56, 1))),
+                              Text('Insights', style: TextStyle(color: Colors.white)),
+                            ],
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                              child: CsTextFormField(
-                                controller: _model.minimumoddTextController,
-                                focusNode: _model.minimumoddFocusNode,
-                                numberOnly: true,
-                              ),
-                            ),
+                          Row(
+                            children: const [
+                              Radio(value: 'Bets', backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(43, 47, 56, 1))),
+                              Text('Bets', style: TextStyle(color: Colors.white)),
+                            ],
+                          ),
+                          Row(
+                            children: const [
+                              Radio(value: 'Exp_Insights', backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(43, 47, 56, 1))),
+                              Text('Exp_Insights', style: TextStyle(color: Colors.white)),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 24.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.0,
-                      decoration: BoxDecoration(),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          logFirebaseEvent('EDIT_TIP_PAGE_Row_4kte9y4e_ON_TAP');
-                          logFirebaseEvent('Row_upload_media_to_firebase');
-                          final selectedMedia =
-                              await selectMediaWithSourceBottomSheet(
-                            context: context,
-                            allowPhoto: true,
-                          );
-                          if (selectedMedia != null &&
-                              selectedMedia.every((m) =>
-                                  validateFileFormat(m.storagePath, context))) {
-                            safeSetState(() =>
-                                _model.isDataUploading_uploadDataSk7 = true);
-                            var selectedUploadedFiles = <FFUploadedFile>[];
-
-                            var downloadUrls = <String>[];
-                            try {
-                              selectedUploadedFiles = selectedMedia
-                                  .map((m) => FFUploadedFile(
-                                        name: m.storagePath.split('/').last,
-                                        bytes: m.bytes,
-                                        height: m.dimensions?.height,
-                                        width: m.dimensions?.width,
-                                        blurHash: m.blurHash,
-                                      ))
-                                  .toList();
-
-                              downloadUrls = (await Future.wait(
-                                selectedMedia.map(
-                                  (m) async =>
-                                      await uploadData(m.storagePath, m.bytes),
-                                ),
-                              ))
-                                  .where((u) => u != null)
-                                  .map((u) => u!)
-                                  .toList();
-                            } finally {
-                              _model.isDataUploading_uploadDataSk7 = false;
-                            }
-                            if (selectedUploadedFiles.length ==
-                                    selectedMedia.length &&
-                                downloadUrls.length == selectedMedia.length) {
-                              safeSetState(() {
-                                _model.uploadedLocalFile_uploadDataSk7 =
-                                    selectedUploadedFiles.first;
-                                _model.uploadedFileUrl_uploadDataSk7 =
-                                    downloadUrls.first;
-                              });
-                            } else {
-                              safeSetState(() {});
-                              return;
-                            }
-                          }
-
-                          logFirebaseEvent('Row_update_page_state');
-                          _model.uploadedImageUrl =
-                              _model.uploadedFileUrl_uploadDataSk7;
-                          safeSetState(() {});
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Image',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        'Bankroll (%)',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.inter(
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                          ),
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: TextFormField(
+                        controller: _model.reliabilityTextController,
+                        focusNode: _model.reliabilityFocusNode,
+                        obscureText: false,
+                        decoration: context.textfieldDecoration('Enter Bankrol'),
+                        style: context.textFieldStyle,
+                        textAlign: TextAlign.start,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        validator: _model.reliabilityTextControllerValidator.asValidator(context),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        'Minimum Odd',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.inter(
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                          ),
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: TextFormField(
+                        controller: _model.minimumoddTextController,
+                        focusNode: _model.minimumoddFocusNode,
+                        obscureText: false,
+                        decoration: context.textfieldDecoration('Enter Bankrol'),
+                        style: context.textFieldStyle,
+                        textAlign: TextAlign.start,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        validator: _model.reliabilityTextControllerValidator.asValidator(context),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        'Image',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.inter(
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                          ),
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: chooseImage,
+                      child: Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.symmetric(horizontal: 12),
+                        height: MediaQuery.of(context).size.height *.20,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(255, 255, 255, 0.04),
+                          borderRadius: BorderRadius.circular(12)
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            spacing: 12,
+                            children: [
+                              if (_model.uploadedImageUrl.isNotEmpty && _model.uploadedImageUrl.trim() != "false") 
+                                Image.network(_model.uploadedImageUrl, fit: BoxFit.cover, width: double.infinity, height: MediaQuery.of(context).size.height *.20)
+                              else
+                                ...[
+                                  Image.asset('assets/images/upload.png'),
+                                  Text('Upload Image', style: FlutterFlowTheme.of(context).titleSmall.override(color: Colors.white38))
+                                ]
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(12),
+                      margin: EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: Setting.panelColor,
+                        borderRadius: BorderRadius.circular(12)
+                      ),
+                      child: Builder(
+                        builder: (context) {
+                          final analysis = FFAppState().analyses.toList();
+                      
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: 12,
+                            children: [
+                              Center(
+                                child: Text('ANALYSIS',
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
                                       fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                     ),
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                   ),
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: _model.uploadedImageUrl.isEmpty
-                                ? Container()
-                                : Image.network(
-                                    _model.uploadedImageUrl,
-                                    width: 40.0,
-                                    height: 40.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
-                    child: Text(
-                      'Analyses',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.inter(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                            fontSize: 16.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-                    child: Builder(
-                      builder: (context) {
-                        final analysis = FFAppState().analyses.toList();
-
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: analysis.length,
-                          itemBuilder: (context, analysisIndex) {
-                            final analysisItem = analysis[analysisIndex];
-                            return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
-                                      child: Text(
-                                        getJsonField(
-                                          analysisItem,
-                                          r'''$.title''',
-                                        ).toString(),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FontWeight.w500,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
-                                              fontSize: 16.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      logFirebaseEvent(
-                                          'EDIT_TIP_PAGE_Icon_m5kwqwlt_ON_TAP');
-                                      logFirebaseEvent('Icon_update_app_state');
-                                      FFAppState()
-                                          .removeFromAnalyses(analysisItem);
-                                      safeSetState(() {});
-                                    },
-                                    child: Icon(
-                                      Icons.delete_outlined,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 24.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        logFirebaseEvent(
-                            'EDIT_TIP_PAGE_ADD_AN_ANALYSIS_BTN_ON_TAP');
-                        logFirebaseEvent('Button_navigate_to');
-
-                        context.pushNamed(
-                          AnalysesWidget.routeName,
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.rightToLeft,
-                              duration: Duration(milliseconds: 300),
-                            ),
-                          },
-                        );
-                      },
-                      text: 'Add an analysis',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle: FlutterFlowTheme.of(context)
-                            .titleSmall
-                            .override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontStyle,
-                              ),
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .fontStyle,
-                            ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        logFirebaseEvent('EDIT_TIP_PAGE_SAVE_BTN_ON_TAP');
-                        logFirebaseEvent('Button_backend_call');
-
-                        await widget.tripData!.update({
-                          ...createCommunicationRecordData(
-                            title: _model.titleTextController.text,
-                            imageUrl: _model.uploadedImageUrl,
-                            reliability: double.tryParse(_model.reliabilityTextController.text),
-                            minimumodd: double.tryParse(_model.minimumoddTextController.text),
-                            date: getCurrentTimestamp,
-                          ),
-                          ...mapToFirestore(
-                            {
-                              'analyses': functions.convertJSONToStringList(
-                                  FFAppState().analyses.toList()),
-                            },
-                          ),
-                        });
-                        logFirebaseEvent('Button_update_app_state');
-                        FFAppState().analyses = [];
-                        safeSetState(() {});
-                        logFirebaseEvent('Button_navigate_back');
-                        context.safePop();
-                      },
-                      text: 'Save',
-                      options: FFButtonOptions(
-                        width: 100.0,
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
                                 ),
-                        elevation: 3.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(100.0),
+                              ),
+                              context.divider,
+                              ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: analysis.length,
+                                itemBuilder: (context, analysisIndex) {
+                                  final analysisItem = analysis[analysisIndex];
+                                  return Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                                            child: Text(
+                                              getJsonField(
+                                                analysisItem,
+                                                r'''$.title''',
+                                              ).toString(),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                ),
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            logFirebaseEvent('TIP_PAGE_Icon_netl5lvz_ON_TAP');
+                                            logFirebaseEvent('Icon_update_app_state');
+                                            FFAppState().removeFromAnalyses(analysisItem);
+                                            safeSetState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.delete_outlined,
+                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                            size: 24.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 35),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 22),
+                      width: double.infinity,
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          logFirebaseEvent('EDIT_TIP_PAGE_ADD_AN_ANALYSIS_BTN_ON_TAP');
+                          logFirebaseEvent('Button_navigate_to');
+                      
+                          context.pushNamed(
+                            AnalysesWidget.routeName,
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.rightToLeft,
+                                duration: Duration(milliseconds: 300),
+                              ),
+                            },
+                          );
+                        },
+                        text: '+ Add an analysis',
+                        options: context.greybuttonOptions()
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 22),
+                      width: double.infinity,
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          logFirebaseEvent('EDIT_TIP_PAGE_SAVE_BTN_ON_TAP');
+                          logFirebaseEvent('Button_backend_call');
+                      
+                          await widget.tripData!.update({
+                            ...createCommunicationRecordData(
+                              title: _model.titleTextController.text,
+                              imageUrl: _model.uploadedImageUrl,
+                              reliability: double.tryParse(_model.reliabilityTextController.text),
+                              minimumodd: double.tryParse(_model.minimumoddTextController.text),
+                              group: _model.group,
+                              date: getCurrentTimestamp,
+                            ),
+                            ...mapToFirestore(
+                              {
+                                'analyses': functions.convertJSONToStringList(
+                                    FFAppState().analyses.toList()),
+                              },
+                            ),
+                          });
+                          logFirebaseEvent('Button_update_app_state');
+                          FFAppState().analyses = [];
+                          safeSetState(() {});
+                          logFirebaseEvent('Button_navigate_back');
+                          context.safePop();
+                        },
+                        text: 'Save',
+                        options: context.buttonOptions
+                      ),
+                    ),
+                    SizedBox(height: 35)
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:b_s_p_consult/widgets/consts.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,7 +8,6 @@ import '../analyses/analyses_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 
 import '/backend/backend.dart';
-import '/components/group_selector/group_selector_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -40,6 +40,30 @@ class _MessageWidgetState extends State<MessageWidget> {
   String? attachmentURL;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void chooseImage()async{
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      enableDrag: false,
+      context: context,
+      builder: (context) {
+        return GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Padding(padding: MediaQuery.viewInsetsOf(context), child: selectImagePdf(context)),
+        );
+      },
+    ).then((value) {
+      if (value is String && value == 'image') {
+        pickImageAndUpload();
+      } else if (value is String && value == 'pdf') {
+        pickPdfAndUpload();
+      }
+    });
+  }
 
   void pickImageAndUpload() async {
     final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -134,578 +158,546 @@ class _MessageWidgetState extends State<MessageWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        body: SafeArea(
-          top: true,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        body: Center(
           child: Container(
             width: double.infinity,
             height: double.infinity,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 72.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primary,
-                      ),
-                      child: Row(
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  child: Image.asset('assets/images/bluecircle.png')
+                ),
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: Image.asset('assets/images/bluecircle2.png')
+                ),
+                Center(
+                  child: Container(
+                    constraints: BoxConstraints(
+                      maxWidth: 600
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 12,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                            child: InkWell(
+                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                            child: Container(
+                              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                              width: double.infinity,
+                              height: 72.0 + MediaQuery.of(context).padding.top,
+                              decoration: BoxDecoration(
+                                // color: FlutterFlowTheme.of(context).primary,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent('MESSAGE_PAGE_Icon_j7kum3u5_ON_TAP');
+                                        logFirebaseEvent('Icon_navigate_back');
+                                        context.safePop();
+                                      },
+                                      child: Icon(
+                                        Icons.arrow_back_sharp,
+                                        color: Colors.white,
+                                        size: 24.0,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.tipData != null ? 'Edit a message' : 'Add a message',
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              'Title',
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                font: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                ),
+                                fontSize: 16.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: TextFormField(
+                              controller: _model.titleTextController,
+                              focusNode: _model.titleFocusNode,
+                              autofocus: true,
+                              obscureText: false,
+                              decoration: context.textfieldDecoration('Enter Title'),
+                              style: context.textFieldStyle,
+                              textAlign: TextAlign.start,
+                              validator: _model.titleTextControllerValidator.asValidator(context),
+                            ),
+                          ),
+                          if (widget.tipData == null)
+                            InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                logFirebaseEvent('MESSAGE_PAGE_Icon_j7kum3u5_ON_TAP');
-                                logFirebaseEvent('Icon_navigate_back');
-                                context.safePop();
+                                // logFirebaseEvent('MESSAGE_PAGE_Container_bofb37vn_ON_TAP');
+                                // logFirebaseEvent('Container_bottom_sheet');
+                                // await showModalBottomSheet(
+                                //   isScrollControlled: true,
+                                //   backgroundColor: Colors.transparent,
+                                //   enableDrag: false,
+                                //   context: context,
+                                //   builder: (context) {
+                                //     return GestureDetector(
+                                //       onTap: () {
+                                //         FocusScope.of(context).unfocus();
+                                //         FocusManager.instance.primaryFocus?.unfocus();
+                                //       },
+                                //       child: Padding(
+                                //         padding: MediaQuery.viewInsetsOf(context),
+                                //         child: GroupSelectorWidget(
+                                //           currentGroup: _model.group,
+                                //         ),
+                                //       ),
+                                //     );
+                                //   },
+                                // ).then((value){
+                                //   safeSetState(() => _model.selectedGroup = value);
+                                // });
+                            
+                                // logFirebaseEvent('Container_update_page_state');
+                                // _model.group = _model.selectedGroup!;
+                                // safeSetState(() {});
                               },
-                              child: Icon(
-                                Icons.arrow_back_sharp,
-                                color: Colors.white,
-                                size: 24.0,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 12),
+                                width: double.infinity,
+                                height: 20.0,
+                                decoration: BoxDecoration(),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Group',
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                        ),
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                    ),
+                                    // Text(
+                                    //   _model.group,
+                                    //   style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                    //     font: GoogleFonts.inter(
+                                    //       fontWeight: FontWeight.w500,
+                                    //       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    //     ),
+                                    //     fontSize: 16.0,
+                                    //     letterSpacing: 0.0,
+                                    //     fontWeight: FontWeight.w500,
+                                    //     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          RadioGroup<String>(
+                            groupValue: _model.group,
+                            onChanged: (value) {
+                              setState(() {
+                                _model.group = value!;
+                              });
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  children: [
+                                    Radio(value: 'Insights', backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(43, 47, 56, 1))),
+                                    Text('Insights', style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
+                                Row(
+                                  children: const [
+                                    Radio(value: 'Bets', backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(43, 47, 56, 1))),
+                                    Text('Bets', style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
+                                if (widget.tipData == null)
+                                  Row(
+                                    children: const [
+                                      Radio(value: 'Both', backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(43, 47, 56, 1))),
+                                      Text('Both', style: TextStyle(color: Colors.white)),
+                                    ],
+                                  ),
+                                Row(
+                                  children: const [
+                                    Radio(value: 'Exp_Insights', backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(43, 47, 56, 1))),
+                                    Text('Exp_Insights', style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          if (widget.tipData == null)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: chooseImage,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 12),
+                                width: double.infinity,
+                                height: 50.0,
+                                decoration: BoxDecoration(),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Image',
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                        ),
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          GestureDetector(
+                            onTap: chooseImage,
+                            child: Container(
+                              width: double.infinity,
+                              margin: EdgeInsets.symmetric(horizontal: 12),
+                              height: MediaQuery.of(context).size.height *.20,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 255, 255, 0.04),
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  spacing: 12,
+                                  children: [
+                                    if (_pdf != null) 
+                                      Icon(Icons.picture_as_pdf, size: 32, color: Colors.white) 
+                                    else if (_image != null) 
+                                      Image.memory(_image!.readAsBytesSync(), fit: BoxFit.cover, width: double.infinity, height: MediaQuery.of(context).size.height *.20)
+                                    else
+                                      ...[
+                                        Image.asset('assets/images/upload.png'),
+                                        Text('Upload Image', style: FlutterFlowTheme.of(context).titleSmall.override(color: Colors.white38))
+                                      ]
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                          Text(
-                            widget.tipData != null ? 'Edit a message' : 'Add a message',
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  letterSpacing: 0.0,
+                          SizedBox(height: 9),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              'Message',
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                font: GoogleFonts.inter(
                                   fontWeight: FontWeight.w500,
                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                 ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 12.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.0,
-                      decoration: BoxDecoration(),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Title',
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                  ),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                              child: TextFormField(
-                                controller: _model.titleTextController,
-                                focusNode: _model.titleFocusNode,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                      ),
-                                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                      ),
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                ),
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                      ),
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                    ),
-                                textAlign: TextAlign.end,
-                                validator: _model.titleTextControllerValidator.asValidator(context),
+                                fontSize: 16.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  if (widget.tipData == null)
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 24.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          logFirebaseEvent('MESSAGE_PAGE_Container_bofb37vn_ON_TAP');
-                          logFirebaseEvent('Container_bottom_sheet');
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            enableDrag: false,
-                            context: context,
-                            builder: (context) {
-                              return GestureDetector(
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                },
-                                child: Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: GroupSelectorWidget(
-                                    currentGroup: _model.group,
-                                  ),
-                                ),
-                              );
-                            },
-                          ).then((value) => safeSetState(() => _model.selectedGroup = value));
-
-                          logFirebaseEvent('Container_update_page_state');
-                          _model.group = _model.selectedGroup!;
-                          safeSetState(() {});
-
-                          safeSetState(() {});
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 50.0,
-                          decoration: BoxDecoration(),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Group',
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                      ),
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                    ),
-                              ),
-                              Text(
-                                _model.group,
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                      ),
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  if (widget.tipData == null)
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 24.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            enableDrag: false,
-                            context: context,
-                            builder: (context) {
-                              return GestureDetector(
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                },
-                                child: Padding(padding: MediaQuery.viewInsetsOf(context), child: selectImagePdf(context)),
-                              );
-                            },
-                          ).then((value) {
-                            if (value is String && value == 'image') {
-                              pickImageAndUpload();
-                            } else if (value is String && value == 'pdf') {
-                              pickPdfAndUpload();
-                            }
-                          });
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 50.0,
-                          decoration: BoxDecoration(),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Image',
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                      ),
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                    ),
-                              ),
-                              if (_pdf != null) Icon(Icons.picture_as_pdf, size: 32, color: Colors.white) else if (_image != null) Image.memory(_image!.readAsBytesSync(), height: 50)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
-                    child: Text(
-                      'Message',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.inter(
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: TextFormField(
+                              controller: _model.contentTextController,
+                              focusNode: _model.contentFocusNode,
+                              autofocus: false,
+                              obscureText: false,
+                              decoration: context.textfieldDecoration('Enter Description'),
+                              style: context.textFieldStyle,
+                              maxLines: 15,
+                              validator: _model.contentTextControllerValidator.asValidator(context),
                             ),
-                            fontSize: 16.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                           ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 24.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 200.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x14919EAB),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                              child: TextFormField(
-                                controller: _model.contentTextController,
-                                focusNode: _model.contentFocusNode,
-                                autofocus: false,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                      ),
-                                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                          fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                      ),
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                ),
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.inter(fontWeight: FontWeight.w500, fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle),
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                    ),
-                                maxLines: null,
-                                validator: _model.contentTextControllerValidator.asValidator(context),
-                              ),
+                          Container(
+                            padding: EdgeInsets.all(12),
+                            margin: EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              color: Setting.panelColor,
+                              borderRadius: BorderRadius.circular(12)
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-                    child: Builder(
-                      builder: (context) {
-                        final analysis = FFAppState().analyses.toList();
-
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: analysis.length,
-                          itemBuilder: (context, analysisIndex) {
-                            final analysisItem = analysis[analysisIndex];
-                            return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
-                                      child: Text(
-                                        getJsonField(
-                                          analysisItem,
-                                          r'''$.title''',
-                                        ).toString(),
+                            child: Builder(
+                              builder: (context) {
+                                final analysis = FFAppState().analyses.toList();
+                            
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  spacing: 12,
+                                  children: [
+                                    Center(
+                                      child: Text('ANALYSIS',
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FontWeight.w500,
-                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                              ),
-                                              fontSize: 16.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                            ),
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                          ),
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      logFirebaseEvent('TIP_PAGE_Icon_netl5lvz_ON_TAP');
-                                      logFirebaseEvent('Icon_update_app_state');
-                                      FFAppState().removeFromAnalyses(analysisItem);
-                                      safeSetState(() {});
-                                    },
-                                    child: Icon(
-                                      Icons.delete_outlined,
-                                      color: FlutterFlowTheme.of(context).secondaryText,
-                                      size: 24.0,
+                                    context.divider,
+                                    ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: analysis.length,
+                                      itemBuilder: (context, analysisIndex) {
+                                        final analysisItem = analysis[analysisIndex];
+                                        return Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                                                  child: Text(
+                                                    getJsonField(
+                                                      analysisItem,
+                                                      r'''$.title''',
+                                                    ).toString(),
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight: FontWeight.w500,
+                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                      ),
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor: Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent('TIP_PAGE_Icon_netl5lvz_ON_TAP');
+                                                  logFirebaseEvent('Icon_update_app_state');
+                                                  FFAppState().removeFromAnalyses(analysisItem);
+                                                  safeSetState(() {});
+                                                },
+                                                child: Icon(
+                                                  Icons.delete_outlined,
+                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                  size: 24.0,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        logFirebaseEvent('TIP_PAGE_ADD_AN_ANALYSIS_BTN_ON_TAP');
-                        logFirebaseEvent('Button_navigate_to');
-
-                        context.pushNamed(
-                          AnalysesWidget.routeName,
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.rightToLeft,
-                              duration: Duration(milliseconds: 300),
-                            ),
-                          },
-                        );
-                      },
-                      text: 'Add an analysis',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                              ),
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                            ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                    ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent('MESSAGE_PAGE_SEND_BTN_ON_TAP');
-                      if (widget.tipData == null) {
-                        if (_model.group == 'Both') {
-                          logFirebaseEvent('Button_backend_call');
-
-                          await CommunicationRecord.collection.doc().set({
-                            ...createCommunicationRecordData(
-                              title: _model.titleTextController.text,
-                              message: _model.contentTextController.text,
-                              date: getCurrentTimestamp,
-                              imageUrl: _image != null ? attachmentURL : null,
-                              pdfUrl: _pdf != null ? attachmentURL : null,
-                              type: 'Message',
-                              group: 'Insights',
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
+                                  ],
+                                );
                               },
                             ),
-                          });
-                          logFirebaseEvent('Button_backend_call');
-
-                          await CommunicationRecord.collection.doc().set({
-                            ...createCommunicationRecordData(
-                              title: _model.titleTextController.text,
-                              message: _model.contentTextController.text,
-                              date: getCurrentTimestamp,
-                              imageUrl: _image != null ? attachmentURL : null,
-                              pdfUrl: _pdf != null ? attachmentURL : null,
-                              type: 'Message',
-                              group: 'Bets',
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
-                              },
-                            ),
-                          });
-                        } else {
-                          logFirebaseEvent('Button_backend_call');
-
-                          await CommunicationRecord.collection.doc().set({
-                            ...createCommunicationRecordData(
-                              title: _model.titleTextController.text,
-                              message: _model.contentTextController.text,
-                              date: getCurrentTimestamp,
-                              imageUrl: _image != null ? attachmentURL : null,
-                              pdfUrl: _pdf != null ? attachmentURL : null,
-                              type: 'Message',
-                              group: _model.group,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
-                              },
-                            ),
-                          });
-                        }
-
-                        logFirebaseEvent('Button_firestore_query');
-                        _model.messages = await queryCommunicationRecordOnce(
-                          queryBuilder: (communicationRecord) => communicationRecord
-                              .where(
-                                'type',
-                                isEqualTo: 'Message',
-                              )
-                              .orderBy('date', descending: true),
-                        );
-                        if (_model.messages!.length > 15) {
-                          logFirebaseEvent('Button_backend_call');
-                          await _model.messages!.lastOrNull!.reference.delete();
-                        }
-                      } else {
-                        logFirebaseEvent('Button_backend_call');
-
-                        await widget.tipData!.update(createCommunicationRecordData(
-                          title: _model.titleTextController.text,
-                          message: _model.contentTextController.text,
-                          date: getCurrentTimestamp,
-                        ));
-                      }
-
-                      logFirebaseEvent('Button_navigate_back');
-                      context.safePop();
-
-                      safeSetState(() {});
-                    },
-                    text: widget.tipData != null ? 'Save' : 'Send',
-                    options: FFButtonOptions(
-                      width: 100.0,
-                      height: 40.0,
-                      padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                            font: GoogleFonts.inter(
-                              fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                            ),
-                            color: Colors.white,
-                            letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                           ),
-                      elevation: 3.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
+                          SizedBox(height: 35),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                logFirebaseEvent('TIP_PAGE_ADD_AN_ANALYSIS_BTN_ON_TAP');
+                                logFirebaseEvent('Button_navigate_to');
+                            
+                                context.pushNamed(
+                                  AnalysesWidget.routeName,
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.rightToLeft,
+                                      duration: Duration(milliseconds: 300),
+                                    ),
+                                  },
+                                );
+                              },
+                              text: '+ Add an analysis',
+                              options: context.greybuttonOptions(),
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                logFirebaseEvent('MESSAGE_PAGE_SEND_BTN_ON_TAP');
+                                if (widget.tipData == null) {
+                                  if (_model.group == 'Both') {
+                                    logFirebaseEvent('Button_backend_call');
+                            
+                                    await CommunicationRecord.collection.doc().set({
+                                      ...createCommunicationRecordData(
+                                        title: _model.titleTextController.text,
+                                        message: _model.contentTextController.text,
+                                        date: getCurrentTimestamp,
+                                        imageUrl: _image != null ? attachmentURL : null,
+                                        pdfUrl: _pdf != null ? attachmentURL : null,
+                                        type: 'Message',
+                                        group: 'Insights',
+                                      ),
+                                      ...mapToFirestore(
+                                        {
+                                          'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
+                                        },
+                                      ),
+                                    });
+                                    logFirebaseEvent('Button_backend_call');
+                            
+                                    await CommunicationRecord.collection.doc().set({
+                                      ...createCommunicationRecordData(
+                                        title: _model.titleTextController.text,
+                                        message: _model.contentTextController.text,
+                                        date: getCurrentTimestamp,
+                                        imageUrl: _image != null ? attachmentURL : null,
+                                        pdfUrl: _pdf != null ? attachmentURL : null,
+                                        type: 'Message',
+                                        group: 'Bets',
+                                      ),
+                                      ...mapToFirestore(
+                                        {
+                                          'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
+                                        },
+                                      ),
+                                    });
+                                  } else {
+                                    logFirebaseEvent('Button_backend_call');
+                            
+                                    await CommunicationRecord.collection.doc().set({
+                                      ...createCommunicationRecordData(
+                                        title: _model.titleTextController.text,
+                                        message: _model.contentTextController.text,
+                                        date: getCurrentTimestamp,
+                                        imageUrl: _image != null ? attachmentURL : null,
+                                        pdfUrl: _pdf != null ? attachmentURL : null,
+                                        type: 'Message',
+                                        group: _model.group,
+                                      ),
+                                      ...mapToFirestore(
+                                        {
+                                          'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
+                                        },
+                                      ),
+                                    });
+                                  }
+                            
+                                  logFirebaseEvent('Button_firestore_query');
+                                  _model.messages = await queryCommunicationRecordOnce(
+                                    queryBuilder: (communicationRecord) => communicationRecord
+                                        .where(
+                                          'type',
+                                          isEqualTo: 'Message',
+                                        )
+                                        .orderBy('date', descending: true),
+                                  );
+                                  if (_model.messages!.length > 15) {
+                                    logFirebaseEvent('Button_backend_call');
+                                    await _model.messages!.lastOrNull!.reference.delete();
+                                  }
+                                } else {
+                                  logFirebaseEvent('Button_backend_call');
+                            
+                                  await widget.tipData!.update(
+                                    {
+                                      ... createCommunicationRecordData(
+                                        title: _model.titleTextController.text,
+                                        message: _model.contentTextController.text,
+                                        group: _model.group,
+                                        date: getCurrentTimestamp,                                      
+                                      ),
+                                      'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
+                                    }
+                                  );
+                                }
+                            
+                                logFirebaseEvent('Button_navigate_back');
+                                context.safePop();
+                            
+                                safeSetState(() {});
+                              },
+                              text: widget.tipData != null ? 'Save' : 'Send',
+                              options: context.buttonOptions
+                            ),
+                          ),
+                          SizedBox(height: 50)
+                        ],
                       ),
-                      borderRadius: BorderRadius.circular(100.0),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

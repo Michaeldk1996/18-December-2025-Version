@@ -205,7 +205,7 @@ Stream<List<T>> queryCollection<T>(
       .map(
         (d) => safeGet(
           () => recordBuilder(d),
-          (e) => print('Error serializing doc ${d.reference.path}:\n$e'),
+          (e) => print('Error serializing doc1 ${d.reference.path}:\n$e'),
         ),
       )
       .where((d) => d != null)
@@ -229,7 +229,7 @@ Future<List<T>> queryCollectionOnce<T>(
       .map(
         (d) => safeGet(
           () => recordBuilder(d),
-          (e) => print('Error serializing doc ${d.reference.path}:\n$e'),
+          (e) => print('Error serializing doc2 ${collection} ${d.reference.path}:\n$e'),
         ),
       )
       .where((d) => d != null)
@@ -294,7 +294,7 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
       .map(
         (d) => safeGet(
           () => recordBuilder(d),
-          (e) => print('Error serializing doc ${d.reference.path}:\n$e'),
+          (e) => print('Error serializing doc3 ${d.reference.path}:\n$e'),
         ),
       )
       .where((d) => d != null)
