@@ -210,10 +210,21 @@ extension BuildContextExtension on BuildContext{
     fontStyle: FlutterFlowTheme.of(this).bodyMedium.fontStyle,
   );
 
-  Future<dynamic> showAsModal(Widget child)async{
+  TextStyle get passtextFieldStyle => FlutterFlowTheme.of(this).bodyMedium.override(
+    font: GoogleFonts.roboto(
+      fontWeight: FontWeight.w500,
+      fontStyle: FlutterFlowTheme.of(this).bodyMedium.fontStyle,
+    ),
+    fontSize: 16.0,
+    letterSpacing: 0.0,
+    fontWeight: FontWeight.w500,
+    fontStyle: FlutterFlowTheme.of(this).bodyMedium.fontStyle,
+  );
+
+  Future<dynamic> showAsModal(Widget child, {bool dismissible = true})async{
     return await showDialog(
       context: this,
-      barrierDismissible: true,
+      barrierDismissible: dismissible,
       builder: (context) {
         return Dialog(
           insetPadding: const EdgeInsets.symmetric(horizontal: 3),

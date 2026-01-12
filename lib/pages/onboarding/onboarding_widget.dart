@@ -168,52 +168,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Image.asset('assets/images/onboarding1.png', height: MediaQuery.of(context).size.width <= 600 ? MediaQuery.of(context).size.height * .4 : null),
-                                                  if (1==2)
-                                                  Container(
-                                                    width: double.infinity,
-                                                    height: 265,
-                                                    padding: EdgeInsets.symmetric(horizontal: 22),
-                                                    margin: EdgeInsets.symmetric(horizontal: 22),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(16),
-                                                      color: Color.fromRGBO(16, 17, 23, 1)
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      children: [
-                                                        SizedBox(height: 32),
-                                                        Image.asset('assets/images/risk1.png'),
-                                                        SizedBox(height: 22),
-                                                        Text('Build your staking plan', style: TextStyle(color: FlutterFlowTheme.of(context).primaryText, fontSize: 16.6)),
-                                                        SizedBox(height: 12),
-                                                        Text('Add your bankroll and select a staking', style: TextStyle(color: FlutterFlowTheme.of(context).primaryText, fontSize: 13), textAlign: TextAlign.center),
-                                                        Text('system to continue.', style: TextStyle(color: FlutterFlowTheme.of(context).primaryText, fontSize: 13), textAlign: TextAlign.center),
-                                                        SizedBox(height: 22),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Text('Bankroll', style: TextStyle(color: FlutterFlowTheme.of(context).primaryText, fontSize: 13)),
-                                                            Text('0', style: TextStyle(color: FlutterFlowTheme.of(context).primaryText, fontSize: 13)),
-                                                          ],
-                                                        ),
-                                                        SizedBox(height: 12),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Text('Staking Strategy', style: TextStyle(color: FlutterFlowTheme.of(context).primaryText, fontSize: 13)),
-                                                            Text('Aggressive', style: TextStyle(color: FlutterFlowTheme.of(context).primaryText, fontSize: 13)),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 35),
+                                              SizedBox(height: MediaQuery.of(context).size.width <= 600 ? 0 : MediaQuery.of(context).size.height * .12),
+                                              Image.asset('assets/images/onboarding1.png', height: MediaQuery.of(context).size.width <= 600 ? MediaQuery.of(context).size.height * .4 : MediaQuery.of(context).size.height * .4),
+                                              SizedBox(height: MediaQuery.of(context).size.width <= 600 ? 35 : MediaQuery.of(context).size.height * .05),
                                               Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -286,7 +243,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Container(
-                                            padding: EdgeInsets.only(top: MediaQuery.of(context).size.width <= 600 ? 0 : MediaQuery.of(context).size.height * .15),
+                                            padding: EdgeInsets.only(top: MediaQuery.of(context).size.width <= 600 ? 0 : MediaQuery.of(context).size.height * .065),
                                             child: Image.asset('assets/images/onboarding2.png', height: MediaQuery.of(context).size.width <= 600 ? MediaQuery.of(context).size.height * .4 : null),
                                           ),
                                           Column(
@@ -365,10 +322,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Container(
-                                                // height: 345,
+                                                margin: EdgeInsets.only(top: MediaQuery.of(context).size.width <= 600 ? 0 : MediaQuery.of(context).size.height * .1),
                                                 child: Stack(
                                                   children: [
-                                                    Center(child: Image.asset('assets/images/onboarding3.png', height: MediaQuery.of(context).size.width <= 600 ? MediaQuery.of(context).size.height * .4 : null)),
+                                                    Center(
+                                                      child: Image.asset('assets/images/onboarding3.png', 
+                                                      height: MediaQuery.of(context).size.width <= 600 
+                                                        ? MediaQuery.of(context).size.height * .4 
+                                                        : MediaQuery.of(context).size.height * .45)
+                                                    ),
                                                     // Align(
                                                     //   alignment: Alignment.bottomCenter,
                                                     //   child: Container(
@@ -388,7 +350,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   ],
                                                 ),
                                               ),
-                                              SizedBox(height: 50),
+                                              SizedBox(height: MediaQuery.of(context).size.width <= 600 ? 50 : MediaQuery.of(context).size.height * .04),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment: MainAxisAlignment.center,

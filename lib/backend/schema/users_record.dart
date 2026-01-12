@@ -54,6 +54,7 @@ class UsersRecord extends FirestoreRecord {
   String? _membership;
   String get membership => _membership ?? '';
   bool hasMembership() => _membership != null;
+  void setMembership(String val) => _membership = val;
 
   // "billingAddress" field.
   String? _billingAddress;

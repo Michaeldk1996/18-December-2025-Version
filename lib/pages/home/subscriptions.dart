@@ -12,7 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../auth/firebase_auth/auth_util.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
-import '../login/login_widget.dart';
 
 class Subscriptions extends StatefulWidget {
   final HomeModel model;
@@ -224,7 +223,7 @@ class _SubscriptionsState extends State<Subscriptions> {
                         ),
                       ],
                     ),
-                    Text(title2, style: TextStyle(color: Color.fromRGBO(240, 241, 243, 1), fontSize: 14)),
+                    Text(title2, style: TextStyle(color: Color.fromRGBO(240, 241, 243, 1), fontSize: 13)),
                     Container(
                       margin: EdgeInsets.only(top: 6, bottom: 9),
                       width: double.infinity,
@@ -709,7 +708,7 @@ class _SubscriptionsState extends State<Subscriptions> {
                     title1: 'Advanced',
                     price: 597,
                     title2: 'Lock in pricing before the next platform update.',
-                    note: 'For bettors who want structured bets backed by game-changing data and access to the BSP Betting Model to consistently identify mispriced odds. From year two, maintain full access for €397 annually.',
+                    note: 'For bettors who want structured bets backed by game-changing data and access to the BSP Betting Model to consistently identify mispriced odds. From year two, maintain full access for just €397 annually.',
                     validFeatures: [
                       'Structured Bets',
                       'Detailed Bet Analysis',

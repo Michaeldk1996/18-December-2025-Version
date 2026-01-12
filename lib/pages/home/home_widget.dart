@@ -2,6 +2,7 @@ import 'package:b_s_p_consult/pages/home/upgrade_membership.dart';
 import 'package:b_s_p_consult/widgets/consts.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../auth/firebase_auth/app_version_service.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/action_selector/action_selector_widget.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'force_update_screen.dart';
 import 'home_model.dart';
 import 'profile_screen.dart';
 import 'subscriptions.dart';
@@ -516,7 +518,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               children: [
                 SizedBox(height: 12),
                 Container(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 9.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 9.0),
                   width: double.infinity,
                   decoration: BoxDecoration(color: hint ? FlutterFlowTheme.of(context).primary : null, borderRadius: BorderRadius.vertical(top: Radius.circular(19))),
                   child: Center(
@@ -809,7 +811,8 @@ class _HomeWidgetState extends State<HomeWidget> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: BoxDecoration(),
+      decoration: BoxDecoration(
+      ),
       child: StreamBuilder<List<CommunicationRecord>>(
         stream: queryCommunicationRecord(
           queryBuilder: (communicationRecord) => communicationRecord.where('group', isEqualTo: '$groupName').orderBy('date', descending: true),
@@ -1002,16 +1005,18 @@ class _HomeWidgetState extends State<HomeWidget> {
     );
   }
 
-  void checkUser() async {
-    // _verify = await FirebaseAuth.instance.currentUser?.emailVerified ?? false;
-    // if (mounted) setState(() {});
-    // PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  void checkAppVersion() async {
+    final updateResult = await AppVersionService.checkUpdate();
+    if (updateResult.force && updateResult.needUpdate){
+      context.showAsModal(ForceUpdateScreen(updateResult), dismissible: false);
+    }
   }
 
   void askStakingStrategy()async{
     if (askStg || !mounted) return;
     askStg = true;
     await Future.delayed(Duration(milliseconds: 900));
+
     if ((currentUserDocument?.stakingStrategy.isEmpty ?? true) || (valueOrDefault(currentUserDocument?.bankroll, '') == '')) {
       if (mounted) context.showAsModal(riskManagmentDialog());
     }
@@ -1058,13 +1063,14 @@ class _HomeWidgetState extends State<HomeWidget> {
       _model.userList = await queryUsersRecordOnce();
       logFirebaseEvent('Home_update_app_state');
       FFAppState().allUsers = _model.userList!.map((e) => e.reference).toList().toList().cast<DocumentReference>();
-      checkUser();
+      checkAppVersion();
       safeSetState(() {});
     });
   }
 
   @override
   void dispose() {
+    askStg = false;
     _model.dispose();
 
     super.dispose();

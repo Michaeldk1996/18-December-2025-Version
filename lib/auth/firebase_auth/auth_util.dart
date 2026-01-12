@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../flutter_flow/flutter_flow_util.dart';
 import '/backend/backend.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'firebase_auth_manager.dart';
@@ -50,12 +51,16 @@ final authenticatedUserStream = FirebaseAuth.instance
           ? Stream.value(null)
           : UsersRecord.getDocument(UsersRecord.collection.doc(uid))
               .handleError((_) {}),
-    )
-    .map((user) {
-  currentUserDocument = user;
+    ).map((user) {
+      currentUserDocument = user;
+  
+      if ((currentUserDocument?.expireDate == null) || (currentUserDocument!.expireDate! < getCurrentTimestamp)){
+        currentUserDocument!.setMembership('1');
+        debugPrint('HERE user expired');
+      }
 
-  return currentUserDocument;
-}).asBroadcastStream();
+       return currentUserDocument;
+    }).asBroadcastStream();
 
 class AuthUserStreamWidget extends StatelessWidget {
   const AuthUserStreamWidget({Key? key, required this.builder})

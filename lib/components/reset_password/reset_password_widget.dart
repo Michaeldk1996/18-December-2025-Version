@@ -68,7 +68,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                   SizedBox(height: 22),
                   Image.asset('assets/images/reset.png'),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     child: Text(
                       'Reset Password',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -153,6 +153,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 email: _model.emailTextController.text,
                                 context: context,
                               );
+                              if (mounted) Navigator.pop(context);
                             },
                             text: 'Confirm',
                             options: context.buttonOptions,

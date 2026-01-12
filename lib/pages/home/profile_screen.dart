@@ -540,7 +540,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            widget.riskManagment,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width < 500.0 ? 0 : 50),
+              child: widget.riskManagment
+            ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(
                   valueOrDefault<double>(

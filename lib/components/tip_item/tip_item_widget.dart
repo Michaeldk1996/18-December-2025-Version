@@ -511,7 +511,7 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                     if ((widget.imageUrl ?? '').isNotEmpty)
                       Container(
                         padding: EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 0.0),
-                        margin: EdgeInsets.only(bottom: 12),
+                        margin: EdgeInsets.only(bottom: 0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.network(
@@ -540,8 +540,8 @@ class _TipItemWidgetState extends State<TipItemWidget> {
                                   }),
                             ),
                           )),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 24.0),
+                    Container(
+                      padding: EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

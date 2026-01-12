@@ -602,6 +602,7 @@ class _TipWidgetState extends State<TipWidget> {
                         // ),
                         SizedBox(height: 35),
                         Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
                           width: double.infinity,
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -624,6 +625,7 @@ class _TipWidgetState extends State<TipWidget> {
                           ),
                         ),
                         Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
                           width: double.infinity,
                           child: FFButtonWidget(
                             onPressed: () async {

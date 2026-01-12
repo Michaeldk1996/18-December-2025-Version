@@ -203,7 +203,7 @@ class _UpgradeMembershipUIState extends State<UpgradeMembershipUI> {
                                     ],
                                   ),
                                   Text('Lock in current pricing before next update.', style: TextStyle(color: Colors.white, fontSize: 12)),
-                                  SizedBox(height: 12),
+                                  // SizedBox(height: 2),
                                   if (planSelected == 1)
                                     Container(
                                       width: double.infinity,
@@ -237,7 +237,7 @@ class _UpgradeMembershipUIState extends State<UpgradeMembershipUI> {
                                         options: context.goldbuttonOptions
                                       ),
                                     ),
-                                  SizedBox(height: 9)
+                                  // SizedBox(height: 9)
                                 ],
                               ),
                             ),

@@ -195,7 +195,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   ),
                                 ),
                               ),
-                              style: context.textFieldStyle,
+                              style: context.passtextFieldStyle,
                               validator: _model.passwordTextControllerValidator.asValidator(context),
                             ),
                           ),
