@@ -1,5 +1,4 @@
 import 'package:b_s_p_consult/auth/firebase_auth/app_version_service.dart';
-import 'package:b_s_p_consult/flutter_flow/flutter_flow_util.dart';
 import 'package:b_s_p_consult/widgets/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

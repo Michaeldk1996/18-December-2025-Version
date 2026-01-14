@@ -243,7 +243,7 @@ class _UpgradeMembershipUIState extends State<UpgradeMembershipUI> {
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 25),
-                              child: Text('Extra benefits with Advanced', style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold))
+                              child: Text('Extra benefits with ${planSelected == 1 ? 'Advanced' : 'Gold'}', style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold))
                             ),
                             if (planSelected == 1)
                               ...[
@@ -283,39 +283,42 @@ class _UpgradeMembershipUIState extends State<UpgradeMembershipUI> {
                               ]
                             else
                               ...[
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 19),
-                                  child: Row(
-                                    spacing: 9,
-                                    children: [
-                                      SizedBox(width: 3),
-                                      Image.asset('assets/images/goldcheck.png', height: 16, fit: BoxFit.cover,),
-                                      Text('Advanced Data Insights (BSP App)', style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold))
-                                    ],
-                                  )
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 19),
-                                  child: Row(
-                                    spacing: 9,
-                                    children: [
-                                      SizedBox(width: 3),
-                                      Image.asset('assets/images/goldcheck.png', height: 16, fit: BoxFit.cover,),
-                                      Text('BSP Tennis Betting Model', style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold))
-                                    ],
-                                  )
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 19),
-                                  child: Row(
-                                    spacing: 9,
-                                    children: [
-                                      SizedBox(width: 3),
-                                      Image.asset('assets/images/goldcheck.png', height: 16, fit: BoxFit.cover,),
-                                      Text('Essential Video Content', style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold))
-                                    ],
-                                  )
-                                ),
+                                if (userPlan == 8)
+                                  ...[
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 19),
+                                      child: Row(
+                                        spacing: 9,
+                                        children: [
+                                          SizedBox(width: 3),
+                                          Image.asset('assets/images/goldcheck.png', height: 16, fit: BoxFit.cover,),
+                                          Text('Advanced Data Insights (BSP App)', style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold))
+                                        ],
+                                      )
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 19),
+                                      child: Row(
+                                        spacing: 9,
+                                        children: [
+                                          SizedBox(width: 3),
+                                          Image.asset('assets/images/goldcheck.png', height: 16, fit: BoxFit.cover,),
+                                          Text('BSP Tennis Betting Model', style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold))
+                                        ],
+                                      )
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 19),
+                                      child: Row(
+                                        spacing: 9,
+                                        children: [
+                                          SizedBox(width: 3),
+                                          Image.asset('assets/images/goldcheck.png', height: 16, fit: BoxFit.cover,),
+                                          Text('Essential Video Content', style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold))
+                                        ],
+                                      )
+                                    ),
+                                  ],
                                 Container(
                                   padding: EdgeInsets.symmetric(horizontal: 19),
                                   child: Row(
