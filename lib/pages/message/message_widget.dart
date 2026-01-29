@@ -653,19 +653,19 @@ class _MessageWidgetState extends State<MessageWidget> {
                                     });
                                   }
                             
-                                  logFirebaseEvent('Button_firestore_query');
-                                  _model.messages = await queryCommunicationRecordOnce(
-                                    queryBuilder: (communicationRecord) => communicationRecord
-                                        .where(
-                                          'type',
-                                          isEqualTo: 'Message',
-                                        )
-                                        .orderBy('date', descending: true),
-                                  );
-                                  if (_model.messages!.length > 15) {
-                                    logFirebaseEvent('Button_backend_call');
-                                    await _model.messages!.lastOrNull!.reference.delete();
-                                  }
+                                  // logFirebaseEvent('Button_firestore_query');
+                                  // _model.messages = await queryCommunicationRecordOnce(
+                                  //   queryBuilder: (communicationRecord) => communicationRecord
+                                  //       .where(
+                                  //         'type',
+                                  //         isEqualTo: 'Message',
+                                  //       )
+                                  //       .orderBy('date', descending: true),
+                                  // );
+                                  // if (_model.messages!.length > 15) {
+                                  //   logFirebaseEvent('Button_backend_call');
+                                  //   await _model.messages!.lastOrNull!.reference.delete();
+                                  // }
                                 } else {
                                   logFirebaseEvent('Button_backend_call');
                             

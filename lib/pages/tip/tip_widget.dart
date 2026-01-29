@@ -629,7 +629,6 @@ class _TipWidgetState extends State<TipWidget> {
                           width: double.infinity,
                           child: FFButtonWidget(
                             onPressed: () async {
-                              debugPrint('INJA ${_model.minimumoddTextController.text}');
                               logFirebaseEvent('TIP_PAGE_SEND_BTN_ON_TAP');
                               if (_model.group == 'Both') {
                                 logFirebaseEvent('Button_backend_call');
@@ -695,23 +694,23 @@ class _TipWidgetState extends State<TipWidget> {
                               logFirebaseEvent('Button_update_app_state');
                               FFAppState().analyses = [];
                               safeSetState(() {});
-                              logFirebaseEvent('Button_firestore_query');
-                              _model.posts = await queryCommunicationRecordOnce(
-                                queryBuilder: (communicationRecord) => communicationRecord
-                                    .where(
-                                      'type',
-                                      isEqualTo: 'Tip',
-                                    )
-                                    .orderBy('date', descending: true),
-                              );
-                              if (_model.posts!.length > 15) {
-                                logFirebaseEvent('Button_backend_call');
-                                await _model.posts!.lastOrNull!.reference.delete();
-                              }
-                              logFirebaseEvent('Button_navigate_back');
+                              // logFirebaseEvent('Button_firestore_query');
+                              // _model.posts = await queryCommunicationRecordOnce(
+                              //   queryBuilder: (communicationRecord) => communicationRecord
+                              //       .where(
+                              //         'type',
+                              //         isEqualTo: 'Tip',
+                              //       )
+                              //       .orderBy('date', descending: true),
+                              // );
+                              // if (_model.posts!.length > 15) {
+                              //   logFirebaseEvent('Button_backend_call');
+                              //   await _model.posts!.lastOrNull!.reference.delete();
+                              // }
+                              // logFirebaseEvent('Button_navigate_back');
                               context.safePop();
                           
-                              safeSetState(() {});
+                              // safeSetState(() {});
                             },
                             text: 'Send',
                             options: context.buttonOptions
