@@ -125,6 +125,7 @@ class _ConfirmResetPasswordWidgetState
                             onPressed: () async {
                               logFirebaseEvent('RESET_PASSWORD_COMP_CONFIRM_BTN_ON_TAP');
                               logFirebaseEvent('Button_auth');
+                              logFirebaseCustomEvent('mobile_ResetPassword');
                               await authManager.resetPassword(
                                 email: currentUserEmail,
                                 context: context,

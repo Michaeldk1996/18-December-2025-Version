@@ -11,7 +11,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -653,16 +652,17 @@ class _MessageWidgetState extends State<MessageWidget> {
                                     });
                                   }
                             
-                                  // logFirebaseEvent('Button_firestore_query');
-                                  // _model.messages = await queryCommunicationRecordOnce(
-                                  //   queryBuilder: (communicationRecord) => communicationRecord
-                                  //       .where(
-                                  //         'type',
-                                  //         isEqualTo: 'Message',
-                                  //       )
-                                  //       .orderBy('date', descending: true),
-                                  // );
-                                  // if (_model.messages!.length > 15) {
+                                  logFirebaseEvent('Button_firestore_query');
+                                  _model.messages = await queryCommunicationRecordOnce(
+                                    queryBuilder: (communicationRecord) => communicationRecord
+                                        .where(
+                                          'type',
+                                          isEqualTo: 'Message',
+                                        )
+                                        .orderBy('date', descending: true),
+                                  );
+                                  // Asked Fri Apr 24 - 2026 -> to not remove messages at all 
+                                  // if (_model.messages!.length > 30) {
                                   //   logFirebaseEvent('Button_backend_call');
                                   //   await _model.messages!.lastOrNull!.reference.delete();
                                   // }

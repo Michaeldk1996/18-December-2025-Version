@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "b_s_p_consult",
-      "version": "2.6.7+35",
+      "version": "2.6.8+37",
       "dependencies": [
         "aligned_dialog",
         "auto_size_text",
@@ -197,6 +197,16 @@
         "json_annotation",
         "path",
         "yaml"
+      ]
+    },
+    {
+      "name": "google_fonts",
+      "version": "8.0.2",
+      "dependencies": [
+        "crypto",
+        "flutter",
+        "http",
+        "path_provider"
       ]
     },
     {
@@ -807,16 +817,6 @@
       ]
     },
     {
-      "name": "google_fonts",
-      "version": "6.1.0",
-      "dependencies": [
-        "crypto",
-        "flutter",
-        "http",
-        "path_provider"
-      ]
-    },
-    {
       "name": "go_router",
       "version": "12.1.3",
       "dependencies": [
@@ -1278,7 +1278,7 @@
     },
     {
       "name": "meta",
-      "version": "1.16.0",
+      "version": "1.17.0",
       "dependencies": []
     },
     {
@@ -1366,7 +1366,7 @@
     },
     {
       "name": "matcher",
-      "version": "0.12.17",
+      "version": "0.12.18",
       "dependencies": [
         "async",
         "meta",
@@ -1377,7 +1377,7 @@
     },
     {
       "name": "test_api",
-      "version": "0.7.6",
+      "version": "0.7.9",
       "dependencies": [
         "async",
         "boolean_selector",
@@ -1696,14 +1696,14 @@
     },
     {
       "name": "material_color_utilities",
-      "version": "0.11.1",
+      "version": "0.13.0",
       "dependencies": [
         "collection"
       ]
     },
     {
       "name": "characters",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "dependencies": []
     },
     {

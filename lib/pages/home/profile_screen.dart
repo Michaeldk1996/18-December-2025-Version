@@ -439,7 +439,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     logFirebaseEvent('HOME_RENEW_MY_SUBSCRIPTION_BTN_ON_TAP');
-                                    if ((int.tryParse(currentUserDocument?.membership ?? '0') ?? 0) >= 8) {
+                                    final lev = (int.tryParse(currentUserDocument?.membership ?? '0') ?? 0);
+                                    if (lev >= 8) {
+                                      if (lev == 8){
+                                        logFirebaseCustomEvent('mobile_SilverUpgrade');
+                                      }
+                                      else{
+                                        logFirebaseCustomEvent('mobile_AdvancedUpgrade');
+                                      }
                                       context.showAsModal(UpgradeMembershipUI(widget.model));
                                       return;
                                     }
@@ -791,6 +798,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       onTap: () async {
                                         logFirebaseEvent('HOME_PAGE_Row_mv41e30d_ON_TAP');
                                         logFirebaseEvent('Row_launch_u_r_l');
+                                        logFirebaseCustomEvent('mobile_Instagram');
                                         await launchURL('instagram://user?username=bspconsult');
                                       },
                                       child: Column(
@@ -837,6 +845,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       onTap: () async {
                                         logFirebaseEvent('HOME_PAGE_Row_l2skxv1m_ON_TAP');
                                         logFirebaseEvent('Row_launch_u_r_l');
+                                        logFirebaseCustomEvent('mobile_Snapchat');
                                         await launchURL('https://snapchat.com/t/SClUoxVp');
                                       },
                                       child: Column(
@@ -955,7 +964,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 onTap: () async {
                                   logFirebaseEvent('HOME_PAGE_Row_yl2k432c_ON_TAP');
                                   logFirebaseEvent('Row_navigate_to');
-            
+                                  logFirebaseCustomEvent('mobile_TermofService');
                                   context.pushNamed(TermsAndServiceWidget.routeName);
                                 },
                                 child: Row(
@@ -1002,7 +1011,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 onTap: () async {
                                   logFirebaseEvent('HOME_PAGE_Row_q128pquw_ON_TAP');
                                   logFirebaseEvent('Row_navigate_to');
-            
+                                  logFirebaseCustomEvent('mobile_PrivacyPolicy');
                                   context.pushNamed(PrivacypolicyWidget.routeName);
                                 },
                                 child: Row(

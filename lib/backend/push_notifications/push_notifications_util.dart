@@ -21,16 +21,39 @@ class UserTokenInfo {
   final String fcmToken;
 }
 
+Future<String?> _getTokenWithApnsRetry() async {
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
+  if (Platform.isIOS) {
+    await _messaging.requestPermission();
+    String? apnsToken;
+    for (int i = 0; i < 5; i++) {
+      apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+      if (apnsToken != null && apnsToken.isNotEmpty) break;
+      await Future.delayed(const Duration(seconds: 1));
+    }
+    if (apnsToken == null || apnsToken.isEmpty) {
+      return null;
+    }
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    await _messaging.subscribeToTopic('PublicTopic');
+    return fcmToken;
+  }
+
+  return FirebaseMessaging.instance.getToken();
+}
+
 Stream<UserTokenInfo> getFcmTokenStream(String userPath) =>
     Stream.value(!kIsWeb && (Platform.isIOS || Platform.isAndroid))
         .where((shouldGetToken) => shouldGetToken)
-        .asyncMap<String?>(
-            (_) => FirebaseMessaging.instance.requestPermission().then(
-                  (settings) => settings.authorizationStatus ==
-                          AuthorizationStatus.authorized
-                      ? FirebaseMessaging.instance.getToken()
-                      : null,
-                ))
+        .asyncMap<String?>((_) async {
+          final settings =
+              await FirebaseMessaging.instance.requestPermission();
+          if (settings.authorizationStatus !=
+              AuthorizationStatus.authorized) {
+            return null;
+          }
+          return _getTokenWithApnsRetry();
+        })
         .switchMap((fcmToken) => Stream.value(fcmToken)
             .merge(FirebaseMessaging.instance.onTokenRefresh))
         .where((fcmToken) => fcmToken != null && fcmToken.isNotEmpty)

@@ -91,6 +91,7 @@ class _ConfirmDeleteAccountDialogWidgetState
                   child: FFButtonWidget(
                     text: 'Delete', 
                     onPressed: ()async{
+                      await logFirebaseCustomEvent('mobile_DeleteAccount');
                       logFirebaseEvent('CONFIRM_DELETE_ACCOUNT_DIALOG_CONFIRM_BT');
                       var _shouldSetState = false;
                       logFirebaseEvent('Button_cloud_function');

@@ -80,6 +80,90 @@ class _TipWidgetState extends State<TipWidget> {
     );
   }
 
+  void _saveTip()async{
+    logFirebaseEvent('TIP_PAGE_SEND_BTN_ON_TAP');
+    if (_model.group == 'Both') {
+      logFirebaseEvent('Button_backend_call');
+
+      await CommunicationRecord.collection.doc().set({
+        ...createCommunicationRecordData(
+            title: _model.titleTextController.text,
+            group: 'Insights',
+            date: getCurrentTimestamp,
+            imageUrl: _model.uploadedFileUrl_uploadData,
+            reliability: (String oldValue) {
+              return double.parse(oldValue.replaceAll(',', '.'));
+            }(_model.reliabilityTextController.text),
+            type: 'Tip',
+            minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0),
+        ...mapToFirestore(
+          {
+            'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
+          },
+        ),
+      });
+      logFirebaseEvent('Button_backend_call');
+
+      await CommunicationRecord.collection.doc().set({
+        ...createCommunicationRecordData(
+            title: _model.titleTextController.text,
+            group: 'Bets',
+            date: getCurrentTimestamp,
+            imageUrl: _model.uploadedFileUrl_uploadData,
+            reliability: (String oldValue) {
+              return double.parse(oldValue.replaceAll(',', '.'));
+            }(_model.reliabilityTextController.text),
+            type: 'Tip',
+            minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0),
+        ...mapToFirestore(
+          {
+            'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
+          },
+        ),
+      });
+    } else {
+      logFirebaseEvent('Button_backend_call');
+
+      await CommunicationRecord.collection.doc().set({
+        ...createCommunicationRecordData(
+            title: _model.titleTextController.text,
+            group: _model.group,
+            date: getCurrentTimestamp,
+            imageUrl: _model.uploadedFileUrl_uploadData,
+            reliability: (String oldValue) {
+              return double.parse(oldValue.replaceAll(',', '.'));
+            }(_model.reliabilityTextController.text),
+            type: 'Tip',
+            minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0),
+        ...mapToFirestore(
+          {
+            'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
+          },
+        ),
+      });
+    }
+
+    logFirebaseEvent('Button_update_app_state');
+    FFAppState().analyses = [];
+    safeSetState(() {});
+    logFirebaseEvent('Button_firestore_query');
+    _model.posts = await queryCommunicationRecordOnce(
+      queryBuilder: (communicationRecord) => communicationRecord
+          .where(
+            'type',
+            isEqualTo: 'Tip',
+          )
+          .orderBy('date', descending: true),
+    );
+    // Asked Fri Apr 24 - 2026 -> to delete tips after 10 record
+    if (_model.posts!.length > 10) {
+      logFirebaseEvent('Button_backend_call');
+      await _model.posts!.lastOrNull!.reference.delete();
+    }
+    logFirebaseEvent('Button_navigate_back');
+    context.safePop();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -628,90 +712,7 @@ class _TipWidgetState extends State<TipWidget> {
                           padding: EdgeInsets.symmetric(horizontal: 12),
                           width: double.infinity,
                           child: FFButtonWidget(
-                            onPressed: () async {
-                              logFirebaseEvent('TIP_PAGE_SEND_BTN_ON_TAP');
-                              if (_model.group == 'Both') {
-                                logFirebaseEvent('Button_backend_call');
-                          
-                                await CommunicationRecord.collection.doc().set({
-                                  ...createCommunicationRecordData(
-                                      title: _model.titleTextController.text,
-                                      group: 'Insights',
-                                      date: getCurrentTimestamp,
-                                      imageUrl: _model.uploadedFileUrl_uploadData,
-                                      reliability: (String oldValue) {
-                                        return double.parse(oldValue.replaceAll(',', '.'));
-                                      }(_model.reliabilityTextController.text),
-                                      type: 'Tip',
-                                      minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0),
-                                  ...mapToFirestore(
-                                    {
-                                      'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
-                                    },
-                                  ),
-                                });
-                                logFirebaseEvent('Button_backend_call');
-                          
-                                await CommunicationRecord.collection.doc().set({
-                                  ...createCommunicationRecordData(
-                                      title: _model.titleTextController.text,
-                                      group: 'Bets',
-                                      date: getCurrentTimestamp,
-                                      imageUrl: _model.uploadedFileUrl_uploadData,
-                                      reliability: (String oldValue) {
-                                        return double.parse(oldValue.replaceAll(',', '.'));
-                                      }(_model.reliabilityTextController.text),
-                                      type: 'Tip',
-                                      minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0),
-                                  ...mapToFirestore(
-                                    {
-                                      'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
-                                    },
-                                  ),
-                                });
-                              } else {
-                                logFirebaseEvent('Button_backend_call');
-                          
-                                await CommunicationRecord.collection.doc().set({
-                                  ...createCommunicationRecordData(
-                                      title: _model.titleTextController.text,
-                                      group: _model.group,
-                                      date: getCurrentTimestamp,
-                                      imageUrl: _model.uploadedFileUrl_uploadData,
-                                      reliability: (String oldValue) {
-                                        return double.parse(oldValue.replaceAll(',', '.'));
-                                      }(_model.reliabilityTextController.text),
-                                      type: 'Tip',
-                                      minimumodd: double.tryParse(_model.minimumoddTextController.text) ?? 0.0),
-                                  ...mapToFirestore(
-                                    {
-                                      'analyses': functions.convertJSONToStringList(FFAppState().analyses.toList()),
-                                    },
-                                  ),
-                                });
-                              }
-                          
-                              logFirebaseEvent('Button_update_app_state');
-                              FFAppState().analyses = [];
-                              safeSetState(() {});
-                              // logFirebaseEvent('Button_firestore_query');
-                              // _model.posts = await queryCommunicationRecordOnce(
-                              //   queryBuilder: (communicationRecord) => communicationRecord
-                              //       .where(
-                              //         'type',
-                              //         isEqualTo: 'Tip',
-                              //       )
-                              //       .orderBy('date', descending: true),
-                              // );
-                              // if (_model.posts!.length > 15) {
-                              //   logFirebaseEvent('Button_backend_call');
-                              //   await _model.posts!.lastOrNull!.reference.delete();
-                              // }
-                              // logFirebaseEvent('Button_navigate_back');
-                              context.safePop();
-                          
-                              // safeSetState(() {});
-                            },
+                            onPressed: _saveTip,
                             text: 'Send',
                             options: context.buttonOptions
                           ),

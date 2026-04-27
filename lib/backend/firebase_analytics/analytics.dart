@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:intl/intl.dart';
 import '../../auth/firebase_auth/auth_util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -37,4 +39,15 @@ void logFirebaseAuthEvent(User? user, String method) {
   final isSignup = user!.metadata.creationTime == user.metadata.lastSignInTime;
   final authEvent = isSignup ? 'sign_up' : 'login';
   logFirebaseEvent(authEvent, parameters: {'method': method});
+}
+
+Future<void> logFirebaseCustomEvent(String eventName)async{
+  final docId = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  await FirebaseFirestore.instance
+    .collection('visitors')
+    .doc(docId)
+    .set(
+      {eventName: FieldValue.increment(1)},
+      SetOptions(merge: true),
+    );
 }

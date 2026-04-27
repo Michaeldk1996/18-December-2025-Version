@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io' show Platform;
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;

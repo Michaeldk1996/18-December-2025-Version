@@ -28,6 +28,7 @@ class _SubscriptionsState extends State<Subscriptions> {
     return FFButtonWidget(
       text: title, 
       onPressed: (){
+        logFirebaseCustomEvent('mobile_Programs_$title');
         safeSetState(() {
           widget.model.subscriptionMode = value;
         });
@@ -36,43 +37,6 @@ class _SubscriptionsState extends State<Subscriptions> {
         ? context.cusbuttonOptions(fontSize: 12, fontWeight: FontWeight.normal)
         : context.greybuttonOptions(fontSize: 12, fontWeight: FontWeight.normal)
     );
-    // return InkWell(
-    //   splashColor: Colors.transparent,
-    //   focusColor: Colors.transparent,
-    //   hoverColor: Colors.transparent,
-    //   highlightColor: Colors.transparent,
-    //   onTap: () async {
-    //     safeSetState(() {
-    //       widget.model.subscriptionMode = value;
-    //     });
-    //   },
-    //   child: Column(
-    //     mainAxisSize: MainAxisSize.max,
-    //     children: [
-    //       Padding(
-    //         padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-    //         child: Text(
-    //           title,
-    //           style: FlutterFlowTheme.of(context).bodyMedium.override(
-    //                 font: GoogleFonts.montserrat(
-    //                   fontWeight: FontWeight.w600,
-    //                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-    //                 ),
-    //                 color: Colors.white,
-    //                 letterSpacing: 0.0,
-    //                 fontWeight: FontWeight.w600,
-    //                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-    //               ),
-    //         ),
-    //       ),
-    //       if (widget.model.subscriptionMode == value)
-    //         Divider(
-    //           thickness: 2.0,
-    //           color: Colors.white,
-    //         ),
-    //     ],
-    //   ),
-    // );
   }
 
   Widget subscriptionitemFeature(String title, bool valid) {
@@ -275,269 +239,17 @@ class _SubscriptionsState extends State<Subscriptions> {
                 ),
               )).toList(),
               SizedBox(height: 19)
-              // if (1==2)
-              // Container(
-              //   width: 200.0,
-              //   height: 90.0,
-              //   decoration: BoxDecoration(
-              //     gradient: LinearGradient(
-              //       colors: [Color(0xFF0867EF), Color(0xFF0D1117)],
-              //       stops: [0.0, 1.0],
-              //       begin: AlignmentDirectional(0.0, -1.0),
-              //       end: AlignmentDirectional(0, 1.0),
-              //     ),
-              //     borderRadius: BorderRadius.only(
-              //       bottomLeft: Radius.circular(0.0),
-              //       bottomRight: Radius.circular(0.0),
-              //       topLeft: Radius.circular(20.0),
-              //       topRight: Radius.circular(20.0),
-              //     ),
-              //   ),
-              //   child: Padding(
-              //     padding: EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 0.0),
-              //     child: Container(
-              //       width: 200.0,
-              //       height: 90.0,
-              //       decoration: BoxDecoration(
-              //         color: FlutterFlowTheme.of(context).secondaryBackground,
-              //         borderRadius: BorderRadius.only(
-              //           bottomLeft: Radius.circular(0.0),
-              //           bottomRight: Radius.circular(0.0),
-              //           topLeft: Radius.circular(20.0),
-              //           topRight: Radius.circular(20.0),
-              //         ),
-              //       ),
-              //       child: Column(
-              //         mainAxisSize: MainAxisSize.max,
-              //         children: [
-              //           Text(
-              //             '€$price1',
-              //             style: FlutterFlowTheme.of(context).bodyMedium.override(
-              //                   font: GoogleFonts.inter(
-              //                     fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-              //                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                   ),
-              //                   color: Color(0xFF627083),
-              //                   fontSize: 28.0,
-              //                   letterSpacing: 0.0,
-              //                   fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-              //                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                   decoration: TextDecoration.lineThrough,
-              //                 ),
-              //           ),
-              //           Text(
-              //             '€$price2',
-              //             style: FlutterFlowTheme.of(context).bodyMedium.override(
-              //                   font: GoogleFonts.inter(
-              //                     fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-              //                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                   ),
-              //                   color: Color(0xFFF9FAFB),
-              //                   fontSize: 50.0,
-              //                   letterSpacing: 0.0,
-              //                   fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-              //                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                   lineHeight: 1.0,
-              //                 ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // if (1==2)
-              // Padding(
-              //   padding: EdgeInsetsDirectional.fromSTEB(valueOrDefault<double>(MediaQuery.sizeOf(context).width < 500.0 ? 12.0 : 100.0, 0.0), 0.0, valueOrDefault<double>(MediaQuery.sizeOf(context).width < 500.0 ? 12.0 : 100.0, 0.0), 20.0),
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       boxShadow: [
-              //         BoxShadow(
-              //           blurRadius: 70.0,
-              //           color: Color(0x300986FB),
-              //           offset: Offset(0.0, 0.0),
-              //         )
-              //       ],
-              //       gradient: LinearGradient(
-              //         colors: [Color(0xFF076AF4), Color(0xFF0D1117), Color(0xFF086AF5)],
-              //         stops: [0.0, 0.5, 1.0],
-              //         begin: AlignmentDirectional(-0.93, -1.0),
-              //         end: AlignmentDirectional(0.93, 1.0),
-              //       ),
-              //       borderRadius: BorderRadius.circular(24.0),
-              //     ),
-              //     child: Padding(
-              //       padding: EdgeInsets.all(2.0),
-              //       child: Container(
-              //         width: double.infinity,
-              //         decoration: BoxDecoration(
-              //           color: FlutterFlowTheme.of(context).secondaryBackground,
-              //           boxShadow: [
-              //             BoxShadow(
-              //               blurRadius: 7.0,
-              //               color: Color(0x0F14142B),
-              //               offset: Offset(
-              //                 0.0,
-              //                 2.0,
-              //               ),
-              //             )
-              //           ],
-              //           borderRadius: BorderRadius.circular(24.0),
-              //           border: Border.all(
-              //             color: Color(0x14EFF0F6),
-              //             width: 1.0,
-              //           ),
-              //         ),
-              //         child: Column(
-              //           mainAxisSize: MainAxisSize.max,
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             Padding(
-              //               padding: EdgeInsetsDirectional.fromSTEB(0.0, 14.0, 14.0, 0.0),
-              //               child: Row(
-              //                 mainAxisSize: MainAxisSize.max,
-              //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //                 crossAxisAlignment: CrossAxisAlignment.start,
-              //                 children: [
-              //                   Padding(
-              //                     padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 12.0),
-              //                     child: Image.asset(
-              //                       'assets/images/$img',
-              //                       width: 100.0,
-              //                       height: 100.0,
-              //                       fit: BoxFit.cover,
-              //                     ),
-              //                   ),
-              //                   Container(
-              //                     width: 110.0,
-              //                     height: 33.0,
-              //                     decoration: BoxDecoration(
-              //                       color: FlutterFlowTheme.of(context).secondaryBackground,
-              //                       borderRadius: BorderRadius.circular(40.0),
-              //                       border: Border.all(
-              //                         color: Color(0xFF0867EF),
-              //                         width: 2.0,
-              //                       ),
-              //                     ),
-              //                     alignment: AlignmentDirectional(0.0, 0.0),
-              //                     child: Text(
-              //                       '€33/month',
-              //                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-              //                             font: GoogleFonts.inter(
-              //                               fontWeight: FontWeight.w600,
-              //                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                             ),
-              //                             letterSpacing: 0.0,
-              //                             fontWeight: FontWeight.w600,
-              //                             fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                           ),
-              //                     ),
-              //                   ),
-              //                 ],
-              //               ),
-              //             ),
-              //             Padding(
-              //               padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 0.0, 0.0),
-              //               child: Text(
-              //                 '$title1 Program',
-              //                 textAlign: TextAlign.center,
-              //                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-              //                       font: GoogleFonts.inter(
-              //                         fontWeight: FontWeight.w600,
-              //                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                       ),
-              //                       color: Colors.white,
-              //                       fontSize: 34.0,
-              //                       letterSpacing: 0.0,
-              //                       fontWeight: FontWeight.w600,
-              //                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                     ),
-              //               ),
-              //             ),
-              //             Padding(
-              //               padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 0.0, 0.0),
-              //               child: Text(
-              //                 title2,
-              //                 textAlign: TextAlign.center,
-              //                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-              //                       font: GoogleFonts.inter(
-              //                         fontWeight: FontWeight.w600,
-              //                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                       ),
-              //                       color: Colors.white,
-              //                       fontSize: 22.0,
-              //                       letterSpacing: 0.0,
-              //                       fontWeight: FontWeight.w600,
-              //                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                     ),
-              //               ),
-              //             ),
-              //             Padding(
-              //               padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 30.0),
-              //               child: Text(
-              //                 note,
-              //                 textAlign: TextAlign.start,
-              //                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-              //                       font: GoogleFonts.inter(
-              //                         fontWeight: FontWeight.w500,
-              //                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                       ),
-              //                       color: Color(0xFF9A9A9A),
-              //                       fontSize: 16.0,
-              //                       letterSpacing: 0.0,
-              //                       fontWeight: FontWeight.w500,
-              //                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-              //                     ),
-              //               ),
-              //             ),
-              //             for (var i in validFeatures) subscriptionitemFeature(i, true),
-              //             for (var i in notvalidFeatuted) subscriptionitemFeature(i, false),
-              //             Row(
-              //               mainAxisSize: MainAxisSize.max,
-              //               children: [
-              //                 Expanded(
-              //                   child: Padding(
-              //                     padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 20.0),
-              //                     child: FFButtonWidget(
-              //                       onPressed: onPresses,
-              //                       text: 'Get $title1',
-              //                       options: FFButtonOptions(
-              //                         height: 50.0,
-              //                         padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-              //                         iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-              //                         color: FlutterFlowTheme.of(context).primary,
-              //                         textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-              //                               font: GoogleFonts.inter(
-              //                                 fontWeight: FontWeight.bold,
-              //                                 fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-              //                               ),
-              //                               color: Colors.white,
-              //                               letterSpacing: 0.0,
-              //                               fontWeight: FontWeight.bold,
-              //                               fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-              //                             ),
-              //                         elevation: 3.0,
-              //                         borderSide: BorderSide(
-              //                           color: Colors.transparent,
-              //                           width: 1.0,
-              //                         ),
-              //                         borderRadius: BorderRadius.circular(100.0),
-              //                       ),
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ],
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    logFirebaseCustomEvent('mobile_Programs');
   }
 
   @override
@@ -563,21 +275,6 @@ class _SubscriptionsState extends State<Subscriptions> {
                   child: Stack(
                     alignment: AlignmentDirectional(0.0, 0.0),
                     children: [
-                      // Align(
-                      //   alignment: AlignmentDirectional(-1.0, 0.0),
-                      //   child: Padding(
-                      //     padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
-                      //     child: ClipRRect(
-                      //       borderRadius: BorderRadius.circular(0.0),
-                      //       child: Image.asset(
-                      //         'assets/images/Logo.png',
-                      //         width: 30.0,
-                      //         height: 30.8,
-                      //         fit: BoxFit.cover,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       Align(
                         alignment: AlignmentDirectional(0.0, 0.0),
                         child: Text(
@@ -662,6 +359,7 @@ class _SubscriptionsState extends State<Subscriptions> {
                     onPressed: () async {
                       logFirebaseEvent('HOME_PAGE_START_NOW_BTN_ON_TAP');
                       logFirebaseEvent('Button_firestore_query');
+                      logFirebaseCustomEvent('mobile_GetSilver');
                       widget.model.settings = await querySettingsRecordOnce(singleRecord: true).then((s) => s.firstOrNull);
                       if (widget.model.settings!.approve) {
                         logFirebaseEvent('Button_backend_call');
@@ -727,6 +425,7 @@ class _SubscriptionsState extends State<Subscriptions> {
                     onPressed: () async {
                       logFirebaseEvent('HOME_PAGE_START_NOW_BTN_ON_TAP');
                       logFirebaseEvent('Button_firestore_query');
+                      logFirebaseCustomEvent('mobile_GetAdvanced');
                       widget.model.approveState = await querySettingsRecordOnce(
                         singleRecord: true,
                       ).then((s) => s.firstOrNull);
@@ -796,6 +495,7 @@ class _SubscriptionsState extends State<Subscriptions> {
                     onPressed: () async {
                       logFirebaseEvent('HOME_PAGE_START_NOW_BTN_ON_TAP');
                       logFirebaseEvent('Button_firestore_query');
+                      logFirebaseCustomEvent('mobile_GetGold');
                       widget.model.approveState = await querySettingsRecordOnce(
                         singleRecord: true,
                       ).then((s) => s.firstOrNull);
